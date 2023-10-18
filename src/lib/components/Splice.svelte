@@ -5,7 +5,7 @@
 	let canvas: HTMLCanvasElement;
 	onMount(() => {
 		const app = new Application(canvas);
-		app.load('https://prod.spline.design/6HV5kvuFXRtX7n3g/scene.splinecode');
+		app.load('https://prod.spline.design/Bmv6RcPqRLmHsVuc/scene.splinecode');
 	});
 </script>
 

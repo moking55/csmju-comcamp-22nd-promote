@@ -16,6 +16,7 @@
 
 <div class="flex flex-col gap-20">
 	<Index />
+
 	<About />
 </div>
 

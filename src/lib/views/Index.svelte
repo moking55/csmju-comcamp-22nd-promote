@@ -30,11 +30,11 @@
 
 <!-- content here -->
 <div class="h-[800px] z-0 w-full">
-    <div id="wrapper" class=" relative">
-        <div class="absolute right-0 top-0">
-            <Splice />
-        </div>
-    </div>
+	<div id="wrapper" class=" relative">
+		<div class="absolute 2xl:-translate-x-1/4 right-0 top-0">
+			<Splice />
+		</div>
+	</div>
 	{#if animatedInitial}
 		<div in:fade={{ duration: 4500 }} class="" id="fade-pointers">
 			<div
@@ -57,9 +57,12 @@
 					src="../src/lib/assets/logo.png"
 					alt="comcamp-csmju-logo"
 				/>
-				<div class="compcamp-char">
+				<div class="compcamp-char text-flicker-out-glow">
 					{#each 'CSMJU COMPCAMP' as char, i}
-						<span in:fade|global={{ delay: 100 + i * 150, duration: 800 }}>{char}</span>
+						<span
+							class=""
+							in:fade|global={{ delay: 100 + i * 150, duration: 800 }}>{char}</span
+						>
 					{/each}
 				</div>
 				<!-- i want div above to had blur background -->
@@ -76,6 +79,7 @@
 </div>
 
 <style lang="postcss">
+
 	.csmju-logo {
 		@apply w-96;
 	}
