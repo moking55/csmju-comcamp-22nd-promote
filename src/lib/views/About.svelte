@@ -7,9 +7,9 @@
 		<article class="md:prose-lg mx-3 prose-sm">
 			<h1
 				data-aos="fade-right"
-				class="gradient-heading bg-gradient-to-t from-secondary-content via-secondary-focus to-secondary"
+				class="gradient-heading eng-font font-bold bg-gradient-to-t from-secondary-content via-secondary-focus to-secondary"
 			>
-				"คอมแคมป์" คืออะไร ?
+				WHAT IS COMCAMP?
 			</h1>
 			<div class="grid md:grid-cols-3">
 				<div class="col-span-2 relative">

@@ -3,13 +3,18 @@
 @tailwind utilities;
 
 @layer {
-	/* @import url('https://fonts.googleapis.com/css?family=IBM+Plex+Sans+Thai:400,500,600,700&display=swap&subset=thai'); */
-	@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 	@import url('https://fonts.googleapis.com/css?family=IBM+Plex+Sans+Thai:400,500,600,700&display=swap&subset=thai');
+	@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+	/* @import url('https://fonts.googleapis.com/css?family=IBM+Plex+Sans+Thai:400,500,600,700&display=swap&subset=thai'); */
 	@import url('aos/dist/aos.css');
 
 	body {
-		font-family: 'Roboto', sans-serif, 'IBM Plex Sans Thai', sans-serif;
+		font-family: 'IBM Plex Sans Thai', sans-serif;
+		overflow-x: hidden;
+	}
+
+	.eng-font {
+		font-family: 'Roboto', sans-serif;
 	}
 
 	.gradient-heading {

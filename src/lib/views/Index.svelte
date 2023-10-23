@@ -32,20 +32,22 @@
 <div class="h-[800px] z-0 w-full">
 	<div id="wrapper" class=" relative">
 		<div class="absolute 2xl:-translate-x-1/4 right-0 top-0">
-			<Splice />
+			<Splice urlLoader={'https://prod.spline.design/Bmv6RcPqRLmHsVuc/scene.splinecode'} />
 		</div>
 	</div>
 	{#if animatedInitial}
-		<div in:fade={{ duration: 4500 }} class="" id="fade-pointers">
-			<div
-				class="bg-secondary-focus pointer-events-none absolute -translate-x-1/2 top-0 left-0 aspect-square w-[25rem] opacity-40 rounded-full blur-3xl"
-			/>
-			<div
-				class="top-0 bg-secondary pointer-events-none absolute left-0 aspect-square w-[35rem] rounded-full opacity-20 blur-3xl"
-			/>
-			<div
-				class="bg-primary-focus pointer-events-none absolute top-0 right-0 aspect-square w-[20rem] rounded-full opacity-30 blur-3xl"
-			/>
+		<div in:fade={{ duration: 4500 }} class="relative" id="fade-pointers ">
+			<div class="overflow-x-hidden">
+				<div
+					class="bg-secondary-focus pointer-events-none absolute -translate-x-1/2 top-0 left-0 aspect-square w-[40vw] opacity-40 rounded-full blur-3xl"
+				/>
+				<div
+					class="top-0 bg-secondary pointer-events-none absolute left-0 aspect-square w-[50vw] rounded-full opacity-20 blur-3xl"
+				/>
+				<div
+					class="bg-primary-focus pointer-events-none absolute top-0 right-0 aspect-square w-[35vw] rounded-full opacity-30 blur-3xl"
+				/>
+			</div>
 		</div>
 
 		<div class=" grid lg:grid-cols-2 h-full my-auto place-items-center">
@@ -57,12 +59,9 @@
 					src="../src/lib/assets/logo.png"
 					alt="comcamp-csmju-logo"
 				/>
-				<div class="compcamp-char text-flicker-out-glow">
+				<div class="compcamp-char eng-font text-flicker-out-glow">
 					{#each 'CSMJU COMPCAMP' as char, i}
-						<span
-							class=""
-							in:fade|global={{ delay: 100 + i * 150, duration: 800 }}>{char}</span
-						>
+						<span class="" in:fade|global={{ delay: 100 + i * 150, duration: 800 }}>{char}</span>
 					{/each}
 				</div>
 				<!-- i want div above to had blur background -->
@@ -79,6 +78,8 @@
 </div>
 
 <style lang="postcss">
+	@import url('https://fonts.googleapis.com/css?family=IBM+Plex+Sans+Thai:400,500,600,700&display=swap&subset=thai');
+	@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
 	.csmju-logo {
 		@apply w-96;
