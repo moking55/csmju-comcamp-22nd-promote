@@ -120,6 +120,9 @@
 		}
 	}
 
+    .slide-in {
+        animation: slide-in 1s ease-in-out infinite alternate-reverse;
+    }
 	.fade-in {
 		animation: fade-in 2s ease-in-out alternate-reverse infinite;
 	}
@@ -128,9 +131,6 @@
 		animation: rotate-in 3s ease-in-out alternate-reverse infinite;
 	}
 
-	.slide-in {
-		animation: slide-in 1s ease-in-out infinite alternate-reverse;
-	}
 
 	.fade-in-out-custom {
 		animation: fade-in-out-custom 2s ease-in-out alternate-reverse infinite;

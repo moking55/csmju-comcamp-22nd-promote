@@ -1,4 +1,5 @@
 <script>
+	import FAQ from './../lib/views/FAQ.svelte';
 	import Benefit from './../lib/views/Benefit.svelte';
 	import Learning from './../lib/views/Learning.svelte';
 	import About from './../lib/views/About.svelte';
@@ -7,6 +8,7 @@
 	import { onMount } from 'svelte';
 	import { fly, fade } from 'svelte/transition';
 	import Footer from '$lib/views/Footer.svelte';
+	import Timeline from '$lib/views/Timeline.svelte';
 
 	let animatedInitial = true;
 
@@ -23,6 +25,8 @@
 	<About />
 	<Learning {y} />
 	<Benefit />
+	<Timeline />
+	<FAQ />
 	<Footer />
 </div>
 <svelte:window bind:scrollY={y} />
