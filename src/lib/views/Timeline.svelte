@@ -3,7 +3,10 @@
 	import { timeline } from '../../data';
 </script>
 
-<section id="benefit-section" class="h-auto overflow-hidden mx-auto py-6 flex flex-col gap-32">
+<section
+	id="benefit-section"
+	class="h-auto overflow-hidden md:overflow-visible mx-auto py-6 flex flex-col gap-32"
+>
 	<div id="topic" class="flex justify-center">
 		<article class="prose-lg lg:prose-2xl text-center mx-3">
 			<h1
@@ -27,7 +30,13 @@
 	>
 		{#each timeline as data, i}
 			<!-- content here -->
-			<div class="grid" class:place-content-start={(i + 1) % 2 === 0}>
+			<div
+				data-aos-anchor-placement="up-center"
+                data-aos-duration="1000"
+				data-aos="flip-right"
+				class="grid"
+				class:place-content-start={(i + 1) % 2 === 0}
+			>
 				<div class="grid relative">
 					<img
 						class={(i + 1) % 2 !== 0

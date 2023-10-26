@@ -66,6 +66,61 @@ const timeline = [
 	}
 ];
 
+const stats = [
+	{
+		title: 'คอมแคมป์รุ่น',
+		value: 22,
+		increase: 1,
+		initValue: '10',
+		symbol: 'nd',
+		imgBg: 'src/lib/assets/red-flag.png',
+		subtitle: 'คอมแคมป์ของเราถูกตั้งขึ้นครั้งแรกเมื่อปี พ.ศ 2543'
+	},
+	{
+		title: 'จำนวนผู้สมัครทั้งหมด',
+		value: 2300,
+		increase: 10,
+		initValue: '2200',
+		symbol: '',
+		imgBg: 'src/lib/assets/student.png',
+		subtitle: 'จำนวนน้อง ๆ ที่เคยสมัครทั้งหมดตั้งแต่รุ่นแรก'
+	},
+	{
+		title: 'จำนวนการตอบรับ',
+		value: 95,
+		increase: 5,
+		initValue: '50',
+		symbol: '%',
+		imgBg: 'src/lib/assets/cheer-up.png',
+		subtitle: 'จำนวนน้อง ๆ ที่ให้ฟิตแบตแก่ค่ายของเรา'
+	}
+];
+
+const review = [
+	{
+		comment: 'ค่ายนี้ดีสุด ๆ เข้าใจง่าย สนุกสนาน เป็นกันเอง แนะนำเลยไม่ผิดหวัง',
+		name: 'นาย สมชาย ใจดี',
+		role: 'นักเรียนชั้นมัธยมศึกษาปีที่ 4',
+		gen: 'เด็กคอมแคมป์รุ่นที่ 21',
+		image: 'src/lib/assets/boy_2.png'
+	},
+	{
+		comment: 'ค่ายนี้ดีสุด ๆ เข้าใจง่าย สนุกสนาน เหมาะกับน้อง ๆ ที่สนใจคอมพิวเตอร์ ตวรมาอย่างมาก',
+		name: 'นาย สมชาย ใจดี',
+		role: 'นักเรียนชั้นมัธยมศึกษาปีที่ 4',
+		gen: 'เด็กคอมแคมป์รุ่นที่ 21',
+		image: 'src/lib/assets/girl_2.png'
+	},
+	{
+		comment:
+			'ค่ายนี้สนุกมาก ได้ทั้งความรู้และประสบการณ์ อาจารย์และรุ่นต่างใจดีและสอนดี พี่แนะนำว่าน้อง ๆ ไม่ควรพลาดค่ะ',
+		name: 'นางสาว สุดใจ รักสัตว์',
+		role: 'นักเรียนชั้นมัธยมศึกษาปีที่ 3',
+		gen: 'เด็กคอมแคมป์รุ่นที่ 20',
+		image: 'src/lib/assets/girl.png'
+	}
+];
+
 const faq = [
 	{
 		question: 'ค่ายนี้เหมาะกับใคร?',
@@ -114,4 +169,4 @@ const faq = [
 	}
 ];
 
-export { aboutComcamp, learningObjectives, benefits, timeline, faq };
+export { aboutComcamp, learningObjectives, benefits, timeline, faq, stats, review };

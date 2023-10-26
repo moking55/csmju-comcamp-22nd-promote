@@ -1,11 +1,12 @@
 <script lang="ts">
-	import HologramCard from './../components/HologramCard.svelte';
-	import { benefits, faq } from '../../data';
+	import { faq } from '../../data';
 </script>
 
-<section id="benefit-section" class="container mx-auto flex flex-col gap-16">
+<section id="benefit-section" class="container overflow-hidden py-12 md:py-0 mx-auto flex flex-col gap-16">
 	<div id="topic" class="flex mx-4 md:mx-0 justify-between">
 		<img
+			data-aos-anchor-placement="up-center"
+			data-aos="fade-right"
 			class="w-52 slide-in -z-10 visible md:invisible"
 			src="src/lib/assets/group_of_question.png"
 			alt=""
@@ -13,14 +14,19 @@
 		<article class="prose-lg lg:prose-2xl text-end mx-3">
 			<h1
 				data-aos-anchor-placement="up-center"
-				data-aos="fade-up"
+				data-aos="fade-left"
 				class="gradient-heading uppercase bg-gradient-to-t font-bold from-primary-focus via-primary to-secondary-focus"
 			>
 				FAQ
 			</h1>
+			<!-- <div class="relative">
+				<div
+					class="bg-primary-focus -z-10 top-0 left-0 pointer-events-none transform -translate-y-1/2 absolute aspect-square w-3/4 md:w-[15rem] rounded-full opacity-50 blur-3xl"
+				/>
+			</div> -->
 			<h3
 				data-aos-anchor-placement="up-center"
-				data-aos="fade-up"
+				data-aos="fade-left"
 				class=" text-secondary-focus font-bold"
 			>
 				คำถามที่ถูกพบบ่อย
@@ -28,7 +34,11 @@
 		</article>
 	</div>
 	<div class="grid mx-4 md:mx-0 place-items-center gap-y-24 grid-cols-3">
-		<div class="hidden md:block w-[32rem] relative">
+		<div
+			data-aos-anchor-placement="up-center"
+			data-aos="fade-right"
+			class="hidden md:block w-[32rem] relative"
+		>
 			<img src="src/lib/assets/person_thinking_2.png" alt="" />
 			<img
 				class="w-52 slide-in absolute top-0 -z-10 left-1/2"
@@ -36,7 +46,16 @@
 				alt=""
 			/>
 		</div>
-		<div class="col-span-full md:col-span-2">
+		<div
+			data-aos-anchor-placement="up-center"
+			data-aos="fade-left"
+			class="col-span-full md:col-span-2"
+		>
+			<div class="relative">
+				<div
+					class="bg-secondary-focus -z-10 -left-[10%] pointer-events-none transform translate-y-none absolute aspect-square w-2/4 md:w-[20rem] rounded-full opacity-50 blur-3xl"
+				/>
+			</div>
 			{#each faq.slice(0, 6) as data}
 				<div
 					tabindex="0"

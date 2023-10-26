@@ -1,4 +1,5 @@
 <script>
+	import Stats from './../lib/views/Stats.svelte';
 	import FAQ from './../lib/views/FAQ.svelte';
 	import Benefit from './../lib/views/Benefit.svelte';
 	import Learning from './../lib/views/Learning.svelte';
@@ -20,10 +21,11 @@
 	let y = 0;
 </script>
 
-<div class="flex flex-col gap-60">
+<div class="flex flex-col gap-40">
 	<Index />
 	<About />
 	<Learning {y} />
+	<Stats {y} />
 	<Benefit />
 	<Timeline />
 	<FAQ />
