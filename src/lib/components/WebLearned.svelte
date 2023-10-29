@@ -8,7 +8,7 @@
 	export let y: number;
 
 	let typeDone = false;
-	let terminal: HTMLDivElement;
+	let splineSrc = import.meta.env.VITE_SPLICE_WEB_SRC;
 
 	$: if (y > 3000) {
 		setTimeout(() => {
@@ -43,7 +43,7 @@
 				{#if y > 3000}
 					{#if !typeDone}
 						<!-- content here -->
-						<div bind:this={terminal} class="relative -space-y-4 w-full pl-4 py-6 h-80 bg-base-200">
+						<div class="relative -space-y-4 w-full pl-4 py-6 h-80 bg-base-200">
 							<pre data-prefix="projects ~ %"><span class="ml-20"
 									><Typewritter textDuration={1000} text={'cd my-product'} /></span
 								>
@@ -56,9 +56,7 @@
 					{:else}
 						<div data-aos-duration="1500" id="wrapper" data-aos="fade-up" class=" relative">
 							<div class="absolute 2xl:-translate-x-1/4 right-0 top-0">
-								<Splice
-									urlLoader={'https://prod.spline.design/kDokwWFPy14DfaAe/scene.splinecode'}
-								/>
+								<Splice urlLoader={splineSrc} />
 							</div>
 						</div>
 					{/if}
@@ -89,18 +87,6 @@
 				<img src="src/lib/assets/keyboard_2.png" alt="phone" />
 			</div>
 		</div>
-		<!-- <div class="relative">
-			<div data-aos="zoom-in" data-aos-duration="2000" data-aos-anchor-placement="up-center">
-				<div
-					class="bg-secondary top-0 left-0 pointer-events-none transform -translate-x-1/2 -translate-y-1/2 absolute aspect-square w-[35vw] rounded-full opacity-30 blur-3xl"
-				/>
-			</div>
-			<div data-aos="zoom-in" data-aos-duration="1000" data-aos-anchor-placement="center-bottom">
-				<div
-					class="bg-secondary-focus top-1/2 left-1/4 pointer-events-none transform -translate-x-1/2 absolute aspect-square w-[15vw] rounded-full opacity-60 blur-2xl"
-				/>
-			</div>
-		</div> -->
 	</div>
 </div>
 

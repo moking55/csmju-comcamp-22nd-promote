@@ -2,8 +2,8 @@
 	import { aboutComcamp } from '../../data';
 </script>
 
-<section class="h-screen z-10">
-	<div class="container mx-auto">
+<section class="my-16 z-10">
+	<div id="#about-comcamp-section" class="container mx-auto">
 		<article class="md:prose-lg mx-3 prose-sm">
 			<h1
 				data-aos="fade-right"
@@ -26,7 +26,7 @@
 						data-aos-anchor-placement="top-center"
 						data-aos="fade-up"
 						src="https://www.svgrepo.com/show/12934/laptop.svg"
-						class="w-80 absolute  md:invisible -z-10 visible -top-1/2 right-0"
+						class="w-80 absolute md:invisible -z-10 visible -top-1/2 right-0"
 						alt=""
 					/>
 				</div>
@@ -51,5 +51,3 @@
 	</div>
 </section>
 
-<style lang="postcss">
-</style>

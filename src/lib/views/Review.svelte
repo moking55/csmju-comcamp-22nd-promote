@@ -7,7 +7,7 @@
 	}
 </script>
 
-<section id="benefit-section" class="container mx-auto flex flex-col gap-32">
+<section id="review-section" class="container mx-auto flex flex-col gap-32">
 	<div id="topic" class="flex justify-center">
 		<article class="prose-lg lg:prose-2xl text-center mx-3">
 			<h3

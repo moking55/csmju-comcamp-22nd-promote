@@ -29,7 +29,7 @@
 			</h3>
 		</article>
 	</div>
-	<div class="grid gap-y-24 md:grid-cols-2 xl:grid-cols-4">
+	<div class="grid gap-y-20 md:grid-cols-2 xl:grid-cols-4">
 		{#each benefits as data}
 			<HologramCard {data} />
 		{/each}

@@ -11,17 +11,11 @@
 
 <section
 	id="stats-section"
-	class="container overflow-hidden md:overflow-visible mx-auto flex flex-col gap-32"
+	class="container overflow-hidden md:overflow-visible  mx-auto flex flex-col gap-32"
 >
 	<div id="stats-topic" class="flex justify-center">
 		<article class="prose-lg lg:prose-2xl text-center mx-3">
-			<!-- <h2
-				data-aos-anchor-placement="up-center"
-				data-aos="fade-up"
-				class="uppercase font-bold text-secondary-focus"
-			>
-				once in a
-			</h2> -->
+
 			<h1
 				data-aos-anchor-placement="up-center"
 				data-aos="fade-up"

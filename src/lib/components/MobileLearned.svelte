@@ -48,9 +48,6 @@
 						<pre data-prefix="$"><code
 								><Typewritter textDuration={13000} text={'Hello, CompCamp 22nd!'} /></code
 							></pre>
-						<!-- <pre data-prefix="$">
-                                    <Typewritter textDuration={12000} text={'Hello World!'} />
-                                </pre> -->
 					</div>
 				</div>
 			</div>

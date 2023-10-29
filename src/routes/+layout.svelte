@@ -1,6 +1,7 @@
 <script>
 	import './../app.postcss';
 	import 'aos/dist/aos.css';
+	// import './../../'
 	import AOS from 'aos';
 	import { onMount } from 'svelte';
 
@@ -11,8 +12,3 @@
 
 <slot />
 
-<!-- <style lang="postcss">
-	body {
-		overflow-x: hidden;
-	}
-</style> -->

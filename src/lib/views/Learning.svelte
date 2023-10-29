@@ -11,7 +11,7 @@
 	const learningComponent = [MobileLearned, IOTLearned, WebLearned, AiLearned];
 </script>
 
-<section id="learning" class="h-full w-full space-y-48">
+<section id="learning-section" class="h-full w-full flex flex-col mt-28 gap-32">
 	<section id="topic">
 		<div class="-z-10 relative">
 			<div class="-top-1/2 left-1/2 -z-10 absolute transform -translate-x-1/2 -translate-y-1/2">
@@ -68,7 +68,7 @@
 	{#if y > 1000}
 		<!-- content here -->
 
-		<section id="things" class=" flex flex-col overflow-hidden gap-60 md:gap-96 items-center">
+		<section id="things" class=" flex flex-col overflow-hidden gap-52 md:gap-60 items-center">
 			{#each learningComponent as component, i}
 				<svelte:component this={component} {y} data={learningObjectives[i]} />
 			{/each}

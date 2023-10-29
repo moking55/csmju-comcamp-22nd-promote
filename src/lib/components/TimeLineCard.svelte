@@ -1,8 +1,15 @@
 <script lang="ts">
 	import type { timeline } from '../../data';
-
 	export let data: typeof timeline[0];
+	export let nextDateTarget: Date;
 	export let index: number;
+
+	function initPin() {
+		return (
+			new Date('2023-11-01').getTime() >= data.date.getTime() &&
+			new Date('2023-11-01').getTime() < nextDateTarget.getTime()
+		);
+	}
 </script>
 
 <div
@@ -12,7 +19,20 @@
 >
 	<div class="paper">
 		<div class="image h-56">
-			<div class="relative" />
+			{#if initPin()}
+				<div class="relative">
+					<img
+						src="src/lib/assets/pin.png"
+						class="absolute w-20 -translate-y-12 -translate-x-10 -rotate-[25deg]"
+						alt="pin"
+					/>
+					<div
+						class="badge badge-error badge-md uppercase text-xl font-bold absolute -translate-x-6 -rotate-[30deg]"
+					>
+						NOW
+					</div>
+				</div>
+			{/if}
 			<div
 				class="text-base-100 w-full h-full place-items-center place-content-center grid grid-rows-3"
 			>

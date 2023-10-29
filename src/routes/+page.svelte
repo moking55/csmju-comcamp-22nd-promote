@@ -1,39 +1,37 @@
 <script>
+	import Navbar from './../lib/components/Navbar.svelte';
+	import Sponsor from './../lib/views/Sponsor.svelte';
 	import Stats from './../lib/views/Stats.svelte';
 	import FAQ from './../lib/views/FAQ.svelte';
 	import Benefit from './../lib/views/Benefit.svelte';
 	import Learning from './../lib/views/Learning.svelte';
 	import About from './../lib/views/About.svelte';
 	import Index from './../lib/views/Index.svelte';
-	import Splice from '../lib/components/Splice.svelte';
-	import { onMount } from 'svelte';
-	import { fly, fade } from 'svelte/transition';
-	import Footer from '$lib/views/Footer.svelte';
+
+	import Footer from '$lib/views/Contract.svelte';
 	import Timeline from '$lib/views/Timeline.svelte';
 
-	let animatedInitial = true;
-
-	// onMount(() => {
-	// 	setTimeout(() => {
-	// 		animatedInitial = true;
-	// 	}, 1000);
-	// });
 	let y = 0;
 </script>
 
-<div class="flex flex-col gap-40">
-	<Index />
-	<About />
-	<Learning {y} />
-	<Stats {y} />
-	<Benefit />
-	<Timeline />
-	<FAQ />
-	<Footer />
-</div>
-<svelte:window bind:scrollY={y} />
+<header>
+	<Navbar {y} />
+</header>
+<main>
+	<div class="flex h-full flex-col gap-40">
+		<Index />
+		<About />
+		<Learning {y} />
+		<Stats {y} />
+		<Benefit />
+		<Timeline />
+		<Sponsor />
+		<FAQ />
+	</div>
+</main>
 
-<!-- content here -->
+<Footer />
+<svelte:window bind:scrollY={y} />
 
 <style lang="postcss">
 </style>

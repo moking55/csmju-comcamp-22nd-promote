@@ -68,18 +68,7 @@
 				{data.body}
 			</p>
 		</article>
-		<!-- <div class="relative">
-			<div data-aos="zoom-in" data-aos-duration="2000" data-aos-anchor-placement="up-center">
-				<div
-					class="bg-secondary top-0 left-0 pointer-events-none transform -translate-x-1/2 -translate-y-1/2 absolute aspect-square w-[35vw] rounded-full opacity-30 blur-3xl"
-				/>
-			</div>
-			<div data-aos="zoom-in" data-aos-duration="1000" data-aos-anchor-placement="center-bottom">
-				<div
-					class="bg-secondary-focus top-1/2 left-1/4 pointer-events-none transform -translate-x-1/2 absolute aspect-square w-[15vw] rounded-full opacity-60 blur-2xl"
-				/>
-			</div>
-		</div> -->
+	
 	</div>
 </div>
 

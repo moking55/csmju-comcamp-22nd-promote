@@ -4,7 +4,7 @@
 </script>
 
 <section
-	id="benefit-section"
+	id="timeline-section"
 	class="h-auto overflow-hidden md:overflow-visible mx-auto py-6 flex flex-col gap-32"
 >
 	<div id="topic" class="flex justify-center">
@@ -32,7 +32,7 @@
 			<!-- content here -->
 			<div
 				data-aos-anchor-placement="up-center"
-                data-aos-duration="1000"
+				data-aos-duration="1000"
 				data-aos="flip-right"
 				class="grid"
 				class:place-content-start={(i + 1) % 2 === 0}
@@ -47,7 +47,11 @@
 						alt="curved-pointer"
 					/>
 
-					<TimeLineCard index={i} {data} />
+					<TimeLineCard
+						nextDateTarget={timeline[i + 1]?.date ?? new Date('2030-12-30')}
+						index={i}
+						{data}
+					/>
 				</div>
 			</div>
 		{/each}
