@@ -35,11 +35,7 @@
 				<div class="relative p-4 gap-6 h-3/4 flex flex-col justify-center py-3">
 					{#each contract.telContractor as data}
 						<div class="flex items-center gap-4">
-							<img
-								src={user}
-								alt="person"
-								class="card z-10 h-14 w-14 bg-base-300 border-white"
-							/>
+							<img src={user} alt="person" class="card z-10 h-14 w-14 bg-base-300 border-white" />
 							<div class="">
 								<p class=" font-semibold">{data.name}</p>
 								<p>{data.tel}</p>
@@ -93,6 +89,7 @@
 				<div class="display bg-base-200 w-full h-full">
 					<blockquote
 						class="tiktok-embed"
+						style="max-width: 605px;min-width: 325px;"
 						cite="https://www.tiktok.com/@cs_mju/video/7254833307748224264"
 						data-video-id="7254833307748224264"
 					>
