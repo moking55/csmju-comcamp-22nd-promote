@@ -2,6 +2,7 @@
 	import Splice from '$lib/components/Splice.svelte';
 	import { onMount } from 'svelte';
 	import { fly, fade } from 'svelte/transition';
+	import comcampLogo from '$lib/assets/comcamp-22nd-logo.png';
 
 	import { actionMenu } from '../../data';
 
@@ -46,7 +47,7 @@
 						in:fade={{ duration: 2000 }}
 						out:fly={{ y: -20, duration: 800 }}
 						class="csmju-logo opacity-80"
-						src="src/lib/assets/comcamp-22nd-logo.png"
+						src={comcampLogo}
 						alt="comcamp-csmju-logo"
 					/>
 					<div class="relative">

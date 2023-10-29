@@ -19,7 +19,7 @@
 					data-aos-anchor-placement="center-bottom"
 					data-aos="zoom-in"
 					class="rotate-loop absolute w-82 -top-10"
-					src="src/lib/assets/sun.png"
+					src="./src/lib/assets/sun.png"
 					alt="sun"
 				/>
 				<img
@@ -51,8 +51,6 @@
 		</div>
 		<div class="flex justify-center">
 			<div class="mockup-phone px-6 p-6">
-				<!-- <div class="camera" /> -->
-
 				<article class="md:prose-xl text-center mx-3 prose-sm">
 					<h1
 						data-aos-anchor-placement="bottom-bottom"
