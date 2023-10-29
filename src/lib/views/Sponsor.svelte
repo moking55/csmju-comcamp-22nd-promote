@@ -2,7 +2,7 @@
 	import Sponsor from './Sponsor.svelte';
 	import SponsorCard from '$lib/components/SponsorCard.svelte';
 	import { slide } from 'svelte/transition';
-	import { sponsor } from '../../data';
+	import { sponsor } from '../data';
 </script>
 
 <section id="sponsor-section" class="overflow-hidden">

@@ -1,6 +1,10 @@
 <script lang="ts">
-	import type { learningObjectives } from '../../data';
-	import Typewritter from './Typewritter.svelte';
+	import wifi from '$lib/assets/wifi_5.png';
+	import phone from '$lib/assets/phone.png';
+	import remote from '$lib/assets/remote.png';
+	import iot from '$lib/assets/iot.png';
+
+	import type { learningObjectives } from '../data';
 
 	export let data: typeof learningObjectives[0];
 	export let y: number;
@@ -11,12 +15,7 @@
 		<div
 			class="fade-in absolute top-1/2 z-20 left-1/2 pointer-events-none -translate-x-1/2 -translate-y-1/2 w-2/4 md:w-52"
 		>
-			<img
-				data-aos="zoom-in"
-				data-aos-anchor-placement="bottom-bottom"
-				src="src/lib/assets/wifi_5.png"
-				alt="wifi"
-			/>
+			<img data-aos="zoom-in" data-aos-anchor-placement="bottom-bottom" src={wifi} alt="wifi" />
 		</div>
 		<div
 			class="slide-in absolute -top-1/4 z-20 left-0 pointer-events-none -translate-x-1/2 -translate-y-1/2 w-2/6 md:w-40"
@@ -24,7 +23,7 @@
 			<img
 				data-aos="fade-up-left"
 				data-aos-anchor-placement="center-center"
-				src="src/lib/assets/phone.png"
+				src={phone}
 				alt="phone"
 			/>
 		</div>
@@ -34,12 +33,12 @@
 			<img
 				data-aos="fade-down-right"
 				data-aos-anchor-placement="up-center"
-				src="src/lib/assets/remote.png"
+				src={remote}
 				alt="remote"
 			/>
 		</div>
 		<div data-aos="zoom-in" data-aos-anchor-placement="up-center">
-			<img class="w-[26rem]" src="src/lib/assets/iot.png" alt="iot" />
+			<img class="w-[26rem]" src={iot} alt="iot" />
 		</div>
 		<div
 			style="--cs-opacity: 0.6; --cs-ping-duration: 2s"
@@ -68,7 +67,6 @@
 				{data.body}
 			</p>
 		</article>
-	
 	</div>
 </div>
 
@@ -109,9 +107,9 @@
 		}
 	}
 
-    .slide-in {
-        animation: slide-in 1s ease-in-out infinite alternate-reverse;
-    }
+	.slide-in {
+		animation: slide-in 1s ease-in-out infinite alternate-reverse;
+	}
 	.fade-in {
 		animation: fade-in 2s ease-in-out alternate-reverse infinite;
 	}
@@ -119,7 +117,6 @@
 	.rotate-in {
 		animation: rotate-in 3s ease-in-out alternate-reverse infinite;
 	}
-
 
 	.fade-in-out-custom {
 		animation: fade-in-out-custom 2s ease-in-out alternate-reverse infinite;

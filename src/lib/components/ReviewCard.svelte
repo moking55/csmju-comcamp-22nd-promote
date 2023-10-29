@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { review } from '../../data';
+	import type { review } from '../data';
 
 	export let data: typeof review[0];
 	export let index: number;

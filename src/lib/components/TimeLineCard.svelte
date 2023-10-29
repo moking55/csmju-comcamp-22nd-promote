@@ -1,5 +1,7 @@
 <script lang="ts">
-	import type { timeline } from '../../data';
+    import pin from '$lib/assets/pin.png'
+
+	import type { timeline } from '../data';
 	export let data: typeof timeline[0];
 	export let nextDateTarget: Date;
 	export let index: number;
@@ -22,7 +24,7 @@
 			{#if initPin()}
 				<div class="relative">
 					<img
-						src="src/lib/assets/pin.png"
+						src={pin}
 						class="absolute w-20 -translate-y-12 -translate-x-10 -rotate-[25deg]"
 						alt="pin"
 					/>

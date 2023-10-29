@@ -21,6 +21,7 @@
 			}
 		};
 	}
+    
 
 	export let text: string;
 	export let textDuration: number;

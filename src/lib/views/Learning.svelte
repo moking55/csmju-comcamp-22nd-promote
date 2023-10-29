@@ -1,10 +1,14 @@
 <script lang="ts">
+	//- assets
+	import sun from '$lib/assets/sun.png';
+	import lightBulb from '$lib/assets/light-bulb.png';
+
 	import IOTLearned from './../components/IOTLearned.svelte';
 	import Typewritter from '$lib/components/Typewritter.svelte';
 	import MobileLearned from '$lib/components/MobileLearned.svelte';
 	import WebLearned from '$lib/components/WebLearned.svelte';
 
-	import { learningObjectives } from '../../data';
+	import { learningObjectives } from '../data';
 	import AiLearned from '$lib/components/AILearned.svelte';
 	export let y: number;
 
@@ -19,14 +23,14 @@
 					data-aos-anchor-placement="center-bottom"
 					data-aos="zoom-in"
 					class="rotate-loop absolute w-82 -top-10"
-					src="./src/lib/assets/sun.png"
+					src={sun}
 					alt="sun"
 				/>
 				<img
 					data-aos-anchor-placement="center-bottom"
 					data-aos="zoom-out"
 					class="w-60"
-					src="src/lib/assets/light-bulb.png"
+					src={lightBulb}
 					alt="light-bulb"
 				/>
 			</div>

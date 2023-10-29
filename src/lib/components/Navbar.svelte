@@ -1,5 +1,7 @@
 <script lang="ts">
-	import { navbarMenu, actionMenu } from '../../data';
+    import logo from '$lib/assets/comcamp-22nd-logo.png';
+
+	import { navbarMenu, actionMenu } from '../data';
 
 	export let y: number;
 
@@ -21,7 +23,7 @@
 						decoding="async"
 						data-nimg="1"
 						class="rounded-full w-12"
-						src="src/lib/assets/comcamp-22nd-logo.png"
+						src={logo}
 						style="color: transparent;"
 					/></span
 				></a

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import CounterNumber from '$lib/components/CounterNumber.svelte';
-	import { stats } from '../../data';
+	import { stats } from '$lib/data';
 	import Review from './Review.svelte';
 	export let y: number;
 
@@ -11,11 +11,10 @@
 
 <section
 	id="stats-section"
-	class="container overflow-hidden md:overflow-visible  mx-auto flex flex-col gap-32"
+	class="container overflow-hidden md:overflow-visible mx-auto flex flex-col gap-32"
 >
 	<div id="stats-topic" class="flex justify-center">
 		<article class="prose-lg lg:prose-2xl text-center mx-3">
-
 			<h1
 				data-aos-anchor-placement="up-center"
 				data-aos="fade-up"
@@ -56,11 +55,15 @@
 				{#each stats as data}
 					<div class="stat overflow-hidden bg-base-200 bg-opacity-30">
 						<div class="relative">
-							<img
-								class="absolute z-0 w-28 top-full right-[5%] lg:-right-[10%]"
-								src={data.imgBg}
-								alt=""
-							/>
+							{#await data.imgBg}
+								<!-- promise is pending -->
+							{:then value}
+								<img
+									class="absolute z-0 w-28 top-full right-[5%] lg:-right-[10%]"
+									src={value}
+									alt=""
+								/>
+							{/await}
 						</div>
 						<div class="stat-title z-10">{data.title}</div>
 						<div class="text-4xl md:text-6xl font-bold text-primary z-10">

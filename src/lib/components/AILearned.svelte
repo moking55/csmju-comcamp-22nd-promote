@@ -1,6 +1,10 @@
 <script lang="ts">
-	import type { learningObjectives } from '../../data';
-	import Typewritter from './Typewritter.svelte';
+    //- assets
+    import brain from '$lib/assets/brain.png';
+    import brainCell from  '$lib/assets/brain-cell.png';
+    import python from '$lib/assets/python_2.png';
+
+	import type { learningObjectives } from '../data';
 
 	export let data: typeof learningObjectives[0];
 	export let y: number;
@@ -17,7 +21,7 @@
 				data-aos="fade-right"
 				data-aos-duration="500"
 				data-aos-anchor-placement="up-center"
-				src="src/lib/assets/brain-cell.png"
+				src={brainCell}
 				alt="brain-cell"
 			/>
 			<div data-aos="fade-in" data-aos-duration="1000" data-aos-anchor-placement="up-center">
@@ -49,7 +53,7 @@
 		</div>
 
 		<div data-aos="zoom-out" data-aos-anchor-placement="up-center">
-			<img class="w-3/4 lg:w-[24rem]" src="src/lib/assets/brain.png" alt="iot" />
+			<img class="w-3/4 lg:w-[24rem]" src={brain} alt="iot" />
 			<div
 				class="bg-secondary-focus z-0 absolute top-1/4 left-[35%] lg:left-2/4 -translate-x-2/4 pointer-events-none transform aspect-square w-2/4 lg:w-[17rem] rounded-full blur-3xl"
 			/>
@@ -59,7 +63,7 @@
 				data-aos="zoom-in"
 				data-aos-anchor-placement="up-center"
 				class="w-4/6 opacity-70 lg:w-[10rem]"
-				src="src/lib/assets/python_2.png"
+				src={python}
 				alt="iot"
 			/>
 		</div>

@@ -1,6 +1,7 @@
 <script lang="ts">
-	import { tick } from 'svelte';
-	import type { learningObjectives } from '../../data';
+    import keyboard from '$lib/assets/keyboard_2.png';
+
+	import type { learningObjectives } from '../data';
 	import Splice from './Splice.svelte';
 	import Typewritter from './Typewritter.svelte';
 
@@ -84,7 +85,7 @@
 		</article>
 		<div class="relative">
 			<div class="-top-2/4 -mt-20 z-20 right-0 absolute w-96">
-				<img src="src/lib/assets/keyboard_2.png" alt="phone" />
+				<img src={keyboard} alt="phone" />
 			</div>
 		</div>
 	</div>

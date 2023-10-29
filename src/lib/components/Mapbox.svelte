@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Map } from 'mapbox-gl';
 	import { onMount, onDestroy } from 'svelte';
-	import { contract } from '../../data';
+	import { contract } from '../data';
 	import mapboxgl from 'mapbox-gl';
 
 	let map: Map;

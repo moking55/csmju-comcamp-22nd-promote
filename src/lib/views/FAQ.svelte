@@ -1,20 +1,19 @@
 <script lang="ts">
+	import groupOfQuestion from '$lib/assets/group_of_question.png';
+	import personThinking from '$lib/assets/person_thinking_2.png';
+
 	import Shape from './../components/Shape.svelte';
-	import { faq } from '../../data';
+	import { faq } from '$lib/data';
 </script>
 
-<div 
-id="faq-section"
-class="">
-	<section
-		class="container overflow-hidden py-12 md:py-0 mx-auto flex flex-col gap-16"
-	>
+<div id="faq-section" class="">
+	<section class="container overflow-hidden py-12 md:py-0 mx-auto flex flex-col gap-16">
 		<div id="topic" class="flex mx-4 md:mx-0 justify-between">
 			<img
 				data-aos-anchor-placement="up-center"
 				data-aos="fade-right"
 				class="w-52 slide-in -z-10 visible md:invisible"
-				src="src/lib/assets/group_of_question.png"
+				src={groupOfQuestion}
 				alt=""
 			/>
 			<article class="prose-lg lg:prose-2xl text-end mx-3">
@@ -25,7 +24,7 @@ class="">
 				>
 					FAQ
 				</h1>
-			
+
 				<h3
 					data-aos-anchor-placement="up-center"
 					data-aos="fade-left"
@@ -41,11 +40,11 @@ class="">
 				data-aos="fade-right"
 				class="hidden md:block w-[32rem] relative"
 			>
-				<img src="src/lib/assets/person_thinking_2.png" alt="" />
+				<img src={personThinking} alt="person-thinking" />
 				<img
 					class="w-52 slide-in absolute top-0 -z-10 left-1/2"
-					src="src/lib/assets/group_of_question.png"
-					alt=""
+					src={groupOfQuestion}
+					alt="group-of-question"
 				/>
 			</div>
 			<div
@@ -105,7 +104,7 @@ class="">
 			</form>
 		</dialog>
 	</section>
-	<div class="h-[30rem] grid ">
+	<div class="h-[30rem] grid">
 		<Shape />
 	</div>
 </div>

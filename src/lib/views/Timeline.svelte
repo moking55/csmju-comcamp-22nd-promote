@@ -1,6 +1,8 @@
 <script lang="ts">
+	import curveArrow from '$lib/assets/right-curve-arrow.png';
+
 	import TimeLineCard from './../components/TimeLineCard.svelte';
-	import { timeline } from '../../data';
+	import { timeline } from '../data';
 </script>
 
 <section
@@ -43,7 +45,7 @@
 							? 'absolute top-3/4  rotate-[125deg] md:rotate-0  md:top-0 w-40 -scale-x-100 left-[85%] md:left-[40%]'
 							: 'absolute w-40 top-3/4  md:top-[80%] -left-1/2 md:left-[40%] rotate-[240deg] md:rotate-180'}
 						class:hidden={i === timeline.length - 1}
-						src="src/lib/assets/right-curve-arrow.png"
+						src={curveArrow}
 						alt="curved-pointer"
 					/>
 

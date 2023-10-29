@@ -1,5 +1,7 @@
 <script lang="ts">
-	import type { benefits } from '../../data';
+    import galaxy from '$lib/assets/galaxy.png';
+
+	import type { benefits } from '../data';
 
 	export let data: typeof benefits[0];
 </script>
@@ -26,7 +28,7 @@
 			class="bg-secondary z-0 absolute -top-3/4 left-2/4 -translate-x-2/4 -translate-y-1/2 pointer-events-none transform aspect-square w-[20rem] opacity-40 rounded-full blur-3xl"
 		/>
 		<div>
-			<img class="w-44 -mt-6 z-10 rotate-45" src="src/lib/assets/galaxy.png" alt="blue-ellipse" />
+			<img class="w-44 -mt-6 z-10 rotate-45" src={galaxy} alt="blue-ellipse" />
 		</div>
 	</div>
 </div>

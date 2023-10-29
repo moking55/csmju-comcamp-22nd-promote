@@ -4,7 +4,7 @@
 	import { fly, fade } from 'svelte/transition';
 	import comcampLogo from '$lib/assets/comcamp-22nd-logo.png';
 
-	import { actionMenu } from '../../data';
+	import { actionMenu } from '../data';
 
 	let animatedInitial = false;
 	let splineSrc = import.meta.env.VITE_SPLICE_INDEX_SRC;

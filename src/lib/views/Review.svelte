@@ -1,6 +1,6 @@
 <script lang="ts">
 	import ReviewCard from './../components/ReviewCard.svelte';
-	import { review } from '../../data';
+	import { review } from '../data';
 
 	function initAnimate(index: number) {
 		return (index + 1) % 2 === 0 ? 'fade-left' : 'fade-right';

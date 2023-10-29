@@ -1,6 +1,8 @@
 <script lang="ts">
+	import user from '$lib/assets/user.png';
+
 	import Mapbox from '$lib/components/Mapbox.svelte';
-	import { contract } from '../../data';
+	import { contract } from '../data';
 
 	let socialDisplay: 'facebook' | 'tiktok' = 'facebook';
 </script>
@@ -34,7 +36,7 @@
 					{#each contract.telContractor as data}
 						<div class="flex items-center gap-4">
 							<img
-								src="src/lib/assets/user.png"
+								src={user}
 								alt="person"
 								class="card z-10 h-14 w-14 bg-base-300 border-white"
 							/>

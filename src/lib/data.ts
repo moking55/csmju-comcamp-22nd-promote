@@ -75,22 +75,23 @@ const benefits = [
 	{
 		punchline: 'เรียนจากมือโปร',
 		body: 'เรียนกับอาจารย์และรุ่นที่มีประสบการณ์และเชี่ยวชาญ',
-		pic: 'src/lib/assets/teacher_2.png'
+		pic: new URL('$lib/assets/teacher_2.png', import.meta.url).href
 	},
+
 	{
 		punchline: 'ลงมือทำจริง',
 		body: 'ฝึกฝนทักษะผ่านกิจกรรมและโครงงาน',
-		pic: 'src/lib/assets/pencil.png'
+		pic: new URL('$lib/assets/pencil.png', import.meta.url).href
 	},
 	{
 		punchline: 'ได้เพื่อนใหม่',
 		body: 'พบปะเพื่อนนักเรียนที่สนใจเกี่ยวกัยคอมพิวเตอร์',
-		pic: 'src/lib/assets/people_talking.png'
+		pic: new URL('$lib/assets/people_talking.png', import.meta.url).href
 	},
 	{
 		punchline: 'สนุกไปกับการเรียนรู้',
 		body: 'เรียนรู้ด้วยวิธีการสอนที่แสนสนุก พร้อมกิจกรรมทีตื่นเต้น',
-		pic: 'src/lib/assets/laugh.png'
+		pic: new URL('$lib/assets/laugh.png', import.meta.url).href
 	}
 ];
 
@@ -124,7 +125,7 @@ const stats = [
 		increase: 1,
 		initValue: '10',
 		symbol: 'nd',
-		imgBg: 'src/lib/assets/red-flag.png',
+		imgBg: new URL('$lib/assets/red-flag.png', import.meta.url).href,
 		subtitle: 'คอมแคมป์ของเราถูกตั้งขึ้นครั้งแรกเมื่อปี พ.ศ 2543'
 	},
 	{
@@ -133,7 +134,7 @@ const stats = [
 		increase: 10,
 		initValue: '2200',
 		symbol: '+',
-		imgBg: 'src/lib/assets/student.png',
+		imgBg: new URL('$lib/assets/student.png', import.meta.url).href,
 		subtitle: 'จำนวนน้อง ๆ ที่เคยสมัครทั้งหมดตั้งแต่รุ่นแรก'
 	},
 	{
@@ -142,7 +143,7 @@ const stats = [
 		increase: 5,
 		initValue: '50',
 		symbol: '%',
-		imgBg: 'src/lib/assets/cheer-up.png',
+		imgBg: new URL('$lib/assets/cheer-up.png', import.meta.url).href,
 		subtitle: 'จำนวนน้อง ๆ ที่ให้ฟิตแบตแก่ค่ายของเรา'
 	}
 ];
@@ -154,7 +155,7 @@ const review = [
 		name: 'นาย สมชาย ใจดี',
 		role: 'นักเรียนชั้นมัธยมศึกษาปีที่ 3',
 		gen: 'เด็กคอมแคมป์รุ่นที่ 21',
-		image: 'src/lib/assets/boy_2.png'
+		image: new URL('$lib/assets/boy_2.png', import.meta.url).href
 	},
 	{
 		comment:
@@ -162,7 +163,7 @@ const review = [
 		name: 'นาย สมชาย ใจดี',
 		role: 'นักเรียนชั้นมัธยมศึกษาปีที่ 5',
 		gen: 'เด็กคอมแคมป์รุ่นที่ 20',
-		image: 'src/lib/assets/girl_2.png'
+		image: new URL('$lib/assets/girl_2.png', import.meta.url).href
 	},
 	{
 		comment:
@@ -170,13 +171,13 @@ const review = [
 		name: 'นางสาว สุดใจ รักสัตว์',
 		role: 'นักเรียนชั้นมัธยมศึกษาปีที่ 6',
 		gen: 'เด็กคอมแคมป์รุ่นที่ 19',
-		image: 'src/lib/assets/girl.png'
+		image: new URL('$lib/assets/girl.png', import.meta.url).href
 	}
 ];
 
 const sponsor = [
 	{
-		src: 'src/lib/assets/MJU_LOGO.svg',
+		src: new URL('$lib/assets/MJU_LOGO.svg', import.meta.url).href,
 		bgClass: 'bg-green-800',
 		visible: true
 	},
@@ -202,7 +203,7 @@ const sponsor = [
 		visible: false
 	},
 	{
-		src: 'src/lib/assets/MJU_LOGO.svg',
+		src: new URL('$lib/assets/MJU_LOGO.svg', import.meta.url).href,
 		bgClass: 'bg-green-800',
 		visible: true
 	},
@@ -249,7 +250,7 @@ const contract = {
 		{
 			name: 'พี่เบญสุดมึน',
 			tel: '911-222-1145'
-		},
+		}
 	],
 	location: {
 		longitude: 99.01289125288045,
@@ -296,7 +297,8 @@ const faq = [
 	},
 	{
 		question: 'ค่ายนี้จัดแบบค้างคืนหรือปล่าวครับ แล้วพักที่ไหนครับ',
-		answer: 'ค่ายนี้จัดแบบค้างคืน 2 คืน 3 วันค่ะ โดยจัดพักที่หอพักพิเศษสำหรับบุคคลภายนอก ภายในมหาวิทยาลัยแม่โจ้ จังหวัดเชียงใหม่ค่ะ'
+		answer:
+			'ค่ายนี้จัดแบบค้างคืน 2 คืน 3 วันค่ะ โดยจัดพักที่หอพักพิเศษสำหรับบุคคลภายนอก ภายในมหาวิทยาลัยแม่โจ้ จังหวัดเชียงใหม่ค่ะ'
 	},
 	{
 		question: 'การเข้าค่ายในครั้งนี้ จะได้รับเกียรติบัตรหรือประกาศนียบัตรอะไรมั้ยครับ',

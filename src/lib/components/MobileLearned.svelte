@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { learningObjectives } from '../../data';
+	import type { learningObjectives } from '../data';
 	import Typewritter from './Typewritter.svelte';
 
 	export let data: typeof learningObjectives[0];
