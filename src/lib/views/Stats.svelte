@@ -4,9 +4,7 @@
 	import Review from './Review.svelte';
 	export let y: number;
 
-	// $: participant = 0
-	// $: year = increaseNumberAnimation(stats[1].value, 1, { from: 0 });
-	// $: feedback = increaseNumberAnimation(stats[2].value, 1, { from: 0 });
+
 </script>
 
 <section

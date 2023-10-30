@@ -2,9 +2,10 @@
 	import user from '$lib/assets/user.png';
 
 	import Mapbox from '$lib/components/Mapbox.svelte';
-	import { contract } from '../data';
+	import { contract } from '$lib/data';
 
 	let socialDisplay: 'facebook' | 'tiktok' = 'facebook';
+	export let isMobile: boolean;
 </script>
 
 <section id="contact-section" class="bg-accent-focus/80 space-y-6 pt-14">
@@ -45,106 +46,111 @@
 				</div>
 			</div>
 		</div>
-		<div class="hidden lg:block col-span-full lg:col-span-1 text-base h-full w-72">
-			<div class="relative">
-				<div class="absolute -top-10 left-6">
-					<button
-						on:click={() =>
-							socialDisplay === 'facebook'
-								? (socialDisplay = 'tiktok')
-								: (socialDisplay = 'facebook')}
-						class:btn-secondary={socialDisplay !== 'facebook'}
-						class="btn btn-sm"
-					>
-						{socialDisplay !== 'facebook' ? 'Facebook' : 'Tiktok'}
-					</button>
+		{#if !isMobile}
+			<!-- content here -->
+			<div class="hidden lg:block col-span-full lg:col-span-1 text-base h-full w-72">
+				<div class="relative">
+					<div class="absolute -top-10 left-6">
+						<button
+							on:click={() =>
+								socialDisplay === 'facebook'
+									? (socialDisplay = 'tiktok')
+									: (socialDisplay = 'facebook')}
+							class:btn-secondary={socialDisplay !== 'facebook'}
+							class="btn btn-sm"
+						>
+							{socialDisplay !== 'facebook' ? 'Facebook' : 'Tiktok'}
+						</button>
+					</div>
+				</div>
+				<div
+					data-aos-anchor-placement="up-center"
+					data-aos="fade-up"
+					class:!z-10={socialDisplay === 'facebook'}
+					class:!opacity-10={socialDisplay !== 'facebook'}
+					class="mockup-phone shadow-xl z-0 shadow-white/50 text-base xl:text-lg border-white/80 h-full w-full"
+				>
+					<div class="camera" />
+					<div class="display bg-base-200 w-full h-full">
+						<iframe
+							src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FCCCSMJU%2F&tabs=timeline&width=260&height=600&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId"
+							class=" w-full h-full"
+							style="border:none;overflow:hidden"
+							scrolling="no"
+							frameborder="0"
+							allowfullscreen={true}
+							allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+						/>
+					</div>
+				</div>
+				<div
+					class:!-z-10={socialDisplay !== 'tiktok'}
+					class:!z-10={socialDisplay === 'tiktok'}
+					class="absolute -translate-x-40 -translate-y-10 mockup-phone shadow-xl shadow-white/50 text-base xl:text-lg h-[32rem] border-white/80 w-80"
+				>
+					<div class="camera" />
+					<div class="display bg-base-200 w-full h-full">
+						<blockquote
+							class="tiktok-embed"
+							style="max-width: 605px;min-width: 325px;"
+							cite="https://www.tiktok.com/@cs_mju/video/7254833307748224264"
+							data-video-id="7254833307748224264"
+						>
+							<section>
+								<a target="_blank" title="@cs_mju" href="https://www.tiktok.com/@cs_mju?refer=embed"
+									>@cs_mju</a
+								>
+								เขียนโค้ดเหนื่อยก็พัก...เจอบั๊คก็อย่าท้อ
+								<a title="csmju" target="_blank" href="https://www.tiktok.com/tag/csmju?refer=embed"
+									>#csmju</a
+								>
+								<a title="maejo" target="_blank" href="https://www.tiktok.com/tag/maejo?refer=embed"
+									>#maejo</a
+								>
+								<a
+									title="comsci"
+									target="_blank"
+									href="https://www.tiktok.com/tag/comsci?refer=embed">#comsci</a
+								>
+								<a
+									title="วิทย์คอมแม่โจ้"
+									target="_blank"
+									href="https://www.tiktok.com/tag/%E0%B8%A7%E0%B8%B4%E0%B8%97%E0%B8%A2%E0%B9%8C%E0%B8%84%E0%B8%AD%E0%B8%A1%E0%B9%81%E0%B8%A1%E0%B9%88%E0%B9%82%E0%B8%88%E0%B9%89?refer=embed"
+									>#วิทย์คอมแม่โจ้</a
+								>
+								<a title="basic" target="_blank" href="https://www.tiktok.com/tag/basic?refer=embed"
+									>#Basic</a
+								>
+								<a
+									title="อบรมคอมพิวเตอร์"
+									target="_blank"
+									href="https://www.tiktok.com/tag/%E0%B8%AD%E0%B8%9A%E0%B8%A3%E0%B8%A1%E0%B8%84%E0%B8%AD%E0%B8%A1%E0%B8%9E%E0%B8%B4%E0%B8%A7%E0%B9%80%E0%B8%95%E0%B8%AD%E0%B8%A3%E0%B9%8C?refer=embed"
+									>#อบรมคอมพิวเตอร์</a
+								>
+								<a
+									title="csmjustudio"
+									target="_blank"
+									href="https://www.tiktok.com/tag/csmjustudio?refer=embed">#csmjustudio</a
+								>
+								<a
+									title="แม่โจ้"
+									target="_blank"
+									href="https://www.tiktok.com/tag/%E0%B9%81%E0%B8%A1%E0%B9%88%E0%B9%82%E0%B8%88%E0%B9%89?refer=embed"
+									>#แม่โจ้</a
+								>
+								<a
+									target="_blank"
+									title="♬ เสียงต้นฉบับ  - CSMJU"
+									href="https://www.tiktok.com/music/เสียงต้นฉบับ-CSMJU-7254833463940614914?refer=embed"
+									>♬ เสียงต้นฉบับ - CSMJU</a
+								>
+							</section>
+						</blockquote>
+						<script async src="https://www.tiktok.com/embed.js"></script>
+					</div>
 				</div>
 			</div>
-			<div
-				data-aos-anchor-placement="up-center"
-				data-aos="fade-up"
-				class:!z-10={socialDisplay === 'facebook'}
-				class:!opacity-10={socialDisplay !== 'facebook'}
-				class="mockup-phone shadow-xl z-0 shadow-white/50 text-base xl:text-lg border-white/80 h-full w-full"
-			>
-				<div class="camera" />
-				<div class="display bg-base-200 w-full h-full">
-					<iframe
-						src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FCCCSMJU%2F&tabs=timeline&width=260&height=600&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId"
-						class=" w-full h-full"
-						style="border:none;overflow:hidden"
-						scrolling="no"
-						frameborder="0"
-						allowfullscreen={true}
-						allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-					/>
-				</div>
-			</div>
-			<div
-				class:!-z-10={socialDisplay !== 'tiktok'}
-				class:!z-10={socialDisplay === 'tiktok'}
-				class="absolute -translate-x-40 -translate-y-10 mockup-phone shadow-xl shadow-white/50 text-base xl:text-lg h-[32rem] border-white/80 w-80"
-			>
-				<div class="camera" />
-				<div class="display bg-base-200 w-full h-full">
-					<blockquote
-						class="tiktok-embed"
-						style="max-width: 605px;min-width: 325px;"
-						cite="https://www.tiktok.com/@cs_mju/video/7254833307748224264"
-						data-video-id="7254833307748224264"
-					>
-						<section>
-							<a target="_blank" title="@cs_mju" href="https://www.tiktok.com/@cs_mju?refer=embed"
-								>@cs_mju</a
-							>
-							เขียนโค้ดเหนื่อยก็พัก...เจอบั๊คก็อย่าท้อ
-							<a title="csmju" target="_blank" href="https://www.tiktok.com/tag/csmju?refer=embed"
-								>#csmju</a
-							>
-							<a title="maejo" target="_blank" href="https://www.tiktok.com/tag/maejo?refer=embed"
-								>#maejo</a
-							>
-							<a title="comsci" target="_blank" href="https://www.tiktok.com/tag/comsci?refer=embed"
-								>#comsci</a
-							>
-							<a
-								title="วิทย์คอมแม่โจ้"
-								target="_blank"
-								href="https://www.tiktok.com/tag/%E0%B8%A7%E0%B8%B4%E0%B8%97%E0%B8%A2%E0%B9%8C%E0%B8%84%E0%B8%AD%E0%B8%A1%E0%B9%81%E0%B8%A1%E0%B9%88%E0%B9%82%E0%B8%88%E0%B9%89?refer=embed"
-								>#วิทย์คอมแม่โจ้</a
-							>
-							<a title="basic" target="_blank" href="https://www.tiktok.com/tag/basic?refer=embed"
-								>#Basic</a
-							>
-							<a
-								title="อบรมคอมพิวเตอร์"
-								target="_blank"
-								href="https://www.tiktok.com/tag/%E0%B8%AD%E0%B8%9A%E0%B8%A3%E0%B8%A1%E0%B8%84%E0%B8%AD%E0%B8%A1%E0%B8%9E%E0%B8%B4%E0%B8%A7%E0%B9%80%E0%B8%95%E0%B8%AD%E0%B8%A3%E0%B9%8C?refer=embed"
-								>#อบรมคอมพิวเตอร์</a
-							>
-							<a
-								title="csmjustudio"
-								target="_blank"
-								href="https://www.tiktok.com/tag/csmjustudio?refer=embed">#csmjustudio</a
-							>
-							<a
-								title="แม่โจ้"
-								target="_blank"
-								href="https://www.tiktok.com/tag/%E0%B9%81%E0%B8%A1%E0%B9%88%E0%B9%82%E0%B8%88%E0%B9%89?refer=embed"
-								>#แม่โจ้</a
-							>
-							<a
-								target="_blank"
-								title="♬ เสียงต้นฉบับ  - CSMJU"
-								href="https://www.tiktok.com/music/เสียงต้นฉบับ-CSMJU-7254833463940614914?refer=embed"
-								>♬ เสียงต้นฉบับ - CSMJU</a
-							>
-						</section>
-					</blockquote>
-					<script async src="https://www.tiktok.com/embed.js"></script>
-				</div>
-			</div>
-		</div>
+		{/if}
 		<div
 			data-aos-anchor-placement="up-center"
 			data-aos="fade-up"

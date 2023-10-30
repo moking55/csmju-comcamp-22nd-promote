@@ -1,7 +1,7 @@
 <script lang="ts">
     import logo from '$lib/assets/comcamp-22nd-logo.png';
 
-	import { navbarMenu, actionMenu } from '../data';
+	import { navbarMenu, actionMenu } from '$lib/data';
 
 	export let y: number;
 

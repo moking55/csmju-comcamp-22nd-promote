@@ -1,8 +1,11 @@
+<script context="module">
+	import Device from 'svelte-device-info';
+</script>
+
 <script lang="ts">
-    import keyboard from '$lib/assets/keyboard_2.png';
+	import keyboard from '$lib/assets/keyboard_2.png';
 
 	import type { learningObjectives } from '../data';
-	import Splice from './Splice.svelte';
 	import Typewritter from './Typewritter.svelte';
 
 	export let data: typeof learningObjectives[0];
@@ -18,6 +21,8 @@
 	} else {
 		typeDone = false;
 	}
+    // factoring this code above
+    
 </script>
 
 <div id="web" class="container grid w-full place-items-center grid-cols-2 gap-y-28 mt-20">
@@ -42,7 +47,7 @@
 				class="mockup-window mockup-code w-3/4 md:w-full h-96 border bg-base-300"
 			>
 				{#if y > 3000}
-					{#if !typeDone}
+					{#if !typeDone || Device.isMobile}
 						<!-- content here -->
 						<div class="relative -space-y-4 w-full pl-4 py-6 h-80 bg-base-200">
 							<pre data-prefix="projects ~ %"><span class="ml-20"
@@ -55,11 +60,13 @@
                          </pre>
 						</div>
 					{:else}
-						<div data-aos-duration="1500" id="wrapper" data-aos="fade-up" class=" relative">
-							<div class="absolute 2xl:-translate-x-1/4 right-0 top-0">
-								<Splice urlLoader={splineSrc} />
+						{#await import('$lib/components/Splice.svelte') then Splice}
+							<div data-aos-duration="1500" id="wrapper" data-aos="fade-up" class=" relative">
+								<div class="absolute 2xl:-translate-x-1/4 right-0 top-0">
+									<Splice.default urlLoader={splineSrc} />
+								</div>
 							</div>
-						</div>
+						{/await}
 					{/if}
 				{/if}
 			</div>

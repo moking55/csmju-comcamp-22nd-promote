@@ -1,15 +1,15 @@
 <script lang="ts">
     import pin from '$lib/assets/pin.png'
 
-	import type { timeline } from '../data';
+	import type { timeline } from '$lib/data';
 	export let data: typeof timeline[0];
 	export let nextDateTarget: Date;
 	export let index: number;
 
 	function initPin() {
 		return (
-			new Date('2023-11-01').getTime() >= data.date.getTime() &&
-			new Date('2023-11-01').getTime() < nextDateTarget.getTime()
+			new Date().getTime() >= data.date.getTime() &&
+			new Date().getTime() < nextDateTarget.getTime()
 		);
 	}
 </script>

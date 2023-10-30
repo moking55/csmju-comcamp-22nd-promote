@@ -4,11 +4,10 @@
 	import lightBulb from '$lib/assets/light-bulb.png';
 
 	import IOTLearned from './../components/IOTLearned.svelte';
-	import Typewritter from '$lib/components/Typewritter.svelte';
 	import MobileLearned from '$lib/components/MobileLearned.svelte';
 	import WebLearned from '$lib/components/WebLearned.svelte';
 
-	import { learningObjectives } from '../data';
+	import { learningObjectives } from '$lib/data';
 	import AiLearned from '$lib/components/AILearned.svelte';
 	export let y: number;
 

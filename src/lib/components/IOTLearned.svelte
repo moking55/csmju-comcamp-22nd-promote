@@ -4,7 +4,7 @@
 	import remote from '$lib/assets/remote.png';
 	import iot from '$lib/assets/iot.png';
 
-	import type { learningObjectives } from '../data';
+	import type { learningObjectives } from '$lib/data';
 
 	export let data: typeof learningObjectives[0];
 	export let y: number;

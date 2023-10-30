@@ -1,7 +1,7 @@
 <script lang="ts">
-    import galaxy from '$lib/assets/galaxy.png';
+	import galaxy from '$lib/assets/galaxy.png';
 
-	import type { benefits } from '../data';
+	import type { benefits } from '$lib/data';
 
 	export let data: typeof benefits[0];
 </script>

@@ -187,35 +187,13 @@ const sponsor = [
 		visible: false
 	},
 	{
-		src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Tesla_logo.png/768px-Tesla_logo.png',
-		bgClass: 'bg-secondary-content',
-		visible: true
-	},
-
-	{
-		src: 'https://static.vecteezy.com/system/resources/previews/019/017/460/original/microsoft-transparent-logo-free-png.png',
-		bgClass: 'bg-accent-content',
-		visible: true
-	},
-	{
 		src: '',
 		bgClass: '',
 		visible: false
 	},
 	{
-		src: new URL('$lib/assets/MJU_LOGO.svg', import.meta.url).href,
-		bgClass: 'bg-green-800',
-		visible: true
-	},
-	{
-		src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Tesla_logo.png/768px-Tesla_logo.png',
-		bgClass: 'bg-secondary-content',
-		visible: true
-	},
-
-	{
-		src: 'https://static.vecteezy.com/system/resources/previews/019/017/460/original/microsoft-transparent-logo-free-png.png',
-		bgClass: 'bg-accent-content',
+		src: 'https://secretary-science.mju.ac.th/goverment/25570522101243_science_secretary/Logo_25630318164611_166727.png',
+		bgClass: 'bg-green-400',
 		visible: true
 	}
 ];
@@ -243,14 +221,6 @@ const contract = {
 			name: 'พี่โอมสุดหล่อ',
 			tel: '095-658-5160'
 		},
-		{
-			name: 'พี่ตะวันสุดสวย',
-			tel: '911-222-1145'
-		},
-		{
-			name: 'พี่เบญสุดมึน',
-			tel: '911-222-1145'
-		}
 	],
 	location: {
 		longitude: 99.01289125288045,

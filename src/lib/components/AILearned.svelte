@@ -4,7 +4,7 @@
     import brainCell from  '$lib/assets/brain-cell.png';
     import python from '$lib/assets/python_2.png';
 
-	import type { learningObjectives } from '../data';
+	import type { learningObjectives } from '$lib/data';
 
 	export let data: typeof learningObjectives[0];
 	export let y: number;

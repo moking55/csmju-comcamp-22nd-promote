@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { learningObjectives } from '../data';
+	import type { learningObjectives } from '$lib/data';
 	import Typewritter from './Typewritter.svelte';
 
 	export let data: typeof learningObjectives[0];
@@ -23,7 +23,7 @@
 				/>
 			</div>
 		</div>
-		<div class="camera" />
+		<div style="z-index -9999;" class="camera opacity-0" />
 		<div class="display">
 			<div class="artboard overflow-hidden artboard-1 phone-3">
 				<div class="mockup-code h-1/2">
@@ -62,7 +62,11 @@
 			>
 				{data.punchline}
 			</h1>
-			<p data-aos-anchor-placement="up-center" data-aos="fade-up">
+			<p
+				data-aos-anchor-placement="up-center"
+				data-aos="fade-up"
+				class="bg-base-100 p-2 bg-opacity-60 rounded-md"
+			>
 				{data.body}
 			</p>
 		</article>

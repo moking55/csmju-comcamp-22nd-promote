@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import type { sponsor } from '../data';
+	import type { sponsor } from '$lib/data';
 
 	export let data: typeof sponsor[0];
 

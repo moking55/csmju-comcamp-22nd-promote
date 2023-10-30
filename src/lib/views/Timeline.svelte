@@ -2,7 +2,7 @@
 	import curveArrow from '$lib/assets/right-curve-arrow.png';
 
 	import TimeLineCard from './../components/TimeLineCard.svelte';
-	import { timeline } from '../data';
+	import { timeline } from '$lib/data';
 </script>
 
 <section

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { aboutComcamp } from '../data';
+	import { aboutComcamp } from '$lib/data';
 </script>
 
 <section class="my-16 z-10">

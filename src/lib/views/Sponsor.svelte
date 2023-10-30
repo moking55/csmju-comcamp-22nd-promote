@@ -1,12 +1,12 @@
 <script lang="ts">
-	import Sponsor from './Sponsor.svelte';
 	import SponsorCard from '$lib/components/SponsorCard.svelte';
-	import { slide } from 'svelte/transition';
-	import { sponsor } from '../data';
+	import { sponsor } from '$lib/data';
 </script>
 
 <section id="sponsor-section" class="overflow-hidden">
-	<div class="grid bg-gradient-to-b from-base-100 via-[85%] via-orange-700/80 my-40 py-10">
+	<div
+		class="grid bg-gradient-to-b from-base-100 via-[85%] min-h-[30rem] via-orange-700/80 my-40 py-10"
+	>
 		<div class="relative h-full">
 			<div
 				class="bg-secondary z-10 top-0 md:-top-[10%] -left-[5%] md:left-[5%] pointer-events-none transform absolute aspect-square w-[14rem] lg:w-[24rem] rounded-full opacity-40 blur-3xl"
@@ -18,14 +18,14 @@
 				/>
 			</div>
 			<div
-				class="bg-accent z-10 top-0 translate-y-3/4 md:translate-y-1/2 left-3/4 pointer-events-none transform absolute aspect-square w-[20rem] lg:w-[24rem] rounded-full opacity-60 blur-3xl"
+				class="bg-accent z-10 top-1/4 left-3/4 pointer-events-none transform absolute aspect-square w-[20rem] lg:w-[24rem] rounded-full opacity-60 blur-3xl"
 			/>
 			<div class="grid z-10 h-full container w-full mx-auto gap-y-10 sm:grid-cols-5">
 				<div
 					id="logo-grid-2"
 					class=" sm:col-span-2 flex flex-col xl:flex-row gap-10 justify-start flex-nowrap xl:flex-wrap"
 				>
-					{#each sponsor.slice(0, 4) as data}
+					{#each sponsor.slice(0, 2) as data}
 						<SponsorCard {data} />
 
 						<!-- content here -->
@@ -57,7 +57,7 @@
 					id="logo-grid-2"
 					class="sm:col-span-2 flex flex-col xl:flex-row gap-10 justify-end flex-nowrap xl:flex-wrap"
 				>
-					{#each sponsor.slice(4, 8) as data}
+					{#each sponsor.slice(2, 4) as data}
 						<SponsorCard {data} />
 						<!-- content here -->
 					{/each}

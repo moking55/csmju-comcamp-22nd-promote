@@ -1,6 +1,6 @@
 <script lang="ts">
 	import HologramCard from './../components/HologramCard.svelte';
-	import { benefits } from '../data';
+	import { benefits } from '$lib/data';
 </script>
 
 <section id="benefit-section" class="container mx-auto flex flex-col gap-32">
