@@ -86,24 +86,17 @@
 				<div
 					class:!-z-10={socialDisplay !== 'tiktok'}
 					class:!z-10={socialDisplay === 'tiktok'}
-					class="absolute -translate-x-40 -translate-y-10 mockup-phone shadow-xl shadow-white/50 text-base xl:text-lg h-[30rem] border-white/80 w-80"
+					class="absolute -translate-x-40 -translate-y-10 mockup-phone shadow-xl shadow-white/50 text-base xl:text-lg h-[32rem] border-white/80 w-80"
 				>
 					<div class="camera" />
-					<div class="display bg-base-200 w-full h-full">
-						<blockquote
-							class="tiktok-embed"
-							cite="https://www.tiktok.com/@cs_mju"
-							data-unique-id="cs_mju"
-							data-embed-type="creator"
-							style="max-width: 780px; min-width: 288px;"
-						>
-							<section>
-								<a target="_blank" href="https://www.tiktok.com/@cs_mju?refer=creator_embed"
-									>@cs_mju</a
-								>
-							</section>
-						</blockquote>
-						<script async src="https://www.tiktok.com/embed.js"></script>
+					<div class="display bg-base-200 w-full relative h-[500px]">
+						<iframe
+							src="https://www.tiktok.com/embed/7254833307748224264"
+							class="w-full h-full absolute"
+							allowfullscreen
+							scrolling="no"
+							allow="encrypted-media;"
+						/>
 					</div>
 				</div>
 			</div>
