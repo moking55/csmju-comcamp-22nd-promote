@@ -201,24 +201,19 @@ const sponsor = [
 const contract = {
 	socials: [
 		{
-			name: 'Facebook',
+			name: 'Compcamp',
 			link: 'https://www.facebook.com/comcamp',
 			icon: 'https://store-images.s-microsoft.com/image/apps.37935.9007199266245907.b029bd80-381a-4869-854f-bac6f359c5c9.91f8693c-c75b-4050-a796-63e1314d18c9?h=464'
 		},
 		{
-			name: 'TikTok',
+			name: '@cs_mju',
 			link: 'https://www.tiktok.com/@cs_mju',
 			icon: 'https://play-lh.googleusercontent.com/Ui_-OW6UJI147ySDX9guWWDiCPSq1vtxoC-xG17BU2FpU0Fi6qkWwuLdpddmT9fqrA'
 		},
-		{
-			name: 'Facebook',
-			link: 'https://www.facebook.com/comcamp',
-			icon: 'https://store-images.s-microsoft.com/image/apps.37935.9007199266245907.b029bd80-381a-4869-854f-bac6f359c5c9.91f8693c-c75b-4050-a796-63e1314d18c9?h=464'
-		}
 	],
 	telContractor: [
 		{
-			name: 'พี่โอมสุดหล่อ',
+			name: 'พี่โอม',
 			tel: '095-658-5160'
 		},
 	],

@@ -15,7 +15,7 @@
 </script>
 
 <!-- content here -->
-<div class="h-[800px] 2xl:container 2xl:mx-auto mt-20 w-full">
+<div class="h-screen grid 2xl:container 2xl:mx-auto mt-20 w-full">
 	{#if !isMobile}
 		{#await import('$lib/components/Splice.svelte') then Splice}
 			<div id="wrapper" class="transition-opacity duration-500 opacity-60 lg:opacity-100 relative">
@@ -26,7 +26,7 @@
 		{/await}
 	{/if}
 	{#if animatedInitial}
-		<div in:fade={{ duration: 1500 }} class="relatives" id="fade-pointers ">
+		<div in:fade={{ duration: 1500 }} class="relative" id="fade-pointers ">
 			<div class="overflow-x-hidden">
 				<div
 					class="bg-secondary-focus pointer-events-none absolute -translate-x-1/2 top-0 left-0 aspect-square w-[40vw] 2xl:w-[40rem] opacity-40 rounded-full blur-3xl"
@@ -38,7 +38,7 @@
 					class="bg-primary-focus pointer-events-none absolute top-[10%] md:top-0 right-0 aspect-square w-[35vw] 2xl:w-[35rem] rounded-full opacity-30 blur-3xl"
 				/>
 				<div
-					class="bg-accent-focus pointer-events-none absolute bottom-0 top-1/4  lg:-top-[15%]  left-1/4 lg:left-[45%] aspect-square w-[50vw] lg:w-[20rem] rounded-full opacity-30 blur-3xl"
+					class="bg-accent-focus pointer-events-none absolute bottom-0 top-1/4 lg:-top-[15%] left-1/4 lg:left-[45%] aspect-square w-[50vw] lg:w-[20rem] rounded-full opacity-30 blur-3xl"
 				/>
 			</div>
 		</div>
@@ -49,10 +49,10 @@
 			class="-translate-y-20 grid lg:grid-cols-2 h-full my-auto"
 		>
 			<div class="z-0">
-				<div class=" flex flex-col items-center -space-y-24">
+				<div class=" flex flex-col items-center  -space-y-24">
 					<img
 						out:fly={{ y: -20, duration: 800 }}
-						class="csmju-logo contrast-150 opacity-80"
+						class="csmju-logo contrast-150 -mt-40 sm:mt-0 opacity-80"
 						src={comcampLogo}
 						alt="comcamp-csmju-logo"
 					/>
