@@ -29,7 +29,7 @@
 			</h3>
 		</article>
 	</div>
-	{#if y > 4700}
+	{#if y > 4500}
 		<div
 			data-aos-anchor-placement="up-center"
 			data-aos="fade-up"
