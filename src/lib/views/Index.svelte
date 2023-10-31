@@ -49,24 +49,23 @@
 			class="-translate-y-20 grid lg:grid-cols-2 h-full my-auto"
 		>
 			<div class="z-0">
-				<div class=" flex flex-col items-center  -space-y-24">
+				<div class=" flex flex-col justify-center items-center">
 					<img
 						out:fly={{ y: -20, duration: 800 }}
-						class="csmju-logo contrast-150 -mt-40 sm:mt-0 opacity-80"
+						class="csmju-logo contrast-150 opacity-80"
 						src={comcampLogo}
 						alt="comcamp-csmju-logo"
 					/>
-					<div class="relative">
-						<div
-							class="compcamp-char gradient-heading from-primary to-secondary eng-font text-flicker-out-glow"
-						>
-							<span>COMPCAMP MJU</span>
-						</div>
-						<div
-							class="gradient-heading text-center text-xl font-bold from-accent to-primary tracking-widest eng-font text-flicker-out-glow"
-						>
-							<span>Open 31 October - 30 December 2023</span>
-						</div>
+
+					<div
+						class="compcamp-char -mt-20 sm:-mt-28 gradient-heading from-primary to-secondary eng-font text-flicker-out-glow"
+					>
+						<span>COMPCAMP MJU</span>
+					</div>
+					<div
+						class="gradient-heading text-center text-xl font-bold from-accent to-primary tracking-widest eng-font text-flicker-out-glow"
+					>
+						<span>Open 31 October - 30 December 2023</span>
 					</div>
 				</div>
 				<div id="register-button-container" class="flex mt-10 justify-center">

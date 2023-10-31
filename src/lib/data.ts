@@ -1,43 +1,43 @@
 const navbarMenu = [
 	{
 		label: 'About',
-		yValue: 500,
+		yValue: 300,
 		ref: '#about-comcamp-section'
 	},
 	{
 		label: 'Learning',
 		ref: '#learning-section',
-		yValue: 1200
+		yValue: 1000
 	},
 	{
 		label: 'Statistics',
 		ref: '#stats-section',
-		yValue: 5000
+		yValue: 4800
 	},
 	{
 		label: 'Review',
 		ref: '#review-section',
-		yValue: 5500
+		yValue: 5300
 	},
 	{
 		label: 'Benefits',
 		ref: '#benefit-section',
-		yValue: 6600
+		yValue: 6400
 	},
 	{
 		label: 'Timeline',
 		ref: '#timeline-section',
-		yValue: 7700
+		yValue: 7500
 	},
 	{
 		label: 'FAQ',
 		ref: '#faq-section',
-		yValue: 9700
+		yValue: 9500
 	},
 	{
 		label: 'Contact',
 		ref: '#contact-section',
-		yValue: 10800
+		yValue: 9880
 	}
 ];
 
@@ -178,7 +178,7 @@ const review = [
 const sponsor = [
 	{
 		src: new URL('$lib/assets/MJU_LOGO.svg', import.meta.url).href,
-		bgClass: 'bg-green-800',
+		bgClass: 'bg-green-700',
 		visible: true
 	},
 	{
@@ -193,7 +193,7 @@ const sponsor = [
 	},
 	{
 		src: 'https://secretary-science.mju.ac.th/goverment/25570522101243_science_secretary/Logo_25630318164611_166727.png',
-		bgClass: 'bg-green-400',
+		bgClass: 'bg-emerald-400',
 		visible: true
 	}
 ];

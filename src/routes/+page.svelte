@@ -22,7 +22,7 @@
 	<Navbar {y} />
 </header>
 <main>
-	<div class="flex h-full flex-col gap-40">
+	<div class="flex h-full flex-col gap-24">
 		<Index {isMobile} />
 		<About />
 		<Learning {y} />
