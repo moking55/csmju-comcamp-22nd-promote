@@ -1,5 +1,14 @@
 <script>
-	import '../app.postcss';
+	import './../app.postcss';
+	import 'aos/dist/aos.css';
+	// import './../../'
+	import AOS from 'aos';
+	import { onMount } from 'svelte';
+
+	onMount(() => {
+		AOS.init();
+	});
 </script>
 
 <slot />
+

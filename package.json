@@ -18,6 +18,9 @@
 		"@playwright/test": "^1.28.1",
 		"@sveltejs/adapter-auto": "^2.0.0",
 		"@sveltejs/kit": "^1.20.4",
+		"@tailwindcss/typography": "^0.5.10",
+		"@types/aos": "^3.0.5",
+		"@types/mapbox-gl": "^2.7.17",
 		"@typescript-eslint/eslint-plugin": "^6.0.0",
 		"@typescript-eslint/parser": "^6.0.0",
 		"autoprefixer": "^10.4.16",
@@ -38,7 +41,10 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@splinetool/runtime": "^0.9.490",
 		"animate.css": "^4.1.1",
-		"aos": "3.0.0-beta.6"
+		"aos": "3.0.0-beta.6",
+		"mapbox-gl": "^2.15.0",
+		"svelte-device-info": "^1.0.0"
 	}
 }
