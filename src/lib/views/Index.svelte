@@ -4,6 +4,7 @@
 	import comcampLogo from '$lib/assets/comcamp-22nd-logo.png';
 	import { actionMenu } from '$lib/data';
 
+
 	export let isMobile: boolean;
 	let animatedInitial = false;
 	let splineSrc = import.meta.env.VITE_SPLICE_INDEX_SRC;
