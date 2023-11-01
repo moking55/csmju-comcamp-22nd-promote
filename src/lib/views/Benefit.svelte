@@ -25,7 +25,7 @@
 				data-aos="fade-up"
 				class=" text-secondary-focus font-bold"
 			>
-				นี้คือสิ่งที่พวกเราทุกคนจะได้รับในการมาในครั้งนี้
+				สิ่งที่พวกเราทุกคนจะได้รับในการเข้าร่วม
 			</h3>
 		</article>
 	</div>
