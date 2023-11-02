@@ -14,6 +14,9 @@
 	import Footer from '$lib/views/Contract.svelte';
 	import Timeline from '$lib/views/Timeline.svelte';
 
+	// setup google analytics
+	import { GoogleAnalytics } from '@beyonk/svelte-google-analytics';
+	const ga = import.meta.env.VITE_GA_ID;
 	let y = 0;
 	let isMobile = Device.isMobile;
 </script>
@@ -21,6 +24,8 @@
 <header>
 	<Navbar {y} />
 </header>
+<!-- Google analytic -->
+<GoogleAnalytics properties={[ga]} />
 <main>
 	<div class="flex h-full flex-col gap-24">
 		<Index {isMobile} />
