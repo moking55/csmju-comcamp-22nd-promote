@@ -16,7 +16,11 @@
 
 	// setup google analytics
 	import { GoogleAnalytics } from '@beyonk/svelte-google-analytics';
-	const ga = import.meta.env.VITE_GA_ID;
+	let ga = '';
+	if (window.location.host !== 'localhost') {
+		ga = import.meta.env.VITE_GA_ID;
+	}
+
 	let y = 0;
 	let isMobile = Device.isMobile;
 </script>
