@@ -3,8 +3,6 @@
 	import { stats } from '$lib/data';
 	import Review from './Review.svelte';
 	export let y: number;
-
-
 </script>
 
 <section
@@ -57,7 +55,7 @@
 								<!-- promise is pending -->
 							{:then value}
 								<img
-									class="absolute z-0 w-28 top-full right-[5%] lg:-right-[10%]"
+									class="absolute opacity-40 sm:opacity-100 z-0 w-28 top-full right-[5%] lg:-right-[10%]"
 									src={value}
 									alt=""
 								/>
@@ -85,3 +83,27 @@
 		<Review />
 	</div>
 </section>
+
+<style lang="postcss">
+	.stats::-webkit-scrollbar {
+		background-color: hsl(var(--b3));
+		width: 2px;
+	}
+
+	/* background of the scrollbar except button or resizer */
+	.stats::-webkit-scrollbar-track {
+		background-color: hsl(var(--b1));
+	}
+
+	/* scrollbar itself */
+	.stats::-webkit-scrollbar-thumb {
+		background-color: hsl(var(--b1));
+		border-radius: 16px;
+		border: 1px solid hsl(var(--b1));
+	}
+
+	/* set button(top and bottom of the scrollbar) */
+	.stats::-webkit-scrollbar-button {
+		display: none;
+	}
+</style>

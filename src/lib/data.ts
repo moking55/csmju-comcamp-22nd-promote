@@ -123,16 +123,16 @@ const stats = [
 		title: 'คอมแคมป์รุ่น',
 		value: 22,
 		increase: 1,
-		initValue: '10',
+		initValue: '12',
 		symbol: 'nd',
 		imgBg: new URL('$lib/assets/red-flag.png', import.meta.url).href,
 		subtitle: 'คอมแคมป์ของเราถูกตั้งขึ้นครั้งแรกเมื่อปี พ.ศ 2543'
 	},
 	{
 		title: 'จำนวนผู้สมัครทั้งหมด',
-		value: 2300,
+		value: 2000,
 		increase: 10,
-		initValue: '2200',
+		initValue: '1900',
 		symbol: '+',
 		imgBg: new URL('$lib/assets/student.png', import.meta.url).href,
 		subtitle: 'จำนวนน้อง ๆ ที่เคยสมัครทั้งหมดตั้งแต่รุ่นแรก'
@@ -144,7 +144,7 @@ const stats = [
 		initValue: '50',
 		symbol: '%',
 		imgBg: new URL('$lib/assets/cheer-up.png', import.meta.url).href,
-		subtitle: 'จำนวนน้อง ๆ ที่ให้ฟิตแบตแก่ค่ายของเรา'
+		subtitle: 'จำนวนน้อง ๆ ที่ให้ฟีดแบคแก่ค่ายของเรา'
 	}
 ];
 
