@@ -14,8 +14,11 @@
 	import Footer from '$lib/views/Contract.svelte';
 	import Timeline from '$lib/views/Timeline.svelte';
 
+	// firebase
 	// setup google analytics
 	import { GoogleAnalytics } from '@beyonk/svelte-google-analytics';
+
+	
 	let ga = '';
 	if (window.location.host !== 'localhost') {
 		ga = import.meta.env.VITE_GA_ID;

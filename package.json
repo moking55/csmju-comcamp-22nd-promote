@@ -46,6 +46,7 @@
 		"@splinetool/runtime": "^0.9.490",
 		"animate.css": "^4.1.1",
 		"aos": "3.0.0-beta.6",
+		"firebase": "^10.5.2",
 		"mapbox-gl": "^2.15.0",
 		"svelte-device-info": "^1.0.0"
 	}

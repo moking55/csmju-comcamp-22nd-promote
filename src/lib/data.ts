@@ -281,6 +281,18 @@ const faq = [
 	}
 ];
 
+const activities = [
+	{
+		img: 'http://csmju.jowave.com/applications/compcamp/images/files-album/20190308051706_16300025_1320672387955400_2247972524156978446_o.jpg'
+	},
+	{
+		img: 'http://csmju.jowave.com/applications/compcamp/images/files-album/20190308051731_16251887_1320672394622066_5925347587428358662_o.jpg'
+	},
+	{
+		img: 'http://csmju.jowave.com/applications/compcamp/images/files-album/20190303204419_12594016_1029922417030400_3490586247053231210_o%20-%20Copy.jpg'
+	}
+];
+
 export {
 	aboutComcamp,
 	learningObjectives,
@@ -292,5 +304,6 @@ export {
 	sponsor,
 	contract,
 	actionMenu,
-	navbarMenu
+	navbarMenu,
+	activities
 };
