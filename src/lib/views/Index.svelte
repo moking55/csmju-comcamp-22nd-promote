@@ -4,7 +4,6 @@
 	import comcampLogo from '$lib/assets/comcamp-22nd-logo.png';
 	import { actionMenu } from '$lib/data';
 
-
 	export let isMobile: boolean;
 	let animatedInitial = false;
 	let splineSrc = import.meta.env.VITE_SPLICE_INDEX_SRC;
@@ -51,22 +50,27 @@
 		>
 			<div class="z-0">
 				<div class=" flex flex-col justify-center items-center">
-					<img
-						out:fly={{ y: -20, duration: 800 }}
-						class="csmju-logo contrast-150 opacity-80"
-						src={comcampLogo}
-						alt="comcamp-csmju-logo"
-					/>
+					<div class="relative">
+						<img
+							out:fly={{ y: -20, duration: 800 }}
+							class="csmju-logo z-10 contrast-100 opacity-90 md:opacity-100"
+							src={comcampLogo}
+							alt="comcamp-csmju-logo"
+						/>
+						<div
+							class="bg-primary-focus left-[20%] -z-10 top-1/4 pointer-events-none absolute aspect-square w-[50vw] lg:w-[25rem] rounded-full opacity-30 blur-3xl"
+						/>
+					</div>
 
 					<div
 						class="compcamp-char -mt-20 sm:-mt-28 gradient-heading from-primary to-secondary eng-font text-flicker-out-glow"
 					>
-						<span>COMPCAMP MJU</span>
+						<span>COMCAMP MJU</span>
 					</div>
 					<div
 						class="gradient-heading text-center text-xl font-bold from-accent to-primary tracking-widest eng-font text-flicker-out-glow"
 					>
-						<span>Open 31 October - 30 December 2023</span>
+						<span class="text-sm md:text-base lg:text-lg">Open 29 November 2023</span>
 					</div>
 				</div>
 				<div id="register-button-container" class="flex mt-10 justify-center">

@@ -1,4 +1,7 @@
-<script>
+<script context="module" lang="ts">
+</script>
+
+<script lang="ts">
 	import './../app.postcss';
 	import 'aos/dist/aos.css';
 	// import './../../'
@@ -11,4 +14,3 @@
 </script>
 
 <slot />
-

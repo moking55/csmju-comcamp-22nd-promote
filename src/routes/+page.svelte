@@ -25,6 +25,7 @@
 	}
 
 	let y = 0;
+	
 	let isMobile = Device.isMobile;
 </script>
 

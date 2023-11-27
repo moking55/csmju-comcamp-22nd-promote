@@ -1,41 +1,41 @@
 const navbarMenu = [
 	{
-		label: 'About',
-		yValue: 300,
+		label: 'เกี่ยวกับ',
+		yValue: 200,
 		ref: '#about-comcamp-section'
 	},
 	{
-		label: 'Learning',
+		label: 'เรียนรู้',
 		ref: '#learning-section',
-		yValue: 1000
+		yValue: 900
 	},
 	{
-		label: 'Statistics',
+		label: 'สถิติ',
 		ref: '#stats-section',
-		yValue: 4800
+		yValue: 4500
 	},
 	{
-		label: 'Review',
+		label: 'รีวิว',
 		ref: '#review-section',
 		yValue: 5300
 	},
 	{
-		label: 'Benefits',
+		label: 'สิ่งที่ได้รับ',
 		ref: '#benefit-section',
 		yValue: 6400
 	},
 	{
-		label: 'Timeline',
+		label: 'ไทม์ไลน์',
 		ref: '#timeline-section',
 		yValue: 7500
 	},
 	{
-		label: 'FAQ',
+		label: 'คำถาม',
 		ref: '#faq-section',
 		yValue: 9500
 	},
 	{
-		label: 'Contact',
+		label: 'ติดต่อ',
 		ref: '#contact-section',
 		yValue: 9880
 	}
@@ -44,8 +44,8 @@ const navbarMenu = [
 const actionMenu = [
 	{
 		name: 'register',
-		label: 'Join Us',
-		link: 'https://www.t.ly/WrPi8'
+		label: 'เข้าร่วม',
+		link: '/authentication'
 	}
 ];
 
@@ -97,7 +97,7 @@ const benefits = [
 
 const timeline = [
 	{
-		date: new Date('2023-10-31'),
+		date: new Date('2023-11-29'),
 		title: 'เปิดรับสมัคร'
 	},
 	{
@@ -109,11 +109,11 @@ const timeline = [
 		title: 'ประกาศรายชื่อ'
 	},
 	{
-		date: new Date('2024-02-23'),
+		date: new Date('2024-03-08'),
 		title: 'เปิดค่าย'
 	},
 	{
-		date: new Date('2024-02-25'),
+		date: new Date('2024-03-10'),
 		title: 'ปิดค่าย'
 	}
 ];
@@ -281,17 +281,20 @@ const faq = [
 	}
 ];
 
-const activities = [
-	{
-		img: 'http://csmju.jowave.com/applications/compcamp/images/files-album/20190308051706_16300025_1320672387955400_2247972524156978446_o.jpg'
-	},
-	{
-		img: 'http://csmju.jowave.com/applications/compcamp/images/files-album/20190308051731_16251887_1320672394622066_5925347587428358662_o.jpg'
-	},
-	{
-		img: 'http://csmju.jowave.com/applications/compcamp/images/files-album/20190303204419_12594016_1029922417030400_3490586247053231210_o%20-%20Copy.jpg'
-	}
-];
+const imgGallery = {
+	galleryOne: [
+		new URL('$lib/assets/activity/img_1.jpeg', import.meta.url).href,
+		new URL('$lib/assets/activity/img_2.jpeg', import.meta.url).href,
+		new URL('$lib/assets/activity/img_3.jpeg', import.meta.url).href,
+		new URL('$lib/assets/activity/img_4.jpeg', import.meta.url).href
+	],
+	galleryTwo: [
+		new URL('$lib/assets/activity/img_5.jpeg', import.meta.url).href,
+		new URL('$lib/assets/activity/img_6.jpeg', import.meta.url).href,
+		new URL('$lib/assets/activity/img_7.jpeg', import.meta.url).href,
+		new URL('$lib/assets/activity/img_8.jpeg', import.meta.url).href
+	]
+};
 
 export {
 	aboutComcamp,
@@ -305,5 +308,5 @@ export {
 	contract,
 	actionMenu,
 	navbarMenu,
-	activities
+	imgGallery
 };
