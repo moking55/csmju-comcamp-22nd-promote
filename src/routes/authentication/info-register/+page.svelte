@@ -10,7 +10,6 @@
 	import { auth as authStore } from '$lib/firebase/actions/authAction';
 	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
-	import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte';
 	import { onAuthStateChanged } from 'firebase/auth';
 	import { initFirebase } from '$lib/firebase/config';
 	import Swal from 'sweetalert2';

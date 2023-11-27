@@ -1,5 +1,5 @@
-import parentPermissionFile from '$lib/assets/files/parent-permisson.pdf';
-import scheduleImageFile from '$lib/assets/files/schedule-2.png';
+import parentPermissionFile from '$lib/assets/files/parent-permison-image-2.png';
+import scheduleImageFile from '$lib/assets/files/schedule.pdf';
 
 const menu = [
 	{
