@@ -3,7 +3,7 @@
 	import { benefits } from '$lib/data';
 </script>
 
-<section id="benefit-section" class="container mx-auto flex flex-col gap-32">
+<section class="container mx-auto flex flex-col gap-32">
 	<div id="topic" class="flex justify-center">
 		<article class="prose-lg lg:prose-2xl text-center mx-3">
 			<h2
@@ -29,6 +29,7 @@
 			</h3>
 		</article>
 	</div>
+	<div id="benefit-section" />
 	<div class="grid gap-y-20 md:grid-cols-2 xl:grid-cols-4">
 		{#each benefits as data}
 			<HologramCard {data} />

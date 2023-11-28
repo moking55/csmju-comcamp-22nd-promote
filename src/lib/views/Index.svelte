@@ -75,7 +75,6 @@
 				</div>
 				<div id="register-button-container" class="flex mt-10 justify-center">
 					<a
-						target="_blank"
 						href={actionMenu.find((a) => a.name === 'register')?.link}
 						class="btn btn-accent btn-md"
 						role="button">Join Now</a
