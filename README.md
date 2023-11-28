@@ -1,38 +1,55 @@
-# create-svelte
+# Comcamp CS-MJU promote project
+For Comcamp CS-MJU 22nd promote website, This include the promote webpage, Authentication, User Registration, User Dashboard, and Admin Control Dashboard.
+These list below include important sections which can be describe as 
+## The Promote web page
+Web page promoter for Comcamp CS-MJU, Section would include the following
+- Index 
+- About Comcamp
+- Learning Scope
+- Statistic
+- Review
+- Benefits
+- Timeline
+- FAQ
+- Contact
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+## Authentication
+Handle Authentication for User and Admin
 
-## Creating a project
+## User Information Registration
 
-If you're seeing this, you've probably already done this step. Congrats!
+## User Dashboard
+User can handling their personal information and evidence, and managing their notification. Which can be list as the following
+- User Information
+- User Evidence Handle
+- User Notification 
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+## Admin Control Dashboard
+Admin can handling all evidence and message request from user, also sending the message back to the user, and can managing user list
+- Request List
+- Sent-back List
+- User List
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+## Changelog
+These list include keep track only important changed, Which can be list as the following 
 
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+### 1.0.0 Created:Init Promote web page
+### 1.0.1 Patch: fixed TikTok widget in Contact Section on Promote web page
+### 1.0.2 implemented: Authentication implementation
+- Init: Firebase init
+- Created: User Authentication
+- Created: Admin Authentication
+### 1.0.3 implemented: User Information Registration implementation  
+- Created: User Authentication
+### 1.0.4 implemented: User Dashboard implementation
+- Add: user information handler
+- Add: payment proof evidence sending system   
+- Add: parent permission proof evidence sending system   
+- Add: image and file storage system (Cloudinary)
+- Add: user notification handler 
+### 1.0.5 implemented: Admin Control Dashboard implementation
+- Add: request handler (user's evidence request)
+- Add: sent-back handler handler 
+- Add: User list
+- implemented: filter list on request and User list. 
+- implemented: sorting properties on request and User list. 
