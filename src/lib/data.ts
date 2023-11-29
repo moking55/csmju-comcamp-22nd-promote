@@ -282,18 +282,31 @@ const faq = [
 ];
 
 const imgGallery = {
+	// galleryOne: [
+	// 	new URL('$lib/assets/activity/img_1.jpeg', import.meta.url).href,
+	// 	new URL('$lib/assets/activity/img_2.jpeg', import.meta.url).href,
+	// 	new URL('$lib/assets/activity/img_3.jpeg', import.meta.url).href,
+	// 	new URL('$lib/assets/activity/img_4.jpeg', import.meta.url).href
+	// ],
+	// galleryTwo: [
+	// 	new URL('$lib/assets/activity/img_5.jpeg', import.meta.url).href,
+	// 	new URL('$lib/assets/activity/img_6.jpeg', import.meta.url).href,
+	// 	new URL('$lib/assets/activity/img_7.jpeg', import.meta.url).href,
+	// 	new URL('$lib/assets/activity/img_8.jpeg', import.meta.url).href
+	// ]
 	galleryOne: [
-		new URL('$lib/assets/activity/img_1.jpeg', import.meta.url).href,
-		new URL('$lib/assets/activity/img_2.jpeg', import.meta.url).href,
-		new URL('$lib/assets/activity/img_3.jpeg', import.meta.url).href,
-		new URL('$lib/assets/activity/img_4.jpeg', import.meta.url).href
+		'assets/activity/img_1.jpeg',
+		'assets/activity/img_2.jpeg',
+		'assets/activity/img_3.jpeg',
+		'assets/activity/img_4.jpeg'
 	],
 	galleryTwo: [
-		new URL('$lib/assets/activity/img_5.jpeg', import.meta.url).href,
-		new URL('$lib/assets/activity/img_6.jpeg', import.meta.url).href,
-		new URL('$lib/assets/activity/img_7.jpeg', import.meta.url).href,
-		new URL('$lib/assets/activity/img_8.jpeg', import.meta.url).href
-	]
+		'assets/activity/img_5.jpeg',
+		'assets/activity/img_6.jpeg',
+		'assets/activity/img_7.jpeg',
+		'assets/activity/img_8.jpeg'
+	],
+	baseUrl: import.meta.url
 };
 
 export {

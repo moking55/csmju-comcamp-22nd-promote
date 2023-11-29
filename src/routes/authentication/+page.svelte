@@ -21,6 +21,16 @@
 		tablet: Device.isTablet
 	};
 
+	function resolveURLAsPromise(relativePath: string, baseURL: string): Promise<string> {
+		return new Promise((resolve, reject) => {
+			try {
+				const url = new URL(relativePath, baseURL).href;
+				resolve(url);
+			} catch (error) {
+				reject(error);
+			}
+		});
+	}
 	onMount(() => {
 		const { auth } = initFirebase();
 		promise = new Promise((resolve, reject) => {
@@ -71,23 +81,44 @@
 					<div class="absolute top-1/2 space-y-2 -translate-y-1/2 slice-animate-first -left-1/2">
 						<div id="card-image-container" class="flex items-center opacity-50 gap-2">
 							{#each Array.from({ length: 2 }, (v, i) => i) as item}
-								{#each imgGallery.galleryOne as src}
-									<div class="w-[24rem] bg-base-100 shadow-xl">
-										<figure>
-											<img class="on-image-hovering rounded-md" {src} alt="img" />
-										</figure>
-									</div>
+								{#each imgGallery.galleryOne as filePath}
+									{#await resolveURLAsPromise(filePath, imgGallery.baseUrl)}
+										<!-- promise is pending -->
+										<div
+											class="w-[24rem] h-48 bg-base-100 blur-sm grid place-content-center shadow-xl"
+										>
+											<figure>
+												<span class="loading text-base-content loading-spinner loading-lg" />
+											</figure>
+										</div>
+									{:then src}
+										<div class="w-[24rem] bg-base-100 shadow-xl">
+											<figure>
+												<img class="on-image-hovering rounded-md" {src} alt="img" />
+											</figure>
+										</div>
+									{/await}
 								{/each}
 							{/each}
 						</div>
 						<div id="card-image-container" class="flex items-center opacity-50 gap-2">
 							{#each Array.from({ length: 2 }, (v, i) => i) as item}
-								{#each imgGallery.galleryTwo as src}
-									<div class="w-[24rem] bg-base-100 shadow-xl">
-										<figure>
-											<img class="on-image-hovering rounded-md" {src} alt="img" />
-										</figure>
-									</div>
+								{#each imgGallery.galleryTwo as filePath}
+									{#await resolveURLAsPromise(filePath, imgGallery.baseUrl)}
+										<div
+											class="w-[24rem] h-48 bg-base-100 blur-sm grid place-content-center shadow-xl"
+										>
+											<figure>
+												<span class="loading text-base-content loading-spinner loading-lg" />
+											</figure>
+										</div>
+									{:then src}
+										<div class="w-[24rem] bg-base-100 shadow-xl">
+											<figure>
+												<img class="on-image-hovering rounded-md" {src} alt="img" />
+											</figure>
+										</div>
+									{/await}
 								{/each}
 							{/each}
 						</div>
