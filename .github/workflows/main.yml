@@ -1,0 +1,36 @@
+name: Build and Deploy to SFTP Server
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: |
+          pnpm install
+
+      - name: Build project
+        run: |
+          pnpm run build
+
+      - name: Upload files to SFTP server
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
+        with:
+            username: ${{ secrets.SSH_USERNAME }}
+            server: ${{ secrets.SSH_IP }}
+            port: ${{ secrets.SSH_PORT }}
+            local_path: './dist/*'
+            remote_path: '/comcamp/test'
+            sftp_only: true
+            password: ${{ secrets.SSH_PASSWORD }}
