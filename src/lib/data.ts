@@ -105,15 +105,15 @@ const timeline = [
 		title: 'ปิดรับสมัคร'
 	},
 	{
-		date: new Date('2024-01-01'),
+		date: new Date('2024-01-20'),
 		title: 'ประกาศรายชื่อ'
 	},
 	{
-		date: new Date('2024-03-08'),
+		date: new Date('2024-02-08'),
 		title: 'เปิดค่าย'
 	},
 	{
-		date: new Date('2024-03-10'),
+		date: new Date('2024-02-10'),
 		title: 'ปิดค่าย'
 	}
 ];
@@ -220,6 +220,14 @@ const contract = {
 		{
 			name: 'พี่โอม',
 			tel: '095-658-5160'
+		},
+		{
+			name: 'พี่มิ้น',
+			tel: '098-009-2912'
+		},
+		{
+			name: 'พี่ไอซ์',
+			tel: '094-334-2059'
 		}
 	],
 	location: {

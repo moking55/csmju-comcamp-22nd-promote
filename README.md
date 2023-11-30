@@ -53,3 +53,13 @@ These list include keep track only important changed, Which can be list as the f
 - Add: User list
 - implemented: filter list on request and User list. 
 - implemented: sorting properties on request and User list. 
+### 1.0.6 patch & implemented: User and Admin features implementation
+#### Patch
+- Patched: Correct word mistakes
+- Patched: UI improvement
+- Patched: Input placeholder for user information register 
+- Add: Add proofs for payment and parent submission
+- Interface implemented: UserInfo had contacts object contained such an LineId, Facebook Link, parent telephone and other contact
+- Implemented: Edit UserInfo feature
+- Implemented: UserInfo Adapting on Admin Dashboard
+- Implemented: Delete User feature that will associated to Notification, List, Cloudinary assets, and (not now) User Credential

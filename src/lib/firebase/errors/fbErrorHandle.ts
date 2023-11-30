@@ -20,6 +20,6 @@ export default function FirebaseErrorHandle(err: FirebaseError) {
 		case 'auth/invalid-password	':
 			return 'รหัสผ่านไม่ถูกต้อง';
 		default:
-			return 'เกิดข้อผิดพลาดบางอย่าง กรุณาลองใหม่อีกครั้ง';
+			return err.message;
 	}
 }

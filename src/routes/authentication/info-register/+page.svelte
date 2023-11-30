@@ -3,22 +3,29 @@
 	import 'iconify-icon';
 	import type { UserInfo } from '$lib/firebase/actions/userAction';
 	import { z } from 'zod';
-	import { checkAndSetUserData, createUserData } from '$lib/firebase/actions/userAction';
+	import {
+		checkAndSetUserData,
+		createUserData,
+		updateUserData
+	} from '$lib/firebase/actions/userAction';
 	import { Toast } from '$lib/middleware/alertConfig';
 	import { superForm, superValidateSync } from 'sveltekit-superforms/client';
 	import { Timestamp } from 'firebase/firestore';
 	import { auth as authStore } from '$lib/firebase/actions/authAction';
 	import { goto } from '$app/navigation';
-	import { onMount } from 'svelte';
+	import { onMount, onDestroy } from 'svelte';
 	import { onAuthStateChanged } from 'firebase/auth';
 	import { initFirebase } from '$lib/firebase/config';
 	import Swal from 'sweetalert2';
+
 
 	// write regex to filter only digits
 
 	const digitOnlyReg = /^\d+$/;
 	let loadingWhileSubmit = false;
 	let promise: Promise<unknown>;
+	let onWriteReasonForJoining = false;
+	let onEdit = false;
 
 	const userInfoSchema = z.object({
 		contractEmail: z.string().email(),
@@ -38,12 +45,16 @@
 		congenitalDisease: z.string().min(1, 'กรุณากรอก'),
 		drugAllergy: z.string().optional(),
 		foodAllergy: z.string().optional(),
-		reasonForJoining: z.string().min(1, 'กรุณากรอก'),
-		haveLaptop: z.boolean().optional()
+		reasonForJoining: z.string().optional(),
+		haveLaptop: z.boolean().optional(),
+		lineId: z.string(),
+		facebookLink: z.string(),
+		parentContact: z.string(),
+		otherContact: z.string().optional()
 	});
 
 	const info = {
-		educationLevel: ['มัธยมศึกษาปีที่ 4', 'มัธยมศึกษาปีที่ 5', 'มัธยมศึกษาปีที่ 6', 'ปวช.', 'ปวส.'],
+		educationLevel: ['มัธยมศึกษาปีที่ 4', 'มัธยมศึกษาปีที่ 5', 'มัธยมศึกษาปีที่ 6', 'ปวช.'],
 		shirtSizes: [
 			{
 				label: 'XS (รอบอบ = 34 นิ้ว ความยาว = 25 นิ้ว)',
@@ -90,8 +101,7 @@
 		onSubmit({ formData }) {
 			// extract properties from formData type of UserData with Object.fromEntries
 			Swal.fire({
-				title: 'ต้องการบันทึข้อมูลหรือไม่',
-				text: 'หลักจากบันทึกเสร็จ ข้อมูลที่ถูกบันทึกจะไม่สามารถแก้ไข้ได้',
+				title: 'ต้องการบันทึกข้อมูลหรือไม่',
 				icon: 'warning',
 				showCancelButton: true,
 				confirmButtonColor: '#3085d6',
@@ -113,10 +123,15 @@
 						school,
 						congenitalDisease,
 						drugAllergy,
+						eduLevel,
 						foodAllergy,
 						shirtSize,
 						reasonForJoining,
-						haveLaptop
+						haveLaptop,
+						lineId,
+						facebookLink,
+						parentContact,
+						otherContact
 					} = Object.fromEntries(formData) as unknown as {
 						contractEmail: string;
 						prefix: string;
@@ -133,10 +148,20 @@
 						shirtSize: string;
 						reasonForJoining: string;
 						haveLaptop: 'on' | 'off';
+						lineId: string;
+						facebookLink: string;
+						parentContact: string;
+						otherContact: string | undefined;
 					};
 
 					const userData: UserInfo = {
-						contractEmail,
+						contacts: {
+							contractEmail,
+							parentContact,
+							lineId,
+							otherContact,
+							facebookLink
+						},
 						prefix,
 						name,
 						nickname,
@@ -144,7 +169,7 @@
 						phone,
 						school,
 						age: +age,
-						eduLevel: $form.eduLevel,
+						eduLevel,
 						shirtSize,
 						congenitalDisease,
 						drugAllergy,
@@ -154,37 +179,84 @@
 					};
 
 					if ($authStore) {
-						createUserData($authStore.uid, $authStore.email!, userData).then(() => {
-							checkAndSetUserData($authStore!.uid).then((userData) => {
-								if (!userData) {
+						if (!onEdit) {
+							createUserData($authStore.uid, $authStore.email!, userData).then(() => {
+								checkAndSetUserData($authStore!.uid).then((userData) => {
+									if (!userData) {
+										loadingWhileSubmit = false;
+										return Toast.fire({
+											icon: 'error',
+											title: 'มีบางอย่างผิดผลาดขณะบันทึกข้อมูล, โปรดลองใหม่'
+										});
+									}
 									loadingWhileSubmit = false;
-									return Toast.fire({
-										icon: 'error',
-										title: 'มีบางอย่างผิดผลาดขณะบันทึกข้อมูล, โปรดลองใหม่'
+									Toast.fire({
+										icon: 'success',
+										title: 'บันทึกข้อมูลสำเร็จ'
+									}).then(() => {
+										window.addEventListener('beforeunload', (event) => {
+											event.preventDefault();
+											event.returnValue = ''; // This is required for Chrome
+										});
+										goto('/dashboard');
 									});
-								}
-								loadingWhileSubmit = false;
-								Toast.fire({
-									icon: 'success',
-									title: 'บันทึกข้อมูลสำเร็จ'
-								}).then(() => {
-									goto('/dashboard');
 								});
 							});
-						});
+						} else {
+							updateUserData($authStore.uid, userData).then(() => {
+								checkAndSetUserData($authStore!.uid).then((userData) => {
+									if (!userData) {
+										loadingWhileSubmit = false;
+										return Toast.fire({
+											icon: 'error',
+											title: 'มีบางอย่างผิดผลาดขณะบันทึกข้อมูล, โปรดลองใหม่'
+										});
+									}
+									loadingWhileSubmit = false;
+									Toast.fire({
+										icon: 'success',
+										title: 'บันทึกข้อมูลสำเร็จ'
+									}).then(() => {
+										window.addEventListener('beforeunload', (event) => {
+											event.preventDefault();
+											event.returnValue = ''; // This is required for Chrome
+										});
+										goto('/dashboard');
+									});
+								});
+							});
+						}
 					}
 				}
 			});
 		}
 	});
+	function setFormData(userInfo: UserInfo) {
+		onEdit = true;
+
+		$form = {
+			...userInfo,
+			birthDate: userInfo.birthDate.toDate().toISOString().split('T')[0]
+		} as unknown as UserInfo;
+	}
 
 	onMount(() => {
 		const { auth } = initFirebase();
 		promise = new Promise((resolve, reject) => {
 			try {
-				onAuthStateChanged(auth, (data) => {
+				onAuthStateChanged(auth, async (data) => {
 					authStore.set(data);
 					if (!data) resolve(goto('/authentication'));
+
+					const userData = await checkAndSetUserData(data!.uid);
+					const edit = localStorage.getItem('edit');
+					console.log(edit);
+					if (edit && edit === 'true') {
+						setFormData(userData!.info);
+						resolve(localStorage.removeItem('edit'));
+						return;
+					}
+					if (userData) resolve(goto('/dashboard'));
 					resolve(data);
 				});
 			} catch (err) {
@@ -222,18 +294,17 @@
 								<div class="flex-grow w-1/12 pr-2">
 									<select
 										aria-invalid={$errors.prefix ? 'true' : undefined}
-										bind:value={$form.prefix}
-										{...$constraints.prefix}
 										name="prefix"
 										id="prefix"
+										required={true}
+										value={$form.prefix ?? 'คำนำหน้า'}
 										placeholder="คำนำหน้า"
 										class="select text-base-200 placeholder-black select-bordered w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
 									>
-										<option disabled selected class="text-base-200">เลือก</option>
+										<option class="text-base-200" selected disabled>คำนำหน้า</option>
 										<option class="text-base-200" value="นาย">นาย</option>
 										<option class="text-base-200" value="นาง">นาง</option>
 									</select>
-									<p class="text-sm text-error">{$errors.prefix ?? ''}</p>
 								</div>
 								<div class="flex-grow">
 									<input
@@ -243,7 +314,7 @@
 										type="text"
 										name="name"
 										id="name"
-										placeholder="ชื่อเต็ม"
+										placeholder="ชื่อ นามสกุล"
 										class=" text-base-200 placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
 									/>
 									<p class="text-sm text-error">{$errors.name ?? ''}</p>
@@ -285,15 +356,14 @@
 								<div class="flex-grow w-1/4">
 									<input
 										aria-invalid={$errors.age ? 'true' : undefined}
-										bind:value={$form.age}
-										{...$constraints.age}
 										name="age"
 										id="age"
+										required={true}
 										type="number"
+										value={$form.age ?? 'อายุ'}
 										placeholder="อายุ"
 										class="  text-base-200 placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
 									/>
-									<p class="text-sm text-error">{$errors.age ?? ''}</p>
 								</div>
 								<div class="flex-grow">
 									<input
@@ -324,6 +394,57 @@
 						<div class="flex">
 							<div class="flex-1 py-5 pl-5 overflow-hidden">
 								<h1 class="inline text-2xl text-black font-semibold leading-none">
+									<iconify-icon icon="ph:phone" /> Contact Channels
+								</h1>
+							</div>
+							<div class="flex-none pt-2.5 pr-2.5 pl-1" />
+						</div>
+						<div class="px-5 pb-5">
+							<input
+								aria-invalid={$errors.lineId ? 'true' : undefined}
+								bind:value={$form.lineId}
+								{...$constraints.lineId}
+								name="lineId"
+								id="lineId"
+								placeholder="Line ID"
+								class="  text-base-200 placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
+							/>
+							<p class="text-sm text-error">{$errors.lineId ?? ''}</p>
+							<input
+								aria-invalid={$errors.facebookLink ? 'true' : undefined}
+								bind:value={$form.facebookLink}
+								{...$constraints.facebookLink}
+								name="facebookLink"
+								id="facebookLink"
+								placeholder="Facebook Link"
+								class="  text-base-200 placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
+							/>
+							<p class="text-sm text-error">{$errors.facebookLink ?? ''}</p>
+							<input
+								aria-invalid={$errors.parentContact ? 'true' : undefined}
+								bind:value={$form.parentContact}
+								{...$constraints.parentContact}
+								name="parentContact"
+								id="parentContact"
+								placeholder="เบอร์ติดต่อผู้ปกครอง"
+								class="  text-base-200 placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
+							/>
+							<p class="text-sm text-error">{$errors.parentContact ?? ''}</p>
+							<input
+								aria-invalid={$errors.otherContact ? 'true' : undefined}
+								bind:value={$form.otherContact}
+								{...$constraints.otherContact}
+								name="otherContact"
+								id="otherContact"
+								placeholder="ช่องทางติดต่ออื่น ๆ (ถ้ามีให้เขียนในลักษณะแบบ ช่องทางติดต่อ: ข้อมูลติดต่อ)"
+								class="  text-base-200 placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
+							/>
+							<p class="text-sm text-error">{$errors.otherContact ?? ''}</p>
+						</div>
+
+						<div class="flex">
+							<div class="flex-1 py-5 pl-5 overflow-hidden">
+								<h1 class="inline text-2xl text-black font-semibold leading-none">
 									<iconify-icon icon="material-symbols:school-outline" /> Education
 								</h1>
 							</div>
@@ -343,20 +464,19 @@
 							<p class="text-sm text-error">{$errors.school ?? ''}</p>
 							<select
 								aria-invalid={$errors.eduLevel ? 'true' : undefined}
-								bind:value={$form.eduLevel}
+								required
 								name="eduLevel"
 								id="eduLevel"
+								value={$form.eduLevel ?? 'ระดับการศึกษา'}
 								placeholder="ระดับการศึกษา"
 								class="select text-base-200 placeholder-gray-600 select-bordered w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
 							>
-								<option disabled selected class="text-base-200">เลือก</option>
+								<option disabled selected class="text-base-200">ระดับการศึกษา</option>
 								{#each info.educationLevel as level}
 									<option class="text-base-200" value={level}>{level}</option>
 								{/each}
-								<option class="text-base-200" value="">อื่น ๆ</option>
 							</select>
-							<p class="text-sm text-error">{$errors.eduLevel ?? ''}</p>
-							{#if !info.educationLevel.includes($form.eduLevel)}
+							<!-- {#if !info.educationLevel.includes($form.eduLevel)}
 								<input
 									class="text-base-200 placeholder-gray-600 select-bordered w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
 									type="text"
@@ -365,7 +485,7 @@
 									{...$constraints.eduLevel}
 									aria-invalid={$errors.eduLevel ? 'true' : undefined}
 								/>
-							{/if}
+							{/if} -->
 						</div>
 						<div class="flex">
 							<div class="flex-1 py-5 pl-5 overflow-hidden">
@@ -376,6 +496,7 @@
 							</div>
 							<div class="flex-none pt-2.5 pr-2.5 pl-1" />
 						</div>
+
 						<div class="px-5 pb-5">
 							<input
 								name="congenitalDisease"
@@ -392,7 +513,7 @@
 							<input
 								name="foodAllergy"
 								id="foodAllergy"
-								placeholder="แพ้อาหาร"
+								placeholder="แพ้อาหารหรือรับประทานอาหารอะไรไม่ได้บ้าง"
 								class="  text-base-200 placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
 							/>
 						</div>
@@ -422,7 +543,7 @@
 									<label for="shirtSize" class="label-text cursor-pointer text-base-100">
 										ขนาดเสื้อค่าย
 									</label>
-									<span class="text-sm text-error">{$errors.eduLevel ?? ''}</span>
+									<span class="text-sm text-error">{$errors.shirtSize ?? ''}</span>
 								</li>
 								<select
 									aria-invalid={$errors.shirtSize ? 'true' : undefined}
@@ -440,21 +561,56 @@
 								</select>
 
 								<li class="text-base-100 space-x-6">
-									<label for="haveLaptop" class="label-text cursor-pointer text-base-100">
-										เหตุผลในการเข้าร่วม
+									<label for="reasonForJoining" class="label-text cursor-pointer text-base-100">
+										เขียนเหตุผลในการเข้าร่วม (เขียนหรือไม่เขียนก็ได้)
 									</label>
+									<input bind:checked={onWriteReasonForJoining} type="checkbox" />
 									<span class="text-sm text-error">{$errors.reasonForJoining ?? ''}</span>
 								</li>
-								<textarea
-									aria-invalid={$errors.reasonForJoining ? 'true' : undefined}
-									bind:value={$form.reasonForJoining}
-									{...$constraints.reasonForJoining}
-									rows="4"
-									class=" text-base-200 placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
-									name="reasonForJoining"
-									id="reasonForJoining"
-								/>
+								{#if onWriteReasonForJoining}
+									<!-- content here -->
+									<textarea
+										aria-invalid={$errors.reasonForJoining ? 'true' : undefined}
+										bind:value={$form.reasonForJoining}
+										{...$constraints.reasonForJoining}
+										rows="4"
+										class=" text-base-200 placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
+										name="reasonForJoining"
+										id="reasonForJoining"
+									/>
+								{/if}
 							</ol>
+						</div>
+						<div class="flex">
+							<div class="flex-1 py-5 pl-5 overflow-hidden">
+								<h1 class="inline text-2xl text-black font-semibold leading-none">
+									<iconify-icon icon="icon-park-solid:agreement" /> Agreement
+								</h1>
+								<p class="text-sm text-base-100">
+									การที่คุณกดยอมรับเป็นการยืนยันว่าคุณได้ยอมรับข้อตกลง และยอมรับกฏจากทางโครงการ*
+								</p>
+							</div>
+							<div class="flex-none pt-2.5 pr-2.5 pl-1" />
+						</div>
+						<div class="px-5 pb-5">
+							<div class="flex">
+								<div class="">
+									<input required name="permission" id="permission" type="checkbox" class="mr-4" />
+								</div>
+								<div class="font-semibold">
+									<span class="  label-text text-base-100">
+										หากนักเรียนนำสิ่งของมีค่า อาทิเช่น โทรศัพท์มือถือ โน๊ตบุ๊ค แท๊บเล็ต
+										มาใช้ในค่ายหากเกิดการสูญหายทาง ชมรม จะไม่รับผิดชอบใด ๆ ทั้งสิ้น
+									</span>
+									<p class="label-text text-base-100">
+										ยกเว้นแต่ว่าจะยินยอมให้ทำการเก็บและจะคืนให้ในวันปิดกิจกรรม
+									</p>
+									<p class="  label-text text-base-100">
+										ถ้านักเรียนมีความ
+										จำเป็นที่ต้องการติดต่อกับผู้ปกครองทางค่ายจะมีพี่เลี้ยงจะประสานงานติดต่อให้เรียนมาเพื่อทราบ
+									</p>
+								</div>
+							</div>
 						</div>
 						<hr class="mt-4" />
 						<div class="flex flex-row-reverse p-3">
@@ -494,3 +650,15 @@
 {:catch errors}
 	<Error550 {errors} />
 {/await}
+
+<style lang="postcss">
+	input[type='date']::-webkit-calendar-picker-indicator {
+		color: rgba(0, 0, 0, 0);
+		opacity: 1;
+		display: block;
+		background: url(https://mywildalberta.ca/images/GFX-MWA-Parks-Reservations.png) no-repeat;
+		width: 20px;
+		height: 20px;
+		border-width: thin;
+	}
+</style>

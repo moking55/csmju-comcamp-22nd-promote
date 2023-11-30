@@ -1,3 +1,27 @@
+<script context="module" lang="ts">
+	export function getStatus(
+		status: boolean | undefined,
+		user: User
+	): 'success' | 'warning' | 'pending' {
+		if (status) {
+			return 'success';
+		} else if (user?.assets.paymentReceiptSrc && user?.assets.parentPermissionSrc) {
+			return 'pending';
+		} else {
+			return 'warning';
+		}
+	}
+
+	export let getStatusText = (status: 'success' | 'warning' | 'pending') => {
+		const statusMap = {
+			pending: 'รอการตรวจสอบ',
+			success: 'ผ่านการตรวจสอบ',
+			warning: 'ยังไม่ได้ส่งหลักฐาน'
+		};
+		return statusMap[status];
+	};
+</script>
+
 <script lang="ts">
 	import DashboardSekeletonLoading from './../../lib/components/assets/DashboardSekeletonLoading.svelte';
 	import Error550 from '$lib/components/errors/Error550.svelte';
@@ -7,21 +31,11 @@
 	import { Toast } from '$lib/middleware/alertConfig';
 	import { onDestroy, onMount } from 'svelte';
 	import { page } from '$app/stores';
-	import { checkAndSetUserData, userData } from '$lib/firebase/actions/userAction';
+	import { checkAndSetUserData, userData, type User } from '$lib/firebase/actions/userAction';
 	import { filesDownloader, menu } from '$lib/dashboardData';
 	import { cloudinaryConfig } from '$lib/config/cloundinary';
 	import { initFirebase } from '$lib/firebase/config';
 	import { onAuthStateChanged } from 'firebase/auth';
-
-	function getStatus(status: boolean | undefined): 'success' | 'warning' | 'pending' {
-		if (status) {
-			return 'success';
-		} else if ($userData?.assets.paymentReceiptSrc && $userData?.assets.parentPermissionSrc) {
-			return 'pending';
-		} else {
-			return 'warning';
-		}
-	}
 
 	let statusDesc = [
 		'1. ยังไม่ได้ส่งหลักฐาน : ส่งหลักฐานไม่ครบ \n',
@@ -29,23 +43,14 @@
 		'3. ผ่านการตรวจสอบ: ผ่านการอนุมัติของโครงการ \n'
 	];
 
-	let getStatusText = (status: 'success' | 'warning' | 'pending') => {
-		const statusMap = {
-			pending: 'รอการตรวจสอบ',
-			success: 'ผ่านการตรวจสอบ',
-			warning: 'ยังไม่ได้ส่งหลักฐาน'
-		};
-		return statusMap[status];
-	};
+	let statusText: string;
+	let status: ReturnType<typeof getStatus>;
 
 	function singOut() {
 		signOutUser().then(() => {
 			return goto('/');
 		});
 	}
-
-	let statusText: string;
-	let status: ReturnType<typeof getStatus>;
 
 	onMount(() => {
 		initFirebase();
@@ -68,8 +73,10 @@
 	});
 
 	const sub = userData.subscribe((data) => {
-		status = getStatus(data?.status);
-		statusText = getStatusText(status);
+		if ($userData) {
+			status = getStatus(data?.status, $userData);
+			statusText = getStatusText(status);
+		}
 	});
 
 	onDestroy(sub);
@@ -108,7 +115,7 @@
 							</div>
 							<ul
 								tabindex="0"
-								class="dropdown-content z-[1] menu p-2 mt-4 shadow bg-base-300 rounded-box w-52"
+								class="dropdown-content z-10 menu p-2 mt-4 shadow bg-base-300 rounded-box w-52"
 							>
 								{#each menu as list}
 									<li class:list-active={$page.url.pathname === list.path}>

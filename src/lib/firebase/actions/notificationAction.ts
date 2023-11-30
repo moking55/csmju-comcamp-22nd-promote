@@ -11,7 +11,8 @@ import {
 	getDocs,
 	doc,
 	updateDoc,
-	where
+	where,
+	deleteDoc
 } from 'firebase/firestore';
 
 const { db } = initFirebase();
@@ -43,7 +44,7 @@ export async function getNotification(userUid?: string) {
 			...(doc.data() as Notification),
 			description: new Delta(JSON.parse(doc.data().description)),
 			uId: doc.id
-		}));
+		})) as Notification[];
 		return notification;
 	} catch (error) {
 		throw new Error(error as string);
@@ -53,6 +54,11 @@ export async function getNotification(userUid?: string) {
 export function sendNotificationToUser(notification: NotificationData) {
 	// Add the notification to the "notification" collection
 	return addDoc(collection(db, 'notification'), notification);
+}
+
+export function deleteNotification(notification: Notification) {
+	const ref = doc(db, 'notification', notification.uId);
+	return deleteDoc(ref);
 }
 
 export function updateNotification(notification: Notification) {

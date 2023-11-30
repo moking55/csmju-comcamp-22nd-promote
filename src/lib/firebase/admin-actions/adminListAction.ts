@@ -6,7 +6,7 @@ import { initFirebase } from '$lib/firebase/config';
 
 const { db } = initFirebase();
 
-type ListData = {
+export type ListData = {
 	userUid: string;
 	userEmail: string;
 	name: string;

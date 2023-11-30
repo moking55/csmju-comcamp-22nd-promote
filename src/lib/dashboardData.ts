@@ -44,13 +44,13 @@ const adminMenu = [
 
 const filesDownloader = [
 	{
-		title: 'ไฟล์ขออณุญาต ผปค.',
-		src: scheduleImageFile,
+		title: 'ไฟล์ขออณุญาตผู้ปกครอง.',
+		src: parentPermissionFile,
 		icon: 'ph:image-light'
 	},
 	{
 		title: 'ไฟล์กำหนดการ',
-		src: parentPermissionFile,
+		src: scheduleImageFile,
 		icon: 'dashicons:pdf'
 	}
 ];

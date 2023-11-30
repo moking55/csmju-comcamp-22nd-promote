@@ -7,10 +7,16 @@ import {
 	collection,
 	query,
 	getDocs,
-	updateDoc
+	updateDoc,
+	deleteDoc
 } from 'firebase/firestore';
 import { initFirebase } from '$lib/firebase/config';
 import { writable } from 'svelte/store';
+
+import type { FirebaseError } from 'firebase/app';
+import type { List, ListData } from '../admin-actions/adminListAction';
+import { deleteNotification, getNotification } from './notificationAction';
+import { deleteFile } from '$lib/config/cloundinary';
 
 const { db } = initFirebase();
 
@@ -26,7 +32,6 @@ export type User = {
 };
 
 export type UserInfo = {
-	contractEmail: string;
 	name: string;
 	school: string;
 	prefix: string;
@@ -39,9 +44,15 @@ export type UserInfo = {
 	congenitalDisease: string;
 	foodAllergy: string;
 	drugAllergy: string;
-
 	haveLaptop: boolean;
 	reasonForJoining: string;
+	contacts: {
+		contractEmail: string;
+		facebookLink: string;
+		lineId: string;
+		parentContact: string;
+		otherContact?: string;
+	};
 };
 
 export type UserAssets = {
@@ -80,6 +91,11 @@ export async function createUserData(uId: string, email: string, userInfo: UserI
 	});
 }
 
+export async function updateUserData(uId: string, userInfo: UserInfo) {
+	const ref = doc(db, 'users', uId);
+	return await updateDoc(ref, { info: userInfo });
+}
+
 export async function getUserList() {
 	const q = query(collection(db, 'users'), orderBy('created_at'));
 	const snapshot = await getDocs(q);
@@ -91,6 +107,60 @@ export async function getUserList() {
 		})
 		.map((doc) => doc.data());
 	return users;
+}
+
+export async function deleteUserDataAndAssociatedStuff(user: User) {
+	try {
+		const { db } = initFirebase();
+		// delete cloudinary image
+		const { paymentReceiptSrc, parentPermissionSrc } = user.assets;
+
+		if (paymentReceiptSrc) {
+			await deleteFile(paymentReceiptSrc, user.uId, 'RECEIPT');
+		}
+
+		if (parentPermissionSrc) {
+			await deleteFile(parentPermissionSrc, user.uId, 'PARENT');
+		}
+
+		deleteDoc(doc(db, 'users', user.uId))
+			.then(async () => {
+				// delete thier notification and list
+
+				const querySnapshot = (await getDocs(collection(db, 'listRequest'))).docs;
+				const list: List[] = querySnapshot.map((doc) => {
+					return { uId: doc.id, data: doc.data() as ListData };
+				});
+				const listToDelete = list.filter((item) => item.uId === user.uId);
+				for (const item of listToDelete) {
+					await deleteDoc(doc(db, 'listRequest', item.uId));
+				}
+				const notification = await getNotification(user.uId);
+
+				for (const item of notification) {
+					await deleteNotification(item);
+				}
+
+				const users = await getUserList();
+				userListStore.set(users);
+				return;
+
+				//- for deleting user auth credential
+				// const { auth } = initFirebase();
+				// const user = auth.currentUser;
+				// if (user) {
+				// 	await deleteUser(user);
+				// 	userListStore.set(users);
+				// 	return;
+				// }
+				// throw new Error('User credential not found');
+			})
+			.catch((error: FirebaseError) => {
+				throw error;
+			});
+	} catch (error) {
+		throw new Error(error as string);
+	}
 }
 
 export function markAsConfirm(uid: string) {

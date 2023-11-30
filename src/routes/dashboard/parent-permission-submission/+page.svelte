@@ -11,6 +11,7 @@
 		deleteListWhenFileHadRemove
 	} from '$lib/firebase/admin-actions/adminListAction';
 	import Swal from 'sweetalert2';
+	import { Timestamp } from 'firebase/firestore';
 
 	let loadingWhileSubmit = false;
 
@@ -43,6 +44,13 @@
 			});
 		}
 	});
+
+	function dayIncrement(date: Timestamp, day: number) {
+		const dateMutate = new Date(date.seconds * 1000 + day * 24 * 60 * 60 * 1000);
+		return `${dateMutate.toLocaleDateString('th-TH')} เวลา ${dateMutate.toLocaleTimeString(
+			'th-TH'
+		)}`;
+	}
 
 	function onResubmit() {
 		Swal.fire({
@@ -87,7 +95,7 @@
 		</span>
 		<p>
 			เนื่องจากการส่งหลักฐานการยืนยันจากผู้ปกครอง เป็นการยืนยันว่าคุณจะเข้าร่วมโครงการนี้
-			โปรดส่งก่อน xxx
+			โปรดส่งก่อน {dayIncrement($userData?.created_at ?? Timestamp.now(), 5)}
 		</p>
 	</article>
 	<div class="divider" />
@@ -95,7 +103,17 @@
 	<Placeholder showContext={isAlreadySubmit} placeholderText={'หลักฐานถูกส่งเรียบร้อย'}>
 		<div class=" max-w-2xl mx-auto">
 			<form enctype="multipart/form-data" method="POST" use:enhance>
-				<div class="flex h-screen flex-col gap-6 items-center justify-center w-full">
+				<div class="flex flex-col gap-6 items-center justify-center w-full">
+					<figure class="border-2 border-base-content/30 rounded-lg p-2">
+						<div class="divider"><span class="text-sm font-semibold">หมายเลขบัญชี</span></div>
+						<a
+							target="_blank"
+							class="cursor-zoom-in"
+							href={new URL(parentPermissionImage, import.meta.url).href}
+						>
+							<img class="w-96" src={parentPermissionImage} alt="payment_id_source" />
+						</a>
+					</figure>
 					<label
 						for="fileUpload"
 						class="flex flex-col items-center justify-center w-full h-64 border-2 border-dashed rounded-lg cursor-pointer hover:bg-bray-800 bg-gray-700 border-gray-600 hover:border-gray-500 hover:bg-gray-600"
@@ -132,7 +150,7 @@
 							class="opacity-50"
 						/>
 					</label>
-					<p class="text-base-content/50 text-sm">
+					<p class=" text-center text-base-content/50 text-sm">
 						ทำการกรอกเอกสาร เมื่อกรอกเอกสารเรียบร้อย ให้สแกนเอกสารเป็นรูปภาพตามฟอแมทที่ระบุ
 					</p>
 					<button type="submit" class="btn">

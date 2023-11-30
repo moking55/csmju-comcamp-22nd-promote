@@ -5,9 +5,18 @@
 	import SendNotificationForm from '$lib/components/SendNotificationForm.svelte';
 	import { CldImage } from 'svelte-cloudinary';
 	import { Paginator, type PaginationSettings } from '@skeletonlabs/skeleton';
-	import { getUserList, markAsConfirm } from '$lib/firebase/actions/userAction';
+	import { getStatus, getStatusText } from '../../dashboard/+layout.svelte';
+	import {
+		deleteUserDataAndAssociatedStuff,
+		getUserList,
+		markAsConfirm,
+		type User
+	} from '$lib/firebase/actions/userAction';
 	import { onMount } from 'svelte';
 	import { userListStore as userList } from '$lib/firebase/actions/userAction';
+	import Swal from 'sweetalert2';
+	import { Toast } from '$lib/middleware/alertConfig';
+
 	let promise: Promise<unknown>;
 
 	let fullInfo = false;
@@ -16,7 +25,7 @@
 		page: 0,
 		limit: 5,
 		size: $userList.length,
-		amounts: [1, 2, 5, 10]
+		amounts: [1, 2, 5, 8]
 	} satisfies PaginationSettings;
 
 	function onSortBy(sortBy: 'school' | 'age' | 'date' | 'shirtSize') {
@@ -41,6 +50,59 @@
 				return sortOpt.shirtSize ? shirtSizeComparison : -shirtSizeComparison;
 			});
 		}
+	}
+
+	function onDeleteUser(user: User) {
+		Swal.fire({
+			title: 'คอมเฟิร์มการลบข้อมูล',
+			html: `<div class="collapse bg-base-200">
+	<input type="radio" name="my-accordion-1" checked="checked" /> 
+	<div class="collapse-title text-base font-medium">
+	<div class="flex justify-between">
+		<div>
+			ผู้ใช้: ${user.info.name} (${user.info.nickname})
+			
+			</div>
+			<div>
+				<span
+					class="btn-outline btn-accent btn-sm cursor-pointer">สถานะ ${getStatusText(
+						getStatus(user.status, user)
+					)}</span
+				>
+				</div>
+		</div>
+		
+	</div>
+	
+	<div class="collapse-content space-y-4"> 
+		<hr/>
+		<p>การลบในครั้งนี้จะส่งผลกระทบไปยังถึง</p>
+		<hr/>
+		<ol class="list-decimal list-inside">
+	<li>ข้อมูลของผู้เข้าร่วมนี้</li>
+	<li>รายการตอบกลับของผู้เข้าร่วมนี้</li>
+	<li>รายการหลักฐานของผู้เข้าร่วมนี้</li>
+</ol>
+  </div>
+
+  </div>`,
+			icon: 'warning',
+			showCancelButton: true,
+			background: '#1a202c',
+			color: '#fff',
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'ลบข้อมูล'
+		}).then((result) => {
+			if (result.isConfirmed) {
+				deleteUserDataAndAssociatedStuff(user).then(() => {
+					Toast.fire({
+						icon: 'success',
+						title: 'ลบข้อมูลผู้ใช้เรียบร้อยแล้ว'
+					});
+				});
+			}
+		});
 	}
 
 	onMount(() => {
@@ -122,6 +184,10 @@
 							>
 							<th>อีเมล์ติดต่อ</th>
 							<th>เบอรโทร</th>
+							<th>ไลน์ไอดี</th>
+							<th>Facebook</th>
+							<th>เบอร์โทรผู้ปกครอง</th>
+							<th>ช่องทางติดต่ออื่น</th>
 							<th
 								class="cursor-pointer hover:bg-base-300/50 rounded-md"
 								on:click={() => ((sortOpt.school = !sortOpt.school), onSortBy('school'))}
@@ -153,6 +219,7 @@
 								/></th
 							>
 							<th>ตอบกลับ</th>
+							<th />
 						</tr>
 					</thead>
 					<tbody>
@@ -170,8 +237,18 @@
 								<td>{user.info.prefix} {user.info.name}</td>
 								<td>{user.info.nickname}</td>
 								<td>{user.info.age}</td>
-								<td>{user.info.contractEmail}</td>
+								<td>{user.info.contacts.contractEmail}</td>
 								<td>{user.info.phone}</td>
+								<td>{user.info.contacts.lineId}</td>
+								<td class="text-center"
+									><a
+										target="_blank"
+										class="badge badge-info"
+										href={user.info.contacts.facebookLink}>ลิ้ง</a
+									></td
+								>
+								<td>{user.info.contacts.parentContact}</td>
+								<td>{user.info.contacts.otherContact ?? '-'}</td>
 								<td>{user.info.school}</td>
 								<td>{user.info.shirtSize}</td>
 								{#if fullInfo}
@@ -212,7 +289,7 @@
 									</div>
 								</td>
 								<td>{user.info.haveLaptop ? 'มี' : 'ไม่มี'}</td>
-								<td>{user.created_at.toDate().toLocaleDateString()}</td>
+								<td>{user.created_at.toDate().toLocaleString()}</td>
 
 								{#if user.assets.parentPermissionSrc != null}
 									<input type="checkbox" id={`asset_model_${i}_${i}`} class="modal-toggle" />
@@ -247,6 +324,11 @@
 								{/if}
 								<td class="grid place-content-center h-full">
 									<label for={`sendback_model_${i}`} class=" btn btn-sm">ตอบกลับ</label>
+								</td>
+								<td class="">
+									<button on:click={() => onDeleteUser(user)} class=" btn btn-error btn-sm"
+										>ลบ</button
+									>
 								</td>
 
 								<input type="checkbox" id={`sendback_model_${i}`} class="modal-toggle" />

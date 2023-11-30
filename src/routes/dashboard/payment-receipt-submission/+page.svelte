@@ -10,6 +10,8 @@
 		deleteListWhenFileHadRemove
 	} from '$lib/firebase/admin-actions/adminListAction';
 	import Swal from 'sweetalert2';
+	import { Timestamp } from 'firebase/firestore';
+	import paymentPreviewSrc from '$lib/assets/files/payment_src.jpeg';
 
 	let loadingWhileSubmit = false;
 
@@ -42,6 +44,13 @@
 			});
 		}
 	});
+
+	function dayIncrement(date: Timestamp, day: number) {
+		const dateMutate = new Date(date.seconds * 1000 + day * 24 * 60 * 60 * 1000);
+		return `${dateMutate.toLocaleDateString('th-TH')} เวลา ${dateMutate.toLocaleTimeString(
+			'th-TH'
+		)}`;
+	}
 
 	function onResubmit() {
 		Swal.fire({
@@ -84,14 +93,27 @@
 		>
 			{isAlreadySubmit ? 'หลักฐานการชำระถูกส่งเรียบร้อย' : 'คุณยังไม่ได้ส่งหลักฐานการชำระ'}
 		</span>
-		<p>เนื่องจากการส่งหลักฐานการชำระ เป็นการยืนยันว่าคุณจะเข้าร่วมโครงการนี้ โปรดส่งก่อน xxx</p>
+		<!-- add next five day on userData?.created_at.seconds -->
+
+		<p>
+			เนื่องจากการส่งหลักฐานการชำระ เป็นการยืนยันว่าคุณจะเข้าร่วมโครงการนี้ โปรดส่งก่อนวันที่ {dayIncrement(
+				$userData?.created_at ?? Timestamp.now(),
+				5
+			)}
+		</p>
 	</article>
 	<div class="divider" />
 
 	<Placeholder showContext={isAlreadySubmit} placeholderText={'หลักฐานการชำระถูกส่งเรียบร้อย'}>
 		<div class=" max-w-2xl mx-auto">
 			<form enctype="multipart/form-data" method="POST" use:enhance>
-				<div class="flex h-screen flex-col gap-6 items-center justify-center w-full">
+				<div class="flex flex-col gap-6 items-center justify-center w-full">
+					<figure class="border-2 border-base-content/30 rounded-lg p-2">
+						<div class="divider"><span class="text-sm font-semibold">หมายเลขบัญชี</span></div>
+						<a target="_blank" class="cursor-zoom-in" href={new URL(paymentPreviewSrc, import.meta.url).href}>
+							<img class="w-96" src={paymentPreviewSrc} alt="payment_id_source" />
+						</a>
+					</figure>
 					<label
 						for="fileUpload"
 						class="flex flex-col items-center justify-center w-full h-64 border-2 border-dashed rounded-lg cursor-pointer hover:bg-bray-800 bg-gray-700 border-gray-600 hover:border-gray-500 hover:bg-gray-600"
@@ -128,6 +150,10 @@
 							class="opacity-50"
 						/>
 					</label>
+					<p class="text-center text-base-content/50 text-sm">
+						โอนเพื่อชำระได้ที่เลขบัญชี 678-0-07822-3 ธนาคารกรุงเทพ ชื่อบัญชี นายภานุวัฒน์ เมฆะ
+						และนายอรรถวิท ชังคมานนท์ และ นางปราณี กันธิมา จากนั้นทำการอัปโหลดสลิปการชำระ
+					</p>
 					<button type="submit" class="btn">
 						{#if loadingWhileSubmit}
 							<span class="loading text-base-content text-sm loading-spinner" />
