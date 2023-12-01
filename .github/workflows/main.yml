@@ -7,6 +7,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+        with:
+          ref: prototype
 
       - name: Setup Node.js environment
         uses: actions/setup-node@v3
