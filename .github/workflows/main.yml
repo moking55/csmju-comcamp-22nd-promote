@@ -1,6 +1,9 @@
 name: Build and Deploy to ComCamp Server
 
-on: [push]
+on:
+  [push, merge]:
+    branches:
+      - main
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -8,8 +11,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-        with:
-          ref: prototype
 
       - name: Setup Node.js environment
         uses: actions/setup-node@v3
@@ -50,7 +51,7 @@ jobs:
         run: |
           npm run build
 
-      - name: Upload files to SFTP server
+      - name: Upload files to server
         uses: wangyucode/sftp-upload-action@v2.0.2
         with:
           host: ${{ secrets.SSH_IP }}
