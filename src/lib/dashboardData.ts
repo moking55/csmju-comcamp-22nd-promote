@@ -8,7 +8,7 @@ const menu = [
 		icon: 'mdi:account'
 	},
 	{
-		title: 'ส่งหลักฐานการชำระ (Soon)',
+		title: 'ส่งหลักฐานการชำระ',
 		path: '/dashboard/payment-receipt-submission',
 		icon: 'ion:receipt-outline'
 	},

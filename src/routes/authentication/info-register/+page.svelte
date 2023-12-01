@@ -18,7 +18,6 @@
 	import { initFirebase } from '$lib/firebase/config';
 	import Swal from 'sweetalert2';
 
-
 	// write regex to filter only digits
 
 	const digitOnlyReg = /^\d+$/;
@@ -174,7 +173,7 @@
 						congenitalDisease,
 						drugAllergy,
 						foodAllergy,
-						reasonForJoining,
+						reasonForJoining: reasonForJoining,
 						haveLaptop: haveLaptop === 'on'
 					};
 
@@ -233,11 +232,46 @@
 	});
 	function setFormData(userInfo: UserInfo) {
 		onEdit = true;
+		onWriteReasonForJoining = true;
+		const {
+			contacts: { contractEmail, parentContact, lineId, otherContact, facebookLink },
+			prefix,
+			name,
+			nickname,
+			birthDate,
+			phone,
+			school,
+			age,
+			eduLevel,
+			shirtSize,
+			congenitalDisease,
+			drugAllergy,
+			foodAllergy,
+			reasonForJoining,
+			haveLaptop
+		} = userInfo;
 
-		$form = {
-			...userInfo,
-			birthDate: userInfo.birthDate.toDate().toISOString().split('T')[0]
-		} as unknown as UserInfo;
+		form.set({
+			contractEmail,
+			parentContact,
+			lineId,
+			otherContact,
+			facebookLink,
+			prefix,
+			name,
+			nickname,
+			birthDate: new Date(birthDate.toMillis()).toISOString().split('T')[0],
+			phone,
+			school,
+			age: age,
+			eduLevel,
+			shirtSize,
+			congenitalDisease,
+			drugAllergy,
+			foodAllergy,
+			reasonForJoining,
+			haveLaptop: haveLaptop
+		});
 	}
 
 	onMount(() => {
@@ -250,7 +284,6 @@
 
 					const userData = await checkAndSetUserData(data!.uid);
 					const edit = localStorage.getItem('edit');
-					console.log(edit);
 					if (edit && edit === 'true') {
 						setFormData(userData!.info);
 						resolve(localStorage.removeItem('edit'));
@@ -303,7 +336,7 @@
 									>
 										<option class="text-base-200" selected disabled>คำนำหน้า</option>
 										<option class="text-base-200" value="นาย">นาย</option>
-										<option class="text-base-200" value="นางสาว">นางสาว</option>
+										<option class="text-base-200" value="นาง">นางสาว</option>
 									</select>
 								</div>
 								<div class="flex-grow">
@@ -499,18 +532,27 @@
 
 						<div class="px-5 pb-5">
 							<input
+								aria-invalid={$errors.congenitalDisease ? 'true' : undefined}
+								bind:value={$form.congenitalDisease}
+								{...$constraints.congenitalDisease}
 								name="congenitalDisease"
 								id="congenitalDisease"
 								placeholder="โรคประจำตัว"
 								class="  text-base-200 placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
 							/>
 							<input
+								aria-invalid={$errors.drugAllergy ? 'true' : undefined}
+								bind:value={$form.drugAllergy}
+								{...$constraints.drugAllergy}
 								name="drugAllergy"
 								id="drugAllergy"
 								placeholder="แพ้ยา"
 								class="  text-base-200 placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
 							/>
 							<input
+								aria-invalid={$errors.foodAllergy ? 'true' : undefined}
+								bind:value={$form.foodAllergy}
+								{...$constraints.foodAllergy}
 								name="foodAllergy"
 								id="foodAllergy"
 								placeholder="แพ้อาหารหรือรับประทานอาหารอะไรไม่ได้บ้าง"
@@ -567,18 +609,17 @@
 									<input bind:checked={onWriteReasonForJoining} type="checkbox" />
 									<span class="text-sm text-error">{$errors.reasonForJoining ?? ''}</span>
 								</li>
-								{#if onWriteReasonForJoining}
-									<!-- content here -->
-									<textarea
-										aria-invalid={$errors.reasonForJoining ? 'true' : undefined}
-										bind:value={$form.reasonForJoining}
-										{...$constraints.reasonForJoining}
-										rows="4"
-										class=" text-base-200 placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
-										name="reasonForJoining"
-										id="reasonForJoining"
-									/>
-								{/if}
+								<!-- content here -->
+								<textarea
+									class:hidden={!onWriteReasonForJoining}
+									aria-invalid={$errors.reasonForJoining ? 'true' : undefined}
+									bind:value={$form.reasonForJoining}
+									{...$constraints.reasonForJoining}
+									rows="4"
+									class=" text-base-200 placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
+									name="reasonForJoining"
+									id="reasonForJoining"
+								/>
 							</ol>
 						</div>
 						<div class="flex">
