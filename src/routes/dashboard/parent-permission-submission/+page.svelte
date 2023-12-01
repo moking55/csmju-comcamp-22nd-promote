@@ -91,7 +91,7 @@
 			class:badge-success={isAlreadySubmit}
 			class="badge"
 		>
-			{isAlreadySubmit ? 'หลักฐานการชำระถูกส่งเรียบร้อย' : 'คุณยังไม่ได้ส่งหลักฐานการชำระ'}
+			{isAlreadySubmit ? 'หนังสือถูกส่งเรียบร้อย' : 'คุณยังไม่ได้ส่งหนังสือ'}
 		</span>
 		<p>
 			เนื่องจากการส่งหลักฐานการยืนยันจากผู้ปกครอง เป็นการยืนยันว่าคุณจะเข้าร่วมโครงการนี้
@@ -105,7 +105,9 @@
 			<form enctype="multipart/form-data" method="POST" use:enhance>
 				<div class="flex flex-col gap-6 items-center justify-center w-full">
 					<figure class="border-2 border-base-content/30 rounded-lg p-2">
-						<div class="divider"><span class="text-sm font-semibold">หมายเลขบัญชี</span></div>
+						<div class="divider">
+							<span class="text-sm font-semibold">หนังสือขออณุญาตผู้ปกครอง</span>
+						</div>
 						<a
 							target="_blank"
 							class="cursor-zoom-in"

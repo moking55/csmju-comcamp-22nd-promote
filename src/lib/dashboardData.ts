@@ -13,7 +13,7 @@ const menu = [
 		icon: 'ion:receipt-outline'
 	},
 	{
-		title: 'ส่งหลักฐานขออณุญาตผู้ปกครอง',
+		title: 'ส่งหนังสือขออณุญาตผู้ปกครอง',
 		path: '/dashboard/parent-permission-submission',
 		icon: 'mdi:file-document-edit-outline'
 	},
@@ -44,12 +44,12 @@ const adminMenu = [
 
 const filesDownloader = [
 	{
-		title: 'ไฟล์ขออณุญาตผู้ปกครอง.',
+		title: 'หนังสือขออณุญาตผู้ปกครอง.',
 		src: parentPermissionFile,
 		icon: 'ph:image-light'
 	},
 	{
-		title: 'ไฟล์กำหนดการ',
+		title: 'กำหนดการ',
 		src: scheduleImageFile,
 		icon: 'dashicons:pdf'
 	}

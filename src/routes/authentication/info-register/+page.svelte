@@ -303,7 +303,7 @@
 									>
 										<option class="text-base-200" selected disabled>คำนำหน้า</option>
 										<option class="text-base-200" value="นาย">นาย</option>
-										<option class="text-base-200" value="นาง">นาง</option>
+										<option class="text-base-200" value="นางสาว">นางสาว</option>
 									</select>
 								</div>
 								<div class="flex-grow">
