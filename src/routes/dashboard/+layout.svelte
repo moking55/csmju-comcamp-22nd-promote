@@ -189,7 +189,7 @@
 						<div class="divider text-sm">อื่น ๆ</div>
 
 						<li class="dropdown dropdown-start">
-							<label>ดาวโหลดเอกสาร</label>
+							<label>ดาวน์โหลดเอกสาร</label>
 							<ul class=" dropdown-open z-20 menu p-2 shadow rounded-box w-52">
 								{#each filesDownloader as file}
 									<li>
