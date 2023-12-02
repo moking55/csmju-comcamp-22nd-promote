@@ -289,32 +289,39 @@ const faq = [
 	}
 ];
 
+function resolveURLAsPromise(relativePath: string): Promise<string> {
+	return new Promise((resolve, reject) => {
+		try {
+			const url = new URL(relativePath, import.meta.url).href;
+			resolve(url);
+		} catch (error) {
+			reject(error);
+		}
+	});
+}
+
+import imgOne from '$lib/assets/activity/img_1.jpeg';
+import imgTwo from '$lib/assets/activity/img_2.jpeg';
+import imgThree from '$lib/assets/activity/img_3.jpeg';
+import imgFour from '$lib/assets/activity/img_4.jpeg';
+import imgFive from '$lib/assets/activity/img_5.jpeg';
+import imgSix from '$lib/assets/activity/img_6.jpeg';
+import imgSeven from '$lib/assets/activity/img_7.jpeg';
+import imgEight from '$lib/assets/activity/img_8.jpeg';
+
 const imgGallery = {
-	// galleryOne: [
-	// 	new URL('$lib/assets/activity/img_1.jpeg', import.meta.url).href,
-	// 	new URL('$lib/assets/activity/img_2.jpeg', import.meta.url).href,
-	// 	new URL('$lib/assets/activity/img_3.jpeg', import.meta.url).href,
-	// 	new URL('$lib/assets/activity/img_4.jpeg', import.meta.url).href
-	// ],
-	// galleryTwo: [
-	// 	new URL('$lib/assets/activity/img_5.jpeg', import.meta.url).href,
-	// 	new URL('$lib/assets/activity/img_6.jpeg', import.meta.url).href,
-	// 	new URL('$lib/assets/activity/img_7.jpeg', import.meta.url).href,
-	// 	new URL('$lib/assets/activity/img_8.jpeg', import.meta.url).href
-	// ]
 	galleryOne: [
-		'assets/activity/img_1.jpeg',
-		'assets/activity/img_2.jpeg',
-		'assets/activity/img_3.jpeg',
-		'assets/activity/img_4.jpeg'
+		resolveURLAsPromise(imgOne),
+		resolveURLAsPromise(imgTwo),
+		resolveURLAsPromise(imgThree),
+		resolveURLAsPromise(imgFour)
 	],
 	galleryTwo: [
-		'assets/activity/img_5.jpeg',
-		'assets/activity/img_6.jpeg',
-		'assets/activity/img_7.jpeg',
-		'assets/activity/img_8.jpeg'
-	],
-	baseUrl: import.meta.url
+		resolveURLAsPromise(imgFive),
+		resolveURLAsPromise(imgSix),
+		resolveURLAsPromise(imgSeven),
+		resolveURLAsPromise(imgEight)
+	]
 };
 
 export {

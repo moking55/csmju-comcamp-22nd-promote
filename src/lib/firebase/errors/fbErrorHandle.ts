@@ -1,25 +1,115 @@
 import type { FirebaseError } from 'firebase/app';
 
+const errorMessages: Record<string, string> = {
+	'auth/admin-restricted-operation': 'การดำเนินการถูกจำกัดโดย Admin',
+	'auth/argument-error': 'ข้อผิดพลาดในการส่งอาร์กิวเมนต์',
+	'auth/app-not-authorized': 'แอปไม่ได้รับอนุญาต',
+	'auth/app-not-installed': 'แอปไม่ได้ติดตั้ง',
+	'auth/captcha-check-failed': 'การตรวจสอบ Captcha ล้มเหลว',
+	'auth/code-expired': 'รหัสยืนยันหมดอายุ',
+	'auth/cordova-not-ready': 'Cordova ไม่พร้อมใช้งาน',
+	'auth/cors-unsupported': 'CORS ไม่ได้รับการสนับสนุน',
+	'auth/credential-already-in-use': 'ข้อมูลประจำตัวนี้ถูกใช้งานแล้ว',
+	'auth/custom-token-mismatch': 'Token ไม่ตรงกัน',
+	'auth/requires-recent-login': 'ต้องทำการเข้าสู่ระบบใหม่',
+	'auth/dependent-sdk-initialized-before-auth': 'SDK ที่ต้องการต้องถูกเริ่มต้นก่อนการตรวจสอบสิทธิ์',
+	'auth/dynamic-link-not-activated': 'Dynamic link ยังไม่ได้เปิดใช้งาน',
+	'auth/email-change-needs-verification': 'ต้องทำการยืนยันการเปลี่ยนอีเมล',
+	'auth/email-already-in-use': 'อีเมลนี้มีผู้ใช้งานแล้ว',
+	'auth/emulator-config-failed': 'การตั้งค่า Emulator ล้มเหลว',
+	'auth/expired-action-code': 'รหัสการกระทำหมดอายุ',
+	'auth/cancelled-popup-request': 'การขอ Popup ถูกยกเลิก',
+	'auth/internal-error': 'ข้อผิดพลาดภายใน',
+	'auth/invalid-api-key': 'API key ไม่ถูกต้อง',
+	'auth/invalid-app-credential': 'App credential ไม่ถูกต้อง',
+	'auth/invalid-app-id': 'App ID ไม่ถูกต้อง',
+	'auth/invalid-user-token': 'Token ผู้ใช้ไม่ถูกต้อง',
+	'auth/invalid-auth-event': 'Auth event ไม่ถูกต้อง',
+	'auth/invalid-cert-hash': 'Cert hash ไม่ถูกต้อง',
+	'auth/invalid-verification-code': 'รหัสยืนยันไม่ถูกต้อง',
+	'auth/invalid-continue-uri': 'URI ไม่ถูกต้อง',
+	'auth/invalid-cordova-configuration': 'การกำหนดค่า Cordova ไม่ถูกต้อง',
+	'auth/invalid-custom-token': 'Custom token ไม่ถูกต้อง',
+	'auth/invalid-dynamic-link-domain': 'โดเมน Dynamic link ไม่ถูกต้อง',
+	'auth/invalid-email': 'อีเมลไม่ถูกต้อง',
+	'auth/invalid-emulator-scheme': 'Emulator scheme ไม่ถูกต้อง',
+	'auth/invalid-credential': 'Credential ไม่ถูกต้อง',
+	'auth/invalid-login-credentials': 'อีเมล์หรือรหัสผ่านไม่ถูกต้อง',
+	'auth/invalid-message-payload': 'Payload ข้อความไม่ถูกต้อง',
+	'auth/invalid-multi-factor-session': 'Session multi-factor ไม่ถูกต้อง',
+	'auth/invalid-oauth-client-id': 'OAuth client ID ไม่ถูกต้อง',
+	'auth/invalid-oauth-provider': 'OAuth provider ไม่ถูกต้อง',
+	'auth/invalid-action-code': 'รหัสการกระทำไม่ถูกต้อง',
+	'auth/unauthorized-domain': 'โดเมนไม่ได้รับอนุญาต',
+	'auth/wrong-password': 'รหัสผ่านไม่ถูกต้อง',
+	'auth/invalid-persistence-type': 'ประเภท Persistence ไม่ถูกต้อง',
+	'auth/invalid-phone-number': 'หมายเลขโทรศัพท์ไม่ถูกต้อง',
+	'auth/invalid-provider-id': 'Provider ID ไม่ถูกต้อง',
+	'auth/invalid-recipient-email': 'อีเมล์ผู้รับไม่ถูกต้อง',
+	'auth/invalid-sender': 'ผู้ส่งไม่ถูกต้อง',
+	'auth/invalid-verification-id': 'Verification ID ไม่ถูกต้อง',
+	'auth/invalid-tenant-id': 'Tenant ID ไม่ถูกต้อง',
+	'auth/multi-factor-info-not-found': 'ไม่พบข้อมูล multi-factor',
+	'auth/multi-factor-auth-required': 'ต้องทำ multi-factor authentication',
+	'auth/missing-android-pkg-name': 'ไม่ได้ระบุชื่อแพ็คเกจ Android',
+	'auth/missing-app-credential': 'ไม่ได้ระบุ App credential',
+	'auth/auth-domain-config-required': 'ต้องมีการกำหนดค่า auth domain',
+	'auth/missing-verification-code': 'ไม่ได้ระบุรหัสยืนยัน',
+	'auth/missing-continue-uri': 'ไม่ได้ระบุ URI ต่อ',
+	'auth/missing-iframe-start': 'ไม่ได้ระบุ iframe start',
+	'auth/missing-ios-bundle-id': 'ไม่ได้ระบุ iOS bundle ID',
+	'auth/missing-or-invalid-nonce': 'Nonce ไม่ได้ระบุหรือไม่ถูกต้อง',
+	'auth/missing-multi-factor-info': 'ไม่พบข้อมูล multi-factor',
+	'auth/missing-multi-factor-session': 'ไม่พบ session multi-factor',
+	'auth/missing-phone-number': 'ไม่ได้ระบุหมายเลขโทรศัพท์',
+	'auth/missing-verification-id': 'ไม่ได้ระบุ Verification ID',
+	'auth/app-deleted': 'แอปถูกลบ',
+	'auth/account-exists-with-different-credential': 'มีบัญชีอยู่แล้วด้วย credential อื่น',
+	'auth/network-request-failed': 'คำขอเครือข่ายล้มเหลว',
+	'auth/null-user': 'ผู้ใช้งานเป็น null',
+	'auth/no-auth-event': 'ไม่มี Auth event',
+	'auth/no-such-provider': 'ไม่มีผู้ให้บริการ',
+	'auth/operation-not-allowed': 'ไม่สามารถใช้งานระบบนี้ได้',
+	'auth/operation-not-supported-in-this-environment': 'ไม่รองรับการดำเนินการใน environment นี้',
+	'auth/popup-blocked': 'Popup ถูกบล็อก',
+	'auth/popup-closed-by-user': 'Popup ถูกปิดโดยผู้ใช้',
+	'auth/provider-already-linked': 'Provider ถูกลิงก์ไปแล้ว',
+	'auth/quota-exceeded': 'โควต้าเกิน',
+	'auth/redirect-cancelled-by-user': 'การ redirect ถูกยกเลิกโดยผู้ใช้',
+	'auth/redirect-operation-pending': 'รอการดำเนินการ redirect',
+	'auth/rejected-credential': 'Credential ถูกปฏิเสธ',
+	'auth/second-factor-already-in-use': 'Second factor ถูกใช้งานแล้ว',
+	'auth/maximum-second-factor-count-exceeded': 'เกินจำนวน maximum second factor',
+	'auth/tenant-id-mismatch': 'ไม่ตรงกับ Tenant ID',
+	'auth/timeout': 'หมดเวลา',
+	'auth/user-token-expired': 'Token ผู้ใช้หมดอายุ',
+	'auth/too-many-requests': 'มีคำขอมากเกินไป',
+	'auth/unauthorized-continue-uri': 'URI ไม่ได้รับอนุญาต',
+	'auth/unsupported-first-factor': 'ไม่รองรับ first factor',
+	'auth/unsupported-persistence-type': 'ประเภท persistence ไม่รองรับ',
+	'auth/unsupported-tenant-operation': 'ไม่รองรับการดำเนินการใน Tenant',
+	'auth/unverified-email': 'อีเมลไม่ได้รับการยืนยัน',
+	'auth/user-cancelled': 'ผู้ใช้ยกเลิก',
+	'auth/user-not-found': 'ไม่พบผู้ใช้งานนี้ในระบบ',
+	'auth/user-disabled': 'ผู้ใช้งานถูกปิดใช้งาน',
+	'auth/user-mismatch': 'ไม่ตรงกับผู้ใช้งาน',
+	'auth/user-signed-out': 'ผู้ใช้งานได้ลงชื่อออก',
+	'auth/weak-password': 'รหัสผ่านต้องมีความยาวอย่างน้อย 6 ตัวอักษร',
+	'auth/web-storage-unsupported': 'Web storage ไม่ได้รับการสนับสนุน',
+	'auth/already-initialized': 'ได้เริ่มต้นแล้ว',
+	'auth/recaptcha-not-enabled': 'Recaptcha ยังไม่ได้เปิดใช้งาน',
+	'auth/missing-recaptcha-token': 'ไม่ได้ระบุ Recaptcha token',
+	'auth/invalid-recaptcha-token': 'Recaptcha token ไม่ถูกต้อง',
+	'auth/invalid-recaptcha-action': 'Recaptcha action ไม่ถูกต้อง',
+	'auth/missing-client-type': 'ไม่ได้ระบุประเภทของ client',
+	'auth/missing-recaptcha-version': 'ไม่ได้ระบุเวอร์ชัน Recaptcha',
+	'auth/invalid-recaptcha-version': 'เวอร์ชัน Recaptcha ไม่ถูกต้อง',
+	'auth/invalid-req-type': 'ประเภทของคำขอไม่ถูกต้อง'
+};
+
 export default function FirebaseErrorHandle(err: FirebaseError) {
 	if (import.meta.env.VITE_DEV_MODE === 'true') console.error(err);
-	switch (err.code) {
-		case 'auth/user-not-found':
-			return 'ไม่พบผู้ใช้งานนี้ในระบบ';
-		case 'auth/invalid-login-credentials':
-			return 'รหัสผ่านไม่ถูกต้อง';
-		case 'auth/email-already-in-use':
-			return 'อีเมลนี้มีผู้ใช้งานแล้ว';
-		case 'auth/email-already-exists':
-			return 'อีเมลนี้มีผู้ใช้งานแล้ว';
-		case 'auth/invalid-email':
-			return 'อีเมลไม่ถูกต้อง';
-		case 'auth/weak-password':
-			return 'รหัสผ่านต้องมีความยาวอย่างน้อย 6 ตัวอักษร';
-		case 'auth/operation-not-allowed':
-			return 'ไม่สามารถใช้งานระบบนี้ได้';
-		case 'auth/invalid-password	':
-			return 'รหัสผ่านไม่ถูกต้อง';
-		default:
-			return err.message;
-	}
+
+	const errorMessage = errorMessages[err.code] || errorMessages.default;
+	return errorMessage;
 }
