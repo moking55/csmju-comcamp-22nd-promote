@@ -1,8 +1,9 @@
 <script lang="ts">
+	import Countdown from './../components/Countdown.svelte';
 	import { onMount } from 'svelte';
 	import { fly, fade } from 'svelte/transition';
 	import comcampLogo from '$lib/assets/comcamp-22nd-logo.png';
-	import { actionMenu } from '$lib/data';
+	import { actionMenu, timeline } from '$lib/data';
 
 	export let isMobile: boolean;
 	let animatedInitial = false;
@@ -46,7 +47,7 @@
 		<div
 			in:fade={{ duration: 2000 }}
 			out:fly={{ y: -20, duration: 800 }}
-			class="-translate-y-20 grid lg:grid-cols-2 h-full my-auto"
+			class="-translate-y-28 grid lg:grid-cols-2 h-full my-auto"
 		>
 			<div class="z-0">
 				<div class=" flex flex-col justify-center items-center">
@@ -70,10 +71,18 @@
 					<div
 						class="gradient-heading text-center text-xl font-bold from-accent to-primary tracking-widest eng-font text-flicker-out-glow"
 					>
-						<span class="text-sm md:text-base lg:text-lg">Open 29 November 2023</span>
+						<span class="text-sm md:text-base lg:text-xl">Open 5 December 2023</span>
+					</div>
+					<div class="mt-4 flex flex-col items-center text-center">
+
+						<Countdown countdownDate={timeline[3].date} />
+						<span
+							class="text-sm md:text-base font-bold gradient-heading from-primary text-flicker-out-glow to-error tracking-widest eng-font lg:text-lg"
+							>Countdown COMCAMP starting till 8 February</span
+						>
 					</div>
 				</div>
-				<div id="register-button-container" class="flex mt-10 justify-center">
+				<div id="register-button-container" class="flex mt-6 justify-center">
 					<a
 						href={actionMenu.find((a) => a.name === 'register')?.link}
 						class="btn btn-accent btn-md"

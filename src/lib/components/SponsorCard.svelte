@@ -32,7 +32,7 @@
 		<div class="absolute inset-x-0 bottom-0" />
 		<div id="logo-card" bind:this={logoCard}>
 			<figure>
-				<img src={data.src} alt="logo" />
+				<img class="contrast-150" src={data.src} alt="logo" />
 			</figure>
 		</div>
 	</div>

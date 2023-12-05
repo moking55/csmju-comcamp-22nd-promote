@@ -13,6 +13,7 @@
 	import { initFirebase } from '$lib/firebase/config';
 	import { onAuthStateChanged } from 'firebase/auth';
 	import { userData } from '$lib/firebase/actions/userAction';
+	import { initializeStores } from '@skeletonlabs/skeleton';
 
 	let promise: Promise<unknown>;
 
@@ -129,7 +130,7 @@
 				<div class="drawer-side h-full">
 					<label for="my-drawer-2" aria-label="close sidebar" class="drawer-overlay" />
 					<ul
-						class="menu p-4 w-80 gap-y-2 min-h-full backdrop-filter backdrop-blur-lg py-6 bg-base-200/30 text-base-content text-xl"
+						class="menu p-4 w-80 gap-y-2 min-h-full backdrop-filter backdrop-blur-lg py-6 bg-base-200/30 text-base-content text-base"
 					>
 						<div class="profile-avatar flex flex-col items-center gap-4 my-8">
 							<div class="avatar online placeholder">

@@ -97,7 +97,7 @@ const benefits = [
 
 const timeline = [
 	{
-		date: new Date('2023-11-29'),
+		date: new Date('2023-12-05'),
 		title: 'เปิดรับสมัคร'
 	},
 	{
@@ -178,7 +178,7 @@ const review = [
 const sponsor = [
 	{
 		src: new URL('$lib/assets/MJU_LOGO.svg', import.meta.url).href,
-		bgClass: 'bg-green-700',
+		bgClass: 'bg-white/40',
 		visible: true
 	},
 	{
@@ -187,13 +187,23 @@ const sponsor = [
 		visible: false
 	},
 	{
+		src: new URL('$lib/assets/sponsors/comp-sci-mju-logo.png', import.meta.url).href,
+		bgClass: 'bg-white/40',
+		visible: true
+	},
+	{
 		src: '',
 		bgClass: '',
 		visible: false
 	},
 	{
 		src: 'https://secretary-science.mju.ac.th/goverment/25570522101243_science_secretary/Logo_25630318164611_166727.png',
-		bgClass: 'bg-emerald-400',
+		bgClass: 'bg-white/40',
+		visible: true
+	},
+	{
+		src: new URL('$lib/assets/sponsors/csmju-studio.png', import.meta.url).href,
+		bgClass: 'bg-white/40',
 		visible: true
 	}
 ];

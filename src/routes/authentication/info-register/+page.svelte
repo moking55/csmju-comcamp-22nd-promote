@@ -47,7 +47,7 @@
 		reasonForJoining: z.string().optional(),
 		haveLaptop: z.boolean().optional(),
 		lineId: z.string(),
-		facebookLink: z.string(),
+		facebookLink: z.string().url('กรุณากรอกลิ้ง URL ให้ถูกต้อง'),
 		parentContact: z.string(),
 		otherContact: z.string().optional()
 	});
@@ -231,47 +231,56 @@
 		}
 	});
 	function setFormData(userInfo: UserInfo) {
-		onEdit = true;
-		onWriteReasonForJoining = true;
-		const {
-			contacts: { contractEmail, parentContact, lineId, otherContact, facebookLink },
-			prefix,
-			name,
-			nickname,
-			birthDate,
-			phone,
-			school,
-			age,
-			eduLevel,
-			shirtSize,
-			congenitalDisease,
-			drugAllergy,
-			foodAllergy,
-			reasonForJoining,
-			haveLaptop
-		} = userInfo;
+		try {
+			onEdit = true;
+			onWriteReasonForJoining = true;
 
-		form.set({
-			contractEmail,
-			parentContact,
-			lineId,
-			otherContact,
-			facebookLink,
-			prefix,
-			name,
-			nickname,
-			birthDate: new Date(birthDate.toMillis()).toISOString().split('T')[0],
-			phone,
-			school,
-			age: age,
-			eduLevel,
-			shirtSize,
-			congenitalDisease,
-			drugAllergy,
-			foodAllergy,
-			reasonForJoining,
-			haveLaptop: haveLaptop
-		});
+			const {
+				contacts: { contractEmail, parentContact, lineId, otherContact, facebookLink },
+				prefix,
+				name,
+				nickname,
+				birthDate,
+				phone,
+				school,
+				age,
+				eduLevel,
+				shirtSize,
+				congenitalDisease,
+				drugAllergy,
+				foodAllergy,
+				reasonForJoining,
+				haveLaptop
+			} = userInfo;
+
+			form.set({
+				contractEmail,
+				parentContact,
+				lineId,
+				otherContact,
+				facebookLink,
+				prefix,
+				name,
+				nickname,
+				birthDate: new Date(birthDate.toMillis()).toISOString().split('T')[0],
+				phone,
+				school,
+				age: age,
+				eduLevel,
+				shirtSize,
+				congenitalDisease,
+				drugAllergy,
+				foodAllergy,
+				reasonForJoining,
+				haveLaptop: haveLaptop
+			});
+		} catch (error) {
+			Toast.fire({
+				icon: 'error',
+				title: 'มีบางอย่างผิดผลาดขณะบันทึกข้อมูล, โปรดตรวจสอบข้มูลแล้วลองใหม่อีกครั้ง'
+			});
+			onWriteReasonForJoining = false;
+		}
 	}
 
 	onMount(() => {
@@ -330,14 +339,16 @@
 										name="prefix"
 										id="prefix"
 										required={true}
-										value={$form.prefix ?? 'คำนำหน้า'}
+										{...$constraints.prefix}
+										bind:value={$form.prefix}
 										placeholder="คำนำหน้า"
 										class="select text-base-200 placeholder-black select-bordered w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
 									>
-										<option class="text-base-200" selected disabled>คำนำหน้า</option>
+										<option class="text-base-200" selected disabled>เลือก</option>
 										<option class="text-base-200" value="นาย">นาย</option>
 										<option class="text-base-200" value="นาง">นางสาว</option>
 									</select>
+									<p class="text-sm text-error">{$errors.prefix ?? ''}</p>
 								</div>
 								<div class="flex-grow">
 									<input
@@ -393,7 +404,7 @@
 										id="age"
 										required={true}
 										type="number"
-										value={$form.age ?? 'อายุ'}
+										value={$form.age === 0 ? 'อายุ' : $form.age}
 										placeholder="อายุ"
 										class="  text-base-200 placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
 									/>
@@ -500,7 +511,7 @@
 								required
 								name="eduLevel"
 								id="eduLevel"
-								value={$form.eduLevel ?? 'ระดับการศึกษา'}
+								value={$form.eduLevel === '' ? 'ระดับการศึกษา' : $form.eduLevel}
 								placeholder="ระดับการศึกษา"
 								class="select text-base-200 placeholder-gray-600 select-bordered w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
 							>

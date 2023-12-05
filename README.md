@@ -63,3 +63,15 @@ These list include keep track only important changed, Which can be list as the f
 - Implemented: Edit UserInfo feature
 - Implemented: UserInfo Adapting on Admin Dashboard
 - Implemented: Delete User feature that will associated to Notification, List, Cloudinary assets, and (not now) User Credential
+<!-- list me what changes  on this stage changed commit -->
+### 1.0.7 patch & implemented: Board & assets implementation
+- Patched: Update & add new error handling
+- Patched: fixed user info register form data
+- Implemented: Add Public relations board
+  - Add Board Template components
+  - Add Board Editor
+  - Add path to navigate to Public relations board -> "/dashboard/public-relation" for user
+- Implemented: Add Sponsors logo
+- Implemented: Countdown widget on Index page
+
+

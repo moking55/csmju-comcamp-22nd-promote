@@ -8,6 +8,11 @@ const menu = [
 		icon: 'mdi:account'
 	},
 	{
+		title: 'บอร์ดประชาสัมพันธ์',
+		path: '/dashboard/public-relations-board',
+		icon: 'mdi:account'
+	},
+	{
 		title: 'ส่งหลักฐานการชำระ',
 		path: '/dashboard/payment-receipt-submission',
 		icon: 'ion:receipt-outline'
@@ -33,6 +38,11 @@ const adminMenu = [
 	{
 		title: 'รายการที่ตอบกลับแล้ว',
 		path: import.meta.env.VITE_DASHBOARD_SENT_LISTS_ON_ADMIN_PATH,
+		icon: 'line-md:check-list-3'
+	},
+	{
+		title: 'แก้ไขรายการประชาสัมพันธ์',
+		path: import.meta.env.VITE_DASHBOARD_BOARD_LISTS_ON_ADMIN_PATH,
 		icon: 'line-md:check-list-3'
 	},
 	{

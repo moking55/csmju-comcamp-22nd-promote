@@ -110,6 +110,6 @@ const errorMessages: Record<string, string> = {
 export default function FirebaseErrorHandle(err: FirebaseError) {
 	if (import.meta.env.VITE_DEV_MODE === 'true') console.error(err);
 
-	const errorMessage = errorMessages[err.code] || errorMessages.default;
+	const errorMessage = errorMessages[err.code] || 'Something went wrong.';
 	return errorMessage;
 }

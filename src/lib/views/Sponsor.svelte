@@ -25,7 +25,7 @@
 					id="logo-grid-2"
 					class=" sm:col-span-2 flex flex-col xl:flex-row gap-10 justify-start flex-nowrap xl:flex-wrap"
 				>
-					{#each sponsor.slice(0, 2) as data}
+					{#each sponsor.slice(0, 3) as data}
 						<SponsorCard {data} />
 
 						<!-- content here -->
@@ -57,7 +57,7 @@
 					id="logo-grid-2"
 					class="sm:col-span-2 flex flex-col xl:flex-row gap-10 justify-end flex-nowrap xl:flex-wrap"
 				>
-					{#each sponsor.slice(2, 4) as data}
+					{#each sponsor.slice(3, 6) as data}
 						<SponsorCard {data} />
 						<!-- content here -->
 					{/each}
