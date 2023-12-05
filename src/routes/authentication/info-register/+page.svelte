@@ -31,7 +31,7 @@
 		prefix: z.string().min(1, 'กรุณากรอกคำนำหน้า'),
 		name: z.string().min(1, 'กรุณากรอก'),
 		nickname: z.string().min(1, 'กรุณากรอก'),
-		age: z.number().min(1, 'กรุณากรอก'),
+		age: z.number().nonnegative('ตัวเลขห้ามติดลบ').min(1, 'กรุณากรอก'),
 		birthDate: z.string().min(1, 'กรุณากรอก'),
 		phone: z
 			.string()
@@ -545,7 +545,6 @@
 							<input
 								aria-invalid={$errors.congenitalDisease ? 'true' : undefined}
 								bind:value={$form.congenitalDisease}
-								{...$constraints.congenitalDisease}
 								name="congenitalDisease"
 								id="congenitalDisease"
 								placeholder="โรคประจำตัว"
@@ -554,7 +553,6 @@
 							<input
 								aria-invalid={$errors.drugAllergy ? 'true' : undefined}
 								bind:value={$form.drugAllergy}
-								{...$constraints.drugAllergy}
 								name="drugAllergy"
 								id="drugAllergy"
 								placeholder="แพ้ยา"
@@ -563,7 +561,6 @@
 							<input
 								aria-invalid={$errors.foodAllergy ? 'true' : undefined}
 								bind:value={$form.foodAllergy}
-								{...$constraints.foodAllergy}
 								name="foodAllergy"
 								id="foodAllergy"
 								placeholder="แพ้อาหารหรือรับประทานอาหารอะไรไม่ได้บ้าง"
