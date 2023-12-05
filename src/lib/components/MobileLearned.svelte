@@ -28,12 +28,12 @@
 			<div class="artboard overflow-hidden artboard-1 phone-3">
 				<div class="mockup-code h-1/2">
 					<pre data-prefix=">"><code
-							><Typewritter textDuration={1000} text={'// Hello CompCamp 22nd In Kotlin'} /></code
+							><Typewritter textDuration={1000} text={'// Hello ComCamp 22nd In Kotlin'} /></code
 						></pre>
 					<pre data-prefix=">"><code
 							><Typewritter
 								textDuration={4000}
-								text={'fun main(args : Array<String>) {\n      println("Hello, CompCamp 22nd!") }'}
+								text={'fun main(args : Array<String>) {\n      println("Hello, ComCamp 22nd!") }'}
 							/></code
 						></pre>
 				</div>
@@ -42,11 +42,11 @@
 						<pre class="underline underline-offset-4">Terminal</pre>
 
 						<pre data-prefix="$"><code
-								><Typewritter textDuration={11000} text={'kotlinc compcamp_22nd.kt'} /></code
+								><Typewritter textDuration={11000} text={'kotlinc comcamp_22nd.kt'} /></code
 							></pre>
 
 						<pre data-prefix="$"><code
-								><Typewritter textDuration={13000} text={'Hello, CompCamp 22nd!'} /></code
+								><Typewritter textDuration={13000} text={'Hello, ComCamp 22nd!'} /></code
 							></pre>
 					</div>
 				</div>

@@ -1,5 +1,5 @@
 <script lang="ts">
-    import logo from '$lib/assets/comcamp-22nd-logo.png';
+	import logo from '$lib/assets/comcamp-22nd-logo.png';
 
 	import { navbarMenu, actionMenu } from '$lib/data';
 
@@ -12,20 +12,20 @@
 
 <div class="fixed z-50 w-full text-gray-900 bg-white bg-opacity-0 backdrop-filter backdrop-blur-lg">
 	<div
-		class="flex items-center justify-between max-w-6xl px-4 py-3 mx-0 lg:mx-auto sm:px-6 md:space-x-10"
+		class="flex items-center justify-between max-w-6xl px-4 mx-0 lg:mx-auto sm:px-6 md:space-x-10"
 	>
 		<div class="flex justify-start lg:w-0 lg:flex-1">
 			<span class="sr-only">Logo comcamp 22nd</span><a href="/"
-				><span class="block"
+				><a href="/"
 					><img
 						alt="comcamp-22nd-navbar-logo"
 						loading="lazy"
 						decoding="async"
 						data-nimg="1"
-						class="rounded-full w-12"
+						class="rounded-full -my-4 w-28"
 						src={logo}
 						style="color: transparent;"
-					/></span
+					/></a
 				></a
 			>
 		</div>

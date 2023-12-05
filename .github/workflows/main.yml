@@ -1,0 +1,64 @@
+name: Build and Deploy to ComCamp Server
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    environment: Production
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: |
+          npm install
+
+      - name: Create env file
+        run: |
+          touch .env
+          echo VITE_DEV_MODE=${{ secrets.VITE_DEV_MODE }} >> .env
+          echo VITE_LOGIN_ON_ADMIN_SIDE_PATH=${{ secrets.VITE_LOGIN_ON_ADMIN_SIDE_PATH }} >> .env
+          echo VITE_DASHBOARD_LISTS_ON_ADMIN_PATH=${{ secrets.VITE_DASHBOARD_LISTS_ON_ADMIN_PATH }} >> .env
+          echo VITE_DASHBOARD_SENT_LISTS_ON_ADMIN_PATH=${{ secrets.VITE_DASHBOARD_SENT_LISTS_ON_ADMIN_PATH }} >> .env
+          echo VITE_DASHBOARD_USER_LISTS_ON_ADMIN_PATH=${{ secrets.VITE_DASHBOARD_USER_LISTS_ON_ADMIN_PATH }} >> .env
+          echo VITE_DASHBOARD_BOARD_LISTS_ON_ADMIN_PATH=${{ secrets.VITE_DASHBOARD_BOARD_LISTS_ON_ADMIN_PATH }} >> .env
+          echo VITE_SPLICE_INDEX_SRC=${{ secrets.VITE_SPLICE_INDEX_SRC }} >> .env
+          echo VITE_MAPBOX_TOKEN=${{ secrets.VITE_MAPBOX_TOKEN }} >> .env
+          echo VITE_SPLICE_WEB_SRC=${{ secrets.VITE_SPLICE_WEB_SRC }} >> .env
+          echo VITE_GA_ID=${{ secrets.VITE_GA_ID }} >> .env
+          echo VITE_FIREBASE_API_KEY=${{ secrets.VITE_FIREBASE_API_KEY }} >> .env
+          echo VITE_FIREBASE_AUTH_DOMAIN=${{ secrets.VITE_FIREBASE_AUTH_DOMAIN }} >> .env
+          echo VITE_FIREBASE_PROJECT_ID=${{ secrets.VITE_FIREBASE_PROJECT_ID }} >> .env
+          echo VITE_FIREBASE_STORAGE_BUCKET=${{ secrets.VITE_FIREBASE_STORAGE_BUCKET }} >> .env
+          echo VITE_FIREBASE_MESSAGING_SENDER_ID=${{ secrets.VITE_FIREBASE_MESSAGING_SENDER_ID }} >> .env
+          echo VITE_FIREBASE_APP_ID=${{ secrets.VITE_FIREBASE_APP_ID }} >> .env
+          echo VITE_FIREBASE_MEASUREMENT_ID=${{ secrets.VITE_FIREBASE_MEASUREMENT_ID }} >> .env
+          echo VITE_CLOUNDINARY_CLOUD_NAME=${{ secrets.VITE_CLOUNDINARY_CLOUD_NAME }} >> .env
+          echo VITE_CLOUNDINARY_API_KEY=${{ secrets.VITE_CLOUNDINARY_API_KEY }} >> .env
+          echo VITE_CLOUNDINARY_API_SECRET=${{ secrets.VITE_CLOUNDINARY_API_SECRET }} >> .env
+          echo VITE_CLOUNDINARY_UPLOAD_PRESET=${{ secrets.VITE_CLOUNDINARY_UPLOAD_PRESET }} >> .env
+          echo VITE_PUBLIC_CLOUDINARY_CLOUD_NAME=${{ secrets.VITE_PUBLIC_CLOUDINARY_CLOUD_NAME }} >> .env
+          echo VITE_ADMIN_EMAIL=${{ secrets.VITE_ADMIN_EMAIL }} >> .env
+          cat .env
+      - name: Build project
+        run: |
+          npm run build
+
+      - name: Upload files to server
+        uses: wangyucode/sftp-upload-action@v2.0.2
+        with:
+          host: ${{ secrets.SSH_IP }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          localDir: './build/'
+          remoteDir: ${{ secrets.SSH_DIR }}
+          

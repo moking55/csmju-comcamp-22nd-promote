@@ -3,8 +3,8 @@
 </script>
 
 <section class="my-16 z-10">
-	<div class="container mx-auto">
-		<article id="#about-comcamp-section" class="md:prose-lg mx-3 prose-sm">
+	<div id="#about-comcamp-section" class="container mx-auto">
+		<article class="md:prose-lg mx-3 prose-sm">
 			<h1
 				data-aos="fade-right"
 				class="gradient-heading eng-font font-bold bg-gradient-to-t from-secondary-content via-secondary-focus to-secondary"

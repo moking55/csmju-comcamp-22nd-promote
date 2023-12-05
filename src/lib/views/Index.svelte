@@ -1,9 +1,9 @@
 <script lang="ts">
+	import Countdown from './../components/Countdown.svelte';
 	import { onMount } from 'svelte';
 	import { fly, fade } from 'svelte/transition';
 	import comcampLogo from '$lib/assets/comcamp-22nd-logo.png';
-	import { actionMenu } from '$lib/data';
-
+	import { actionMenu, timeline } from '$lib/data';
 
 	export let isMobile: boolean;
 	let animatedInitial = false;
@@ -47,31 +47,43 @@
 		<div
 			in:fade={{ duration: 2000 }}
 			out:fly={{ y: -20, duration: 800 }}
-			class="-translate-y-20 grid lg:grid-cols-2 h-full my-auto"
+			class="-translate-y-28 grid lg:grid-cols-2 h-full my-auto"
 		>
 			<div class="z-0">
 				<div class=" flex flex-col justify-center items-center">
-					<img
-						out:fly={{ y: -20, duration: 800 }}
-						class="csmju-logo contrast-150 opacity-80"
-						src={comcampLogo}
-						alt="comcamp-csmju-logo"
-					/>
+					<div class="relative">
+						<img
+							out:fly={{ y: -20, duration: 800 }}
+							class="csmju-logo z-10 contrast-100 opacity-90 md:opacity-100"
+							src={comcampLogo}
+							alt="comcamp-csmju-logo"
+						/>
+						<div
+							class="bg-primary-focus left-[20%] -z-10 top-1/4 pointer-events-none absolute aspect-square w-[50vw] lg:w-[25rem] rounded-full opacity-30 blur-3xl"
+						/>
+					</div>
 
 					<div
 						class="compcamp-char -mt-20 sm:-mt-28 gradient-heading from-primary to-secondary eng-font text-flicker-out-glow"
 					>
-						<span>COMPCAMP MJU</span>
+						<span>COMCAMP MJU</span>
 					</div>
 					<div
 						class="gradient-heading text-center text-xl font-bold from-accent to-primary tracking-widest eng-font text-flicker-out-glow"
 					>
-						<span>Open 31 October - 30 December 2023</span>
+						<span class="text-sm md:text-base lg:text-xl">Open 5 December 2023</span>
+					</div>
+					<div class="mt-4 flex flex-col items-center text-center">
+
+						<Countdown countdownDate={timeline[3].date} />
+						<span
+							class="text-sm md:text-base font-bold gradient-heading from-primary text-flicker-out-glow to-error tracking-widest eng-font lg:text-lg"
+							>Countdown COMCAMP starting till 8 February</span
+						>
 					</div>
 				</div>
-				<div id="register-button-container" class="flex mt-10 justify-center">
+				<div id="register-button-container" class="flex mt-6 justify-center">
 					<a
-						target="_blank"
 						href={actionMenu.find((a) => a.name === 'register')?.link}
 						class="btn btn-accent btn-md"
 						role="button">Join Now</a

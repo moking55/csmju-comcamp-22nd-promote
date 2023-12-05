@@ -1,41 +1,41 @@
 const navbarMenu = [
 	{
-		label: 'About',
-		yValue: 300,
+		label: 'เกี่ยวกับ',
+		yValue: 200,
 		ref: '#about-comcamp-section'
 	},
 	{
-		label: 'Learning',
+		label: 'หัวข้ออบรม',
 		ref: '#learning-section',
-		yValue: 1000
+		yValue: 900
 	},
 	{
-		label: 'Statistics',
+		label: 'สถิติ',
 		ref: '#stats-section',
-		yValue: 4800
+		yValue: 4500
 	},
 	{
-		label: 'Review',
+		label: 'รีวิว',
 		ref: '#review-section',
 		yValue: 5300
 	},
 	{
-		label: 'Benefits',
+		label: 'สิ่งที่ได้รับ',
 		ref: '#benefit-section',
 		yValue: 6400
 	},
 	{
-		label: 'Timeline',
+		label: 'ไทม์ไลน์',
 		ref: '#timeline-section',
 		yValue: 7500
 	},
 	{
-		label: 'FAQ',
+		label: 'คำถาม',
 		ref: '#faq-section',
 		yValue: 9500
 	},
 	{
-		label: 'Contact',
+		label: 'ติดต่อ',
 		ref: '#contact-section',
 		yValue: 9880
 	}
@@ -44,8 +44,8 @@ const navbarMenu = [
 const actionMenu = [
 	{
 		name: 'register',
-		label: 'Join Us',
-		link: 'https://www.t.ly/WrPi8'
+		label: 'เข้าร่วม',
+		link: '/authentication'
 	}
 ];
 
@@ -97,7 +97,7 @@ const benefits = [
 
 const timeline = [
 	{
-		date: new Date('2023-10-31'),
+		date: new Date('2023-12-05'),
 		title: 'เปิดรับสมัคร'
 	},
 	{
@@ -105,15 +105,15 @@ const timeline = [
 		title: 'ปิดรับสมัคร'
 	},
 	{
-		date: new Date('2024-01-01'),
+		date: new Date('2024-01-20'),
 		title: 'ประกาศรายชื่อ'
 	},
 	{
-		date: new Date('2024-02-23'),
+		date: new Date('2024-02-08'),
 		title: 'เปิดค่าย'
 	},
 	{
-		date: new Date('2024-02-25'),
+		date: new Date('2024-02-10'),
 		title: 'ปิดค่าย'
 	}
 ];
@@ -178,7 +178,7 @@ const review = [
 const sponsor = [
 	{
 		src: new URL('$lib/assets/MJU_LOGO.svg', import.meta.url).href,
-		bgClass: 'bg-green-700',
+		bgClass: 'bg-white/40',
 		visible: true
 	},
 	{
@@ -187,13 +187,23 @@ const sponsor = [
 		visible: false
 	},
 	{
+		src: new URL('$lib/assets/sponsors/comp-sci-mju-logo.png', import.meta.url).href,
+		bgClass: 'bg-white/40',
+		visible: true
+	},
+	{
 		src: '',
 		bgClass: '',
 		visible: false
 	},
 	{
 		src: 'https://secretary-science.mju.ac.th/goverment/25570522101243_science_secretary/Logo_25630318164611_166727.png',
-		bgClass: 'bg-emerald-400',
+		bgClass: 'bg-white/40',
+		visible: true
+	},
+	{
+		src: new URL('$lib/assets/sponsors/csmju-studio.png', import.meta.url).href,
+		bgClass: 'bg-white/40',
 		visible: true
 	}
 ];
@@ -220,13 +230,21 @@ const contract = {
 		{
 			name: 'พี่โอม',
 			tel: '095-658-5160'
+		},
+		{
+			name: 'พี่มิ้น',
+			tel: '098-009-2912'
+		},
+		{
+			name: 'พี่ไอซ์',
+			tel: '094-334-2059'
 		}
 	],
 	location: {
 		longitude: 99.01289125288045,
 		latitude: 18.89582011340911,
 		address:
-			'คณะวิทยาศาสตร์ มหาวิทยาลัยแม่โจ้ 63 หมู่ 4 ตำบลหนองหาร อำเภอสันทราย จังหวัดเชียงใหม่ 50200 ประเทศไทย (Science Learning Center)',
+			'สาขาวิชาวิทยาการคอมพิวเตอร์ คณะวิทยาศาสตร์ มหาวิทยาลัยแม่โจ้ 63 หมู่ 4 ตำบลหนองหาร อำเภอสันทราย จังหวัดเชียงใหม่ 50200 ประเทศไทย (Science Learning Center)',
 		place: 'มหาวิทยาลัยแม่โจ้'
 	}
 };
@@ -281,6 +299,41 @@ const faq = [
 	}
 ];
 
+function resolveURLAsPromise(relativePath: string): Promise<string> {
+	return new Promise((resolve, reject) => {
+		try {
+			const url = new URL(relativePath, import.meta.url).href;
+			resolve(url);
+		} catch (error) {
+			reject(error);
+		}
+	});
+}
+
+import imgOne from '$lib/assets/activity/img_1.jpeg';
+import imgTwo from '$lib/assets/activity/img_2.jpeg';
+import imgThree from '$lib/assets/activity/img_3.jpeg';
+import imgFour from '$lib/assets/activity/img_4.jpeg';
+import imgFive from '$lib/assets/activity/img_5.jpeg';
+import imgSix from '$lib/assets/activity/img_6.jpeg';
+import imgSeven from '$lib/assets/activity/img_7.jpeg';
+import imgEight from '$lib/assets/activity/img_8.jpeg';
+
+const imgGallery = {
+	galleryOne: [
+		resolveURLAsPromise(imgOne),
+		resolveURLAsPromise(imgTwo),
+		resolveURLAsPromise(imgThree),
+		resolveURLAsPromise(imgFour)
+	],
+	galleryTwo: [
+		resolveURLAsPromise(imgFive),
+		resolveURLAsPromise(imgSix),
+		resolveURLAsPromise(imgSeven),
+		resolveURLAsPromise(imgEight)
+	]
+};
+
 export {
 	aboutComcamp,
 	learningObjectives,
@@ -292,5 +345,6 @@ export {
 	sponsor,
 	contract,
 	actionMenu,
-	navbarMenu
+	navbarMenu,
+	imgGallery
 };
