@@ -21,7 +21,7 @@
 		</article>
 	</div>
 	<footer
-		class="xl:container mx-0 xl:mx-auto grid gap-y-8 lg:grid-cols-4 place-items-center bg-accent-focus/[0.01] h-[80rem] lg:h-[30rem] text-base-content"
+		class="xl:container mx-2 sm:mx-12 lg:mx-0 xl:mx-auto grid gap-y-8 lg:grid-cols-4 place-items-center bg-accent-focus/[0.01] h-[80rem] lg:h-[30rem] text-base-content"
 	>
 		<div
 			data-aos-anchor-placement="up-center"
@@ -30,10 +30,10 @@
 		>
 			<div class="camera" />
 			<div class="display bg-base-200 w-full h-full">
-				<div class="bg-slate-600/20 flex items-end pb-4 justify-center w-full h-1/4">
-					<p class="font-semibold text-lg xl:text-xl text-base-content/80">Contactor</p>
+				<div class="bg-slate-600/20 flex items-end pb-4 justify-center w-full h-2/6">
+					<p class="font-semibold text-lg xl:text-xl  text-base-content/80">Contactor</p>
 				</div>
-				<div class="relative p-4 gap-6 h-3/4 flex flex-col justify-center py-3">
+				<div class="relative p-4 gap-6 h-4/6 flex flex-col justify-center py-3">
 					{#each contract.telContractor as data}
 						<div class="flex items-center gap-4">
 							<img src={user} alt="person" class="card z-10 h-14 w-14 bg-base-300 border-white" />
@@ -128,7 +128,7 @@
 
 		<aside
 			id="location-container"
-			class="col-span-full space-y-4 h-fit lg:place-self-end lg:self-center md:h-full mt-0 lg:-mt-8 order-first lg:order-none lg:col-span-2"
+			class="col-span-full space-y-4 h-fit  lg:place-self-end lg:self-center md:h-full mt-0 lg:-mt-24 order-first lg:order-none lg:col-span-2"
 		>
 			<article
 				data-aos-anchor-placement="up-center"
