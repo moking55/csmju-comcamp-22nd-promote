@@ -2,8 +2,8 @@
 	import { aboutComcamp } from '$lib/data';
 </script>
 
-<section class="my-16 z-10">
-	<div id="#about-comcamp-section" class="container mx-auto">
+<section id="#about-comcamp-section" class="my-16 z-10">
+	<div class="container mx-auto">
 		<article class="md:prose-lg mx-3 prose-sm">
 			<h1
 				data-aos="fade-right"
