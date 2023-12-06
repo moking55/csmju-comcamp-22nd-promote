@@ -5,7 +5,10 @@
 	import { contract } from '$lib/data';
 
 	let socialDisplay: 'facebook' | 'tiktok' = 'facebook';
-	export let isMobile: boolean;
+	export let device: {
+		isMobile: boolean;
+		isTablet: boolean;
+	};
 </script>
 
 <section id="contact-section" class="bg-accent-focus/80 space-y-6 pt-14">
@@ -31,7 +34,7 @@
 			<div class="camera" />
 			<div class="display bg-base-200 w-full h-full">
 				<div class="bg-slate-600/20 flex items-end pb-4 justify-center w-full h-2/6">
-					<p class="font-semibold text-lg xl:text-xl  text-base-content/80">Contactor</p>
+					<p class="font-semibold text-lg xl:text-xl text-base-content/80">Contactor</p>
 				</div>
 				<div class="relative p-4 gap-6 h-4/6 flex flex-col justify-center py-3">
 					{#each contract.telContractor as data}
@@ -46,7 +49,7 @@
 				</div>
 			</div>
 		</div>
-		{#if !isMobile}
+		{#if device.isTablet || !device.isMobile}
 			<!-- content here -->
 			<div class="hidden lg:block col-span-full lg:col-span-1 text-base h-full w-72">
 				<div class="relative">
@@ -128,7 +131,7 @@
 
 		<aside
 			id="location-container"
-			class="col-span-full space-y-4 h-fit  lg:place-self-end lg:self-center md:h-full mt-0 lg:-mt-24 order-first lg:order-none lg:col-span-2"
+			class="col-span-full space-y-4 h-fit lg:place-self-end lg:self-center md:h-full mt-0 lg:-mt-24 order-first lg:order-none lg:col-span-2"
 		>
 			<article
 				data-aos-anchor-placement="up-center"
@@ -162,16 +165,3 @@
 		</p>
 	</div>
 </section>
-
-<!--- old version -->
-<!-- <div class="relative gap-6 h-full flex justify-center items-center flex-wrap py-3">
-					{#each contract.socials as data}
-						<a href={data.link}>
-							<img
-								src={data.icon}
-								alt={data.name}
-								class="card z-10 h-14 w-14 bg-base-300 border-white"
-							/>
-						</a>
-					{/each}
-				</div> -->

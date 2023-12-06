@@ -7,7 +7,7 @@
 
 <section
 	id="timeline-section"
-	class="h-auto overflow-hidden md:overflow-visible mx-auto py-6 flex flex-col gap-32"
+	class="h-auto overflow-hidden xl:overflow-visible mx-auto py-6 flex flex-col gap-32"
 >
 	<div id="topic" class="flex justify-center">
 		<article class="prose-lg lg:prose-2xl text-center mx-3">
@@ -28,7 +28,7 @@
 		</article>
 	</div>
 	<div
-		class=" grid translate-x-0 md:-translate-x-[5%] lg:translate-x-0 gap-y-10 gap-x-6 place-items-center md:place-items-stretch h-fit md:h-96 md:grid-cols-5"
+		class=" grid translate-x-0 md:-translate-x-5 xl:translate-x-0 gap-y-10 gap-x-6 place-items-center md:place-items-stretch h-fit md:h-96 md:grid-cols-5"
 	>
 		{#each timeline as data, i}
 			<!-- content here -->

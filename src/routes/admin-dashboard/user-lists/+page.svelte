@@ -176,6 +176,10 @@
 								ยืนยัน <iconify-icon icon="ph:question-light" />
 							</th>
 							<th>ชื่อ</th>
+							{#each Array(6) as item}
+								<th />
+							{/each}
+
 							<th>ชื่อเล่น</th>
 							<th
 								class="cursor-pointer hover:bg-base-300/50 rounded-md"
@@ -195,6 +199,10 @@
 									icon={sortOpt.school ? 'mdi:arrow-up' : 'mdi:arrow-down'}
 								/></th
 							>
+							{#each Array(4) as item}
+								<th />
+							{/each}
+
 							<th
 								class="cursor-pointer hover:bg-base-300/50 rounded-md"
 								on:click={() => ((sortOpt.shirtSize = !sortOpt.shirtSize), onSortBy('shirtSize'))}
@@ -234,7 +242,8 @@
 										class="checkbox border-white"
 									/>
 								</td>
-								<td>{user.info.prefix} {user.info.name}</td>
+								<td colspan="6">{user.info.prefix} {user.info.name}</td>
+								<td />
 								<td>{user.info.nickname}</td>
 								<td>{user.info.age}</td>
 								<td>{user.info.contacts.contractEmail}</td>
@@ -249,7 +258,7 @@
 								>
 								<td>{user.info.contacts.parentContact}</td>
 								<td>{user.info.contacts.otherContact ?? '-'}</td>
-								<td>{user.info.school}</td>
+								<td colspan="5">{user.info.school}</td>
 								<td>{user.info.shirtSize}</td>
 								{#if fullInfo}
 									<td>{user.info.eduLevel}</td>

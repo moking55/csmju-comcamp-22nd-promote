@@ -2,7 +2,7 @@
 	import { aboutComcamp } from '$lib/data';
 </script>
 
-<section id="about-comcamp-section">
+<section id="about-comcamp-section" class="overflow-hidden">
 	<section class="my-24 z-10">
 		<div class="container mx-auto">
 			<article class="md:prose-lg mx-3 prose-sm">

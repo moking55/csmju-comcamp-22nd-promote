@@ -98,8 +98,16 @@
 						<tr>
 							<th />
 							<th>ชื่อ</th>
+							{#each Array(6) as item}
+							<th />
+						{/each}
+
 							<th>อีเมล์</th>
 							<th>โรงเรียน</th>
+							{#each Array(4) as item}
+								<th />
+							{/each}
+
 							<th>ไฟล์ที่แนบมา</th>
 							<th
 								class="cursor-pointer hover:bg-base-300/50 rounded-md"
@@ -121,9 +129,9 @@
 						{#each paginatedSource as list, i (list.uId)}
 							<tr>
 								<th>{i}</th>
-								<td>{list.data.name}</td>
+								<td colspan="7">{list.data.name}</td>
 								<td>{list.data.userEmail}</td>
-								<td>{list.data.school}</td>
+								<td colspan="5">{list.data.school}</td>
 								<td class="grid place-content-center">
 									<label for={`model_${i}`} class=" btn btn-sm">ดูไฟล์</label>
 								</td>
