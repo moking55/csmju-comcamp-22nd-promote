@@ -1,8 +1,8 @@
 const navbarMenu = [
 	{
 		label: 'เกี่ยวกับ',
-		yValue: 200,
-		ref: '#about-comcamp-section'
+		ref: '#about-comcamp-section',
+		yValue: 200
 	},
 	{
 		label: 'หัวข้ออบรม',

@@ -18,15 +18,17 @@
 	// setup google analytics
 	import { GoogleAnalytics } from '@beyonk/svelte-google-analytics';
 
-	
 	let ga = '';
 	if (window.location.host !== 'localhost') {
 		ga = import.meta.env.VITE_GA_ID;
 	}
 
 	let y = 0;
-	
-	let isMobile = Device.isMobile;
+
+	let device = {
+		isMobile: Device.isMobile,
+		isTablet: Device.isTablet
+	};
 </script>
 
 <header>
@@ -36,9 +38,9 @@
 <GoogleAnalytics properties={[ga]} />
 <main>
 	<div class="flex h-full flex-col gap-24">
-		<Index {isMobile} />
-		<About />
-		<Learning {y} />
+		<Index {device}/>
+		<!-- <About /> -->
+		<!-- <Learning {y} /> -->
 		<Stats {y} />
 		<Benefit />
 		<Timeline />
@@ -47,7 +49,7 @@
 	</div>
 </main>
 
-<Footer {isMobile} />
+<Footer {device} />
 <svelte:window bind:scrollY={y} />
 
 <style lang="postcss">

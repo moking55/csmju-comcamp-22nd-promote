@@ -65,7 +65,7 @@
 		<section id="section" class=" bg-gradient-to-l to-base-100/10 from-base-200/80 -z-20">
 			<!-- give me signup page with grid for 2 column, first is image and second is phone mockup -->
 
-			{#if !deviceChecker.mobile || !deviceChecker.tablet}
+			{#if deviceChecker.tablet || !deviceChecker.mobile}
 				<!-- content here -->
 				<div class="ralative">
 					<div class="absolute top-1/2 space-y-2 -translate-y-1/2 slice-animate-first -left-1/2">

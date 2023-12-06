@@ -5,7 +5,10 @@
 	import comcampLogo from '$lib/assets/comcamp-22nd-logo.png';
 	import { actionMenu, timeline } from '$lib/data';
 
-	export let isMobile: boolean;
+	export let device: {
+		isMobile: boolean;
+		isTablet: boolean;
+	};
 	let animatedInitial = false;
 	let splineSrc = import.meta.env.VITE_SPLICE_INDEX_SRC;
 	onMount(() => {
@@ -17,7 +20,7 @@
 
 <!-- content here -->
 <div class="h-screen grid 2xl:container 2xl:mx-auto mt-20 w-full">
-	{#if !isMobile}
+	{#if device.isTablet || !device.isMobile}
 		{#await import('$lib/components/Splice.svelte') then Splice}
 			<div id="wrapper" class="transition-opacity duration-500 opacity-60 lg:opacity-100 relative">
 				<div class="absolute right-0 top-0">
@@ -74,7 +77,6 @@
 						<span class="text-sm md:text-base lg:text-xl">Open 5 December 2023</span>
 					</div>
 					<div class="mt-4 flex flex-col items-center text-center">
-
 						<Countdown countdownDate={timeline[3].date} />
 						<span
 							class="text-sm md:text-base font-bold gradient-heading from-primary text-flicker-out-glow to-error tracking-widest eng-font lg:text-lg"

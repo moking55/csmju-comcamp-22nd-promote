@@ -115,7 +115,7 @@
 							</div>
 							<ul
 								tabindex="0"
-								class="dropdown-content z-10 menu p-2 mt-4 shadow bg-base-300 rounded-box w-52"
+								class="dropdown-content z-[9999] menu p-2 mt-4 shadow bg-base-300 rounded-box w-52"
 							>
 								{#each menu as list}
 									<li class:list-active={$page.url.pathname === list.path}>

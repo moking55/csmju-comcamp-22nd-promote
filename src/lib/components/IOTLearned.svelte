@@ -27,16 +27,16 @@
 				alt="phone"
 			/>
 		</div>
-		<div
-			class="absolute rotate-in rotate-45 top-[80%] z-0 left-[65%] pointer-events-none -translate-x-1/2 -translate-y-1/2 w-3/6 md:w-60"
-		>
-			<img
-				data-aos="fade-down-right"
-				data-aos-anchor-placement="up-center"
-				src={remote}
-				alt="remote"
-			/>
-		</div>
+			<!-- <div
+				class="absolute rotate-in rotate-45 top-[80%] z-0 left-[65%] pointer-events-none -translate-x-1/2 -translate-y-1/2 w-3/6 md:w-60"
+			>
+				<img
+					data-aos="fade-down-right"
+					data-aos-anchor-placement="up-center"
+					src={remote}
+					alt="remote"
+				/>
+			</div> -->
 		<div data-aos="zoom-in" data-aos-anchor-placement="up-center">
 			<img class="w-[26rem]" src={iot} alt="iot" />
 		</div>

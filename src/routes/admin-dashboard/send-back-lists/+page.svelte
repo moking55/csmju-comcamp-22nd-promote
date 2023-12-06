@@ -47,9 +47,9 @@
 		<article class="prose prose-sm">
 			<h2 class="text-base md:text-2xl">รายการ</h2>
 		</article>
-		<div class="flex w-full justify-between">
-			<p>ตรวจสอบรายการที่ถูกส่งมาได้ที่นี้</p>
-			<div class="flex flex-col text-end gap-2">
+		<div class="flex w-full items-center justify-between">
+			<p class="text-xs md;text-base">ตรวจสอบรายการที่ถูกส่งมาได้ที่นี้</p>
+			<div class="flex flex-col text-xs md:text-base text-end gap-2">
 				<label class="label gap-2 cursor-pointer">
 					<span class="label-text">เข้าสู่โหมดแก้ไข</span>
 					<input type="checkbox" bind:checked={onEditMode} class="checkbox" />

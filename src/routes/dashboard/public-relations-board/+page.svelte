@@ -23,7 +23,7 @@
 {#await promise}
 	<DashboardLoadingSlot loadSample={'LOADING_SLOT'} />
 {:then}
-	<section id="board-lists">
+	<section id="board-lists" class="h-screen -z-10">
 		<article class="prose prose-sm">
 			<h2 class="text-base md:text-2xl">บอร์ดประชาสัมพันธ์</h2>
 		</article>

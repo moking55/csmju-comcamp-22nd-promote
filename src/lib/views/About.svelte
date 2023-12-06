@@ -2,8 +2,8 @@
 	import { aboutComcamp } from '$lib/data';
 </script>
 
-<section id="about-comcamp-section">
-	<div class="my-24 z-10">
+<section id="about-comcamp-section" class="overflow-hidden">
+	<section class="my-24 z-10">
 		<div class="container mx-auto">
 			<article class="md:prose-lg mx-3 prose-sm">
 				<h1
@@ -50,5 +50,5 @@
 				</div>
 			</article>
 		</div>
-	</div>
+	</section>
 </section>
