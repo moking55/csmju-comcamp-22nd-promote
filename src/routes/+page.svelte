@@ -38,9 +38,9 @@
 <GoogleAnalytics properties={[ga]} />
 <main>
 	<div class="flex h-full flex-col gap-24">
-		<Index {device}/>
-		<!-- <About /> -->
-		<!-- <Learning {y} /> -->
+		<Index {device} />
+		<About />
+		<Learning {y} />
 		<Stats {y} />
 		<Benefit />
 		<Timeline />
