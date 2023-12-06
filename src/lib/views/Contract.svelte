@@ -9,6 +9,8 @@
 		isMobile: boolean;
 		isTablet: boolean;
 	};
+
+	const _: string = import.meta.env.VITE_LOGIN_ON_ADMIN_SIDE_PATH;
 </script>
 
 <section id="contact-section" class="bg-accent-focus/80 space-y-6 pt-14">
@@ -159,9 +161,12 @@
 			</div>
 		</aside>
 	</footer>
-	<div class="h-8 flex items-center justify-center bg-accent-content py-6 text-xs lg:text-base">
-		<p class="text-center">
-			© 2023 Comcamp 22 All right reserved. Designed and Developed by CSMJU27.
-		</p>
-	</div>
+	<!--! TEMP: link should be removed in the feature.  -->
+	<a href={_} class="h-8 flex items-center justify-center bg-accent-content py-6 text-xs lg:text-base">
+		<div class="">
+			<p class="text-center">
+				© 2023 Comcamp 22 All right reserved. Designed and Developed by CSMJU27.
+			</p>
+		</div>
+	</a>
 </section>
