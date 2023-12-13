@@ -27,6 +27,11 @@ export type User = {
 	assets: UserAssets;
 	status: boolean;
 	role: 'User' | 'Admin';
+	config: {
+		lateEvidenceSubmitted: {
+			timestampAfterChecked: Timestamp | null;
+		};
+	};
 	created_at: Timestamp;
 	update_at?: Timestamp;
 };
@@ -84,6 +89,11 @@ export async function createUserData(uId: string, email: string, userInfo: UserI
 		assets: {
 			paymentReceiptSrc: null,
 			parentPermissionSrc: null
+		},
+		config: {
+			lateEvidenceSubmitted: {
+				timestampAfterChecked: null
+			}
 		},
 		created_at: Timestamp.now(),
 		status: false,

@@ -99,8 +99,8 @@
 							<th />
 							<th>ชื่อ</th>
 							{#each Array(6) as item}
-							<th />
-						{/each}
+								<th />
+							{/each}
 
 							<th>อีเมล์</th>
 							<th>โรงเรียน</th>
