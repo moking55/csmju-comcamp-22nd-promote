@@ -61,13 +61,14 @@
 		});
 	}
 
-	$: filteredBoard = boardList
-		.filter((board) => tagsSelected.some((tag) => board.tags.includes(tag)))
-		.sort((a, b) => {
-			const dateA = a.created.toDate().getTime();
-			const dateB = b.created.toDate().getTime();
-			return filterOpts.dateSorted ? dateA - dateB : dateB - dateA;
-		});
+	$: filteredBoard = boardList.filter((board) =>
+		tagsSelected.some((tag) => board.tags.includes(tag))
+	);
+	// .sort((a, b) => {
+	// 	const dateA = a.created.toDate().getTime();
+	// 	const dateB = b.created.toDate().getTime();
+	// 	return filterOpts.dateSorted ? dateA - dateB : dateB - dateA;
+	// });
 </script>
 
 <div style="position: static;" class="mockup-window -z-20 border bg-base-300">
@@ -77,7 +78,7 @@
 			class="absolute right-6 -top-10 btn btn-sm float-right btn-outline">ฟิวเตอร์</button
 		>
 	</div>
-	<div class="max-h-[30rem]  overflow-auto py-6 bg-base-200">
+	<div class="max-h-[30rem] overflow-auto py-6 bg-base-200">
 		<div class="h-auto -z-10 flex flex-col">
 			<!-- content here -->
 			{#each filteredBoard as board, i (i)}
@@ -161,21 +162,21 @@
 		<article class="prose my-2 w-full m-8">
 			<h3>ตัวเลือกฟิวเตอร์</h3>
 			<div class="divider" />
-			<div class="">
+			<!-- <div class="">
 				<h3>วันที่สร้าง</h3>
 				<div class="divider" />
 
 				<div class="flex flex-col">
-					<!-- <label class="label cursor-pointer">
-								<span class="label-text">เรียงจากเก่าสุดไปใหม่สุด</span>
-								<input
-									bind:group={filterOpts.dateSorted}
-									type="radio"
-									name="oldest"
-									class="radio"
-									value={false}
-								/>
-							</label> -->
+					<label class="label cursor-pointer">
+						<span class="label-text">เรียงจากเก่าสุดไปใหม่สุด</span>
+						<input
+							bind:group={filterOpts.dateSorted}
+							type="radio"
+							name="oldest"
+							class="radio"
+							value={false}
+						/>
+					</label>
 					<label class="label cursor-pointer">
 						<span class="label-text">เรียงจากล่าสุดไปเก่าสุด</span>
 						<input
@@ -183,11 +184,11 @@
 							type="radio"
 							name="newest"
 							class="radio"
-							value={true}
+							value={false}
 						/>
 					</label>
 				</div>
-			</div>
+			</div> -->
 			<div class="">
 				<h3>Tags</h3>
 				<div class="divider" />

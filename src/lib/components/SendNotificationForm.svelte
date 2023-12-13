@@ -18,15 +18,40 @@
 	import type Delta from 'quill-delta';
 	import type { User } from '$lib/firebase/actions/userAction';
 
+	export let listEditor: List | null = null;
+	export let userEditor: User | null = null;
+	export let notificationEditor: Notification | null = null;
+	export let action: 'CREATE' | 'UPDATE';
+
 	let editor: HTMLDivElement;
 	let loadingWhileSubmit = false;
 	let quill: Quill;
 
-	export let listEditor: List | null = null;
-	export let userEditor: User | null = null;
-	export let notificationEditor: Notification | null = null;
-
-	export let action: 'CREATE' | 'UPDATE';
+	const formDetail = listEditor
+		? {
+				uId: listEditor.data.userUid,
+				email: listEditor.data.userEmail,
+				name: listEditor.data.name
+		  }
+		: userEditor
+		? {
+				uId: userEditor.uId,
+				email: userEditor.email,
+				name: userEditor.info.name
+		  }
+		: notificationEditor
+		? {
+				uId: notificationEditor.userUid,
+				email: notificationEditor.toUserEmail,
+				name: notificationEditor.toUserName
+		  }
+		: null;
+	const autoFilledOpts = [
+		{
+			context: 'หลักฐานการยืนยันผิดพลาด',
+			value: 'FAILED'
+		}
+	];
 
 	export let toolbarOptions = [
 		['bold', 'italic', 'underline', 'strike'], // toggled buttons
@@ -53,13 +78,7 @@
 	const { form, errors, enhance, constraints } = superForm(superValidateSync(notificationSchema), {
 		SPA: true,
 		validators: notificationSchema,
-		id: listEditor
-			? listEditor.uId
-			: userEditor
-			? userEditor.uId
-			: notificationEditor
-			? notificationEditor.uId
-			: '',
+		id: formDetail?.uId ?? '',
 		onSubmit({ formData }) {
 			loadingWhileSubmit = true;
 			const { title } = Object.fromEntries(formData) as {
@@ -82,7 +101,7 @@
 					title
 				};
 
-				sendNotificationToUser(notification).then(async () => {
+				sendNotificationToUser(notification, quill).then(async () => {
 					Toast.fire({
 						icon: 'success',
 						title: 'ส่งข้อความสำเร็จ'
@@ -131,6 +150,24 @@
 		}
 	});
 
+	function autoFilledContext(context: 'FAILED' | 'NONE') {
+		if (context === 'FAILED') {
+			$form.title = `หลักฐานการยืนยันผิดพลาด: หลักฐาน <หัวข้อหลักฐาน> ไม่ถูกต้อง`;
+			quill.setText(
+				`สวัสดีครับน้อง ${formDetail?.name ?? '<ชื่อผู้ใช้>'} 
+ข้อความนี้มาจากพวกพี่ "โครงการค่ายยุวชนคอมพิวเตอร์ มหาวิทยาลัยแม่โจ้" นะครับ พี่เช็คหลักฐานยืนยันจากผู้ปกครองของน้องแล้ว แต่ยังมีบางจุดที่อาจต้องปรับนิดหน่อยนะ โดย <เหตุผล>
+
+โดยสามารถส่งหลักฐานใหม่ได้ตรงช่องทางที่น้องส่งหลักฐานครั้งแรกจากเว็บไซต์ ${'comcamp.csmju.com'} ได้เลย
+
+เพื่อให้ทุกอย่างผ่านฉลุย! พี่ขอให้กรุณาส่งหลักฐานใหม่ภายในวันที่ <ระบุวันที่> น๊าา
+
+ไม่ต้องกังวลนะ! พี่พร้อมช่วยเหลือเสมอ ถ้ามีข้อสงสัยหรือต้องการสอบถามเพิ่มเติม สามารถติดต่อพี่ๆ ได้ที่ <เบอร์โทรศัพท์> หรือ <อีเมล์> นะครับ
+
+ขอบคุณที่ให้ความร่วมมือนะครับ  แล้วอย่าลืมติดตามข่าวสารของค่ายได้ที่เพจ facebook.com/CCCSMJU และสถานะของตัวเองได้ที่เว็บไซต์ ${'comcamp.csmju.com'} แล้วเจอกันในค่ายน๊าาา  💚🤍💛`
+			);
+		}
+	}
+
 	function beforeUnload(e: BeforeUnloadEvent) {
 		// Cancel the event
 		e.preventDefault();
@@ -151,23 +188,26 @@
 
 <div class="grid place-content-center">
 	<div class="w-full">
-		{#if listEditor}
-			<div id="form-header">
-				<span class="font-semibold">ส่งถึง: </span> <span>{listEditor.data.name}</span><br />
-				<span class="font-semibold">อีเมล์: </span> <span>{listEditor.data.userEmail}</span>
+		<div class="flex items-center justify-between">
+			{#if formDetail}
+				<div id="form-header">
+					<span class="font-semibold">ส่งถึง: </span> <span>{formDetail.name}</span><br />
+					<span class="font-semibold">อีเมล์: </span> <span>{formDetail.email}</span>
+				</div>
+			{/if}
+			<div class="dropdown dropdown-end">
+				<div tabindex="0" role="button" class="btn btn-accent btn-sm m-1">เทมเพล็ต</div>
+				<ul tabindex="0" class="dropdown-content z-[1] menu p-0 shadow bg-accent rounded-box w-52">
+					{#each autoFilledOpts as opt}
+						<li>
+							<button class="btn-sm btn" on:click={() => autoFilledContext(opt.value)}
+								>{opt.context}</button
+							>
+						</li>
+					{/each}
+				</ul>
 			</div>
-		{:else if userEditor}
-			<div id="form-header">
-				<span class="font-semibold">ส่งถึง: </span> <span>{userEditor.info.name}</span><br />
-				<span class="font-semibold">อีเมล์: </span> <span>{userEditor.email}</span>
-			</div>
-		{:else}
-			<div id="form-header">
-				<span class="font-semibold">ส่งถึง: </span> <span>{notificationEditor?.toUserName}</span><br
-				/>
-				<span class="font-semibold">อีเมล์: </span> <span>{notificationEditor?.toUserEmail}</span>
-			</div>
-		{/if}
+		</div>
 		<div class="divider" />
 		<form use:enhance method="POST" class="flex flex-col gap-4">
 			<div class="form-control">

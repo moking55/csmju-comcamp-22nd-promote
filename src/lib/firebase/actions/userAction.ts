@@ -13,7 +13,7 @@ import {
 import { initFirebase } from '$lib/firebase/config';
 import { writable } from 'svelte/store';
 
-import type { FirebaseError } from 'firebase/app';
+import { FirebaseError } from 'firebase/app';
 import type { List, ListData } from '../admin-actions/adminListAction';
 import { deleteNotification, getNotification } from './notificationAction';
 import { deleteFile } from '$lib/config/cloundinary';
@@ -102,21 +102,35 @@ export async function createUserData(uId: string, email: string, userInfo: UserI
 }
 
 export async function updateUserData(uId: string, userInfo: UserInfo) {
-	const ref = doc(db, 'users', uId);
-	return await updateDoc(ref, { info: userInfo });
+	try {
+		const ref = doc(db, 'users', uId);
+		return await updateDoc(ref, { info: userInfo });
+	} catch (error) {
+		if (error instanceof FirebaseError) {
+			throw error;
+		}
+		throw new Error(error as string);
+	}
 }
 
 export async function getUserList() {
-	const q = query(collection(db, 'users'), orderBy('created_at'));
-	const snapshot = await getDocs(q);
+	try {
+		const q = query(collection(db, 'users'), orderBy('created_at', 'desc'));
+		const snapshot = await getDocs(q);
 
-	const users = <User[]>snapshot.docs
-		.filter((doc) => {
-			const user = doc.data() as User;
-			return user.role === 'User';
-		})
-		.map((doc) => doc.data());
-	return users;
+		const users = <User[]>snapshot.docs
+			.filter((doc) => {
+				const user = doc.data() as User;
+				return user.role === 'User';
+			})
+			.map((doc) => doc.data());
+		return users;
+	} catch (error) {
+		if (error instanceof FirebaseError) {
+			throw error;
+		}
+		throw new Error(error as string);
+	}
 }
 
 export async function deleteUserDataAndAssociatedStuff(user: User) {
@@ -174,18 +188,25 @@ export async function deleteUserDataAndAssociatedStuff(user: User) {
 }
 
 export function markAsConfirm(uid: string) {
-	const ref = doc(db, 'users', uid);
-	updateDoc(ref, { status: true }).then(() => {
-		const users = userListStore.update((list) => {
-			return list.map((item) => {
-				if (item.uId === uid) {
-					return { ...item, status: true };
-				}
-				return item;
+	try {
+		const ref = doc(db, 'users', uid);
+		updateDoc(ref, { status: true }).then(() => {
+			const users = userListStore.update((list) => {
+				return list.map((item) => {
+					if (item.uId === uid) {
+						return { ...item, status: true };
+					}
+					return item;
+				});
 			});
+			return users;
 		});
-		return users;
-	});
+	} catch (error) {
+		if (error instanceof FirebaseError) {
+			throw error;
+		}
+		throw new Error(error as string);
+	}
 }
 
 //- unused because the "derived" function can't be perform with synchronous function especially when store need to be set before it gets derived

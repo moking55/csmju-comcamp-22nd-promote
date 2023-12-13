@@ -46,7 +46,7 @@ export async function addBoard(board: Board) {
 export async function getBoardList() {
 	try {
 		const ref = collection(db, 'boardList');
-		const data = await getDocs(query(ref, orderBy('created')));
+		const data = await getDocs(query(ref, orderBy('created', 'desc')));
 		const board = data.docs.map((doc) => ({
 			...(doc.data() as Board),
 			description: new Delta(JSON.parse(doc.data().description)),
