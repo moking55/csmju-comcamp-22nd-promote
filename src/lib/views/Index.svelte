@@ -74,13 +74,13 @@
 					<div
 						class="gradient-heading text-center text-xl font-bold from-accent to-primary tracking-widest eng-font text-flicker-out-glow"
 					>
-						<span class="text-sm md:text-base lg:text-xl">Open 5 December 2023</span>
+						<span class="text-lg lg:text-xl">Open 5 December 2023</span>
 					</div>
 					<div class="mt-4 flex flex-col items-center text-center">
-						<Countdown countdownDate={timeline[3].date} />
+						<Countdown countdownDate={timeline[4].date} />
 						<span
 							class="text-sm md:text-base font-bold gradient-heading from-primary text-flicker-out-glow to-error tracking-widest eng-font lg:text-lg"
-							>Countdown COMCAMP starting till 8 February</span
+							>Countdown COMCAMP starting till 10 February</span
 						>
 					</div>
 				</div>
