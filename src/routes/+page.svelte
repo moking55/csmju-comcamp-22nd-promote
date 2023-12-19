@@ -15,7 +15,7 @@
 	import Timeline from '$lib/views/Timeline.svelte';
 	import { Drawer, getDrawerStore, initializeStores } from '@skeletonlabs/skeleton';
 	import type { DrawerSettings, DrawerStore } from '@skeletonlabs/skeleton';
-	import {auth as authData} from '$lib/firebase/actions/authAction';
+	import { auth as authData } from '$lib/firebase/actions/authAction';
 
 	// firebase
 	// setup google analytics
@@ -50,9 +50,13 @@
 				try {
 					authData.set(data);
 					if (data) {
-						checkAndSetUserData(data.uid).then(($userData) => {
-							resolve($userData);
-						});
+						if (data.email === import.meta.env.VITE_ADMIN_EMAIL) {
+							resolve(null);
+						} else {
+							checkAndSetUserData(data.uid).then(($userData) => {
+								resolve($userData);
+							});
+						}
 					} else {
 						if (import.meta.env.VITE_DEV_MODE == 'true') console.error('No Auth Data', data);
 						goto('/');
