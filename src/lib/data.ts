@@ -5,28 +5,28 @@ const navbarMenu = [
 		yValue: 200
 	},
 	{
+		label: 'ไทม์ไลน์',
+		ref: '#timeline-section',
+		yValue: 900
+	},
+	{
 		label: 'หัวข้ออบรม',
 		ref: '#learning-section',
-		yValue: 900
+		yValue: 2100
 	},
 	{
 		label: 'สถิติ',
 		ref: '#stats-section',
-		yValue: 4500
+		yValue: 5300
 	},
 	{
 		label: 'รีวิว',
 		ref: '#review-section',
-		yValue: 5300
+		yValue: 6400
 	},
 	{
 		label: 'สิ่งที่ได้รับ',
 		ref: '#benefit-section',
-		yValue: 6400
-	},
-	{
-		label: 'ไทม์ไลน์',
-		ref: '#timeline-section',
 		yValue: 7500
 	},
 	{
@@ -44,7 +44,7 @@ const navbarMenu = [
 const actionMenu = [
 	{
 		name: 'register',
-		label: 'เข้าร่วม',
+		label: 'สมัครเพื่อเข้าร่วม',
 		link: '/authentication'
 	}
 ];

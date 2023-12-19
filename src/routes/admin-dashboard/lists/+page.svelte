@@ -59,9 +59,9 @@
 		}
 	}
 
-	function onSendBackConfirmationAndMarkAsReadToAllUsers() {
+	function onSendBackConfirmationAndMarkAsReadToAllUsers(sendOpt: 'ALL' | 'RECEIPT' | 'PARENT') {
 		if (filter === 'unread') {
-			sendNotificationAndMarkAsReads(paginatedSource)
+			sendNotificationAndMarkAsReads(paginatedSource, sendOpt)
 				.then(() => {
 					Toast.fire({
 						icon: 'success',
@@ -119,18 +119,40 @@
 					</select>
 				</div>
 				{#if filter === 'unread'}
-					<div
-						class="tooltip"
-						data-tip="ส่งการแจ้งเตือนในกล่องข้อความและอีเมล์ที่ติดต่อ เพื่อยืนยันการตรวจสอบหลักฐาน ให้กับผู้ใช้ที่ส่งหลักฐานมาจากรายการ 'ยังไม่ได้อ่าน' ทั้งหมดจากนั้นมาร์ครายการเป็น 'อ่านแล้ว'"
-					>
-						<button
-							on:click={() => onSendBackConfirmationAndMarkAsReadToAllUsers()}
-							class="btn btn-sm btn-accent"
-							><iconify-icon icon="ph-question" /> ตอบกลับการยืนยันทั้งหมด
-							{#if whileActionSubmit}
-								<span class="loading loading-spinner loading-xs" />
-							{/if}
-						</button>
+					<div class="dropdown">
+						<div
+							class="tooltip"
+							data-tip="ส่งการแจ้งเตือนในกล่องข้อความและอีเมล์ที่ติดต่อ เพื่อยืนยันการตรวจสอบหลักฐาน ให้กับผู้ใช้ที่ส่งหลักฐานมาจากรายการ 'ยังไม่ได้อ่าน' ทั้งหมดจากนั้นมาร์ครายการเป็น 'อ่านแล้ว'"
+						>
+							<div role="button" tabindex="0" class="btn btn-sm btn-accent">
+								<iconify-icon icon="ph-question" /> ตอบกลับการยืนยันทั้งหมด
+								<iconify-icon icon="mdi:arrow-down-bold" />
+
+								{#if whileActionSubmit}
+									<span class="loading loading-spinner loading-xs" />
+								{/if}
+							</div>
+							<ul
+								tabindex="0"
+								class="dropdown-content z-[1] menu p-2 shadow bg-accent-content text-accent rounded-box w-52"
+							>
+								<li>
+									<button on:click={() => onSendBackConfirmationAndMarkAsReadToAllUsers('ALL')}
+										>ส่งทั้งหมด</button
+									>
+								</li>
+								<li>
+									<button on:click={() => onSendBackConfirmationAndMarkAsReadToAllUsers('PARENT')}
+										>ส่งเฉพาะหัวข้อ ผู้ปกครอง</button
+									>
+								</li>
+								<li>
+									<button on:click={() => onSendBackConfirmationAndMarkAsReadToAllUsers('RECEIPT')}
+										>ส่งเฉพาะหัวข้อ หลักฐานการชำระ</button
+									>
+								</li>
+							</ul>
+						</div>
 					</div>
 				{/if}
 			</div>

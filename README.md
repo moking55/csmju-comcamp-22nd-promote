@@ -79,6 +79,26 @@ These list include keep track only important changed, Which can be list as the f
   - Add path to navigate to Public relations board -> "/dashboard/public-relation" for user
 - Implemented: Add Sponsors logo
 - Implemented: Countdown widget on Index page
+### 1.0.8 patch & implemented: User interface & functionality and UI improvement
+#### UI/UX Enhancements:
+- Implemented: UserDetailWidget to display user information (name, nickname, school, evidence tracking, shirt size).
+- Implemented: Swapped component order on homepage to prioritize important information.
+- Implemented: Increased date/time font size for better visibility.
+- Patched: Corrected website date display.
+#### Functionality & Restful API Improvements:
+- Implemented: MailGrid integration for sending notifications and emails.
+- Implemented: Auto-filled notification sender template for ease of use.
+- Implemented: "Read" notification marking upon admin approval.
+- Implemented: Late evidence submission tracking in the users collection.
+- Implemented: Late submission notification and email alert system (over the deadline 5 days after registration).
+- Implemented: Created Back-end Restful API for the project
+#### Bug Fixes:
+- Patched: Overflow issue with TikTok Phone frame on footer for tablet devices.
+- Patched: Fixed route navigation on the admin dashboard.
+- Patched: Updated evidence image preview to show the latest version.
+- Patched: UI improvement
+
+
 
 # create-svelte
 [![Build status](https://github.com/moking55/csmju-comcamp-22nd-promote/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/moking55/csmju-comcamp-22nd-promote/actions/workflows/main.yml)

@@ -34,25 +34,25 @@
 			<span class="countdown font-mono text-5xl">
 				<span style="--value:{days};" />
 			</span>
-			Days
+			วัน
 		</div>
 		<div class="flex flex-col p-3 bg-neutral/50 rounded-box text-neutral-content">
 			<span class="countdown font-mono text-5xl">
 				<span style="--value:{hours};" />
 			</span>
-			Hours
+			ชั่วโมง
 		</div>
 		<div class="flex flex-col p-3 bg-neutral/50 rounded-box text-neutral-content">
 			<span class="countdown font-mono text-5xl">
 				<span style="--value:{minutes};" />
 			</span>
-			Minutes
+			นาที
 		</div>
 		<div class="flex flex-col p-3 bg-neutral/50 rounded-box text-neutral-content">
 			<span class="countdown font-mono text-5xl">
 				<span style="--value:{seconds};" />
 			</span>
-			Seconds
+			วินาที
 		</div>
 	</div>
 {/if}

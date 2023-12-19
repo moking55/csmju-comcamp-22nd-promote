@@ -15,7 +15,7 @@ export type ListData = {
 	userEmail: string;
 	name: string;
 	school: string;
-	title: string;
+	title: 'หลักฐานการชำระ' | 'ผู้ปกครอง';
 	fileAttachmentSrc: string;
 	date: Timestamp;
 	read: boolean;
@@ -28,7 +28,11 @@ export type List = {
 
 export const listStore = writable<List[]>([]);
 
-export async function addOnList(userData: User, fileAttachmentSrc: string, title: string) {
+export async function addOnList(
+	userData: User,
+	fileAttachmentSrc: string,
+	title: 'หลักฐานการชำระ' | 'ผู้ปกครอง'
+) {
 	const ListData: ListData = {
 		userUid: userData.uId,
 		userEmail: userData.email,
@@ -103,8 +107,21 @@ export function markAsRead(uid: string) {
 	}
 }
 
-export async function sendNotificationAndMarkAsReads(lists: List[]) {
-	const promises = lists.map(async (list) => {
+export async function sendNotificationAndMarkAsReads(
+	lists: List[],
+	sendOpt: 'RECEIPT' | 'PARENT' | 'ALL'
+) {
+	const filterLists = lists.filter((list) => {
+		if (sendOpt === 'ALL') {
+			return true;
+		} else if (sendOpt === 'RECEIPT') {
+			return list.data.title === 'หลักฐานการชำระ';
+		} else if (sendOpt === 'PARENT') {
+			return list.data.title === 'ผู้ปกครอง';
+		}
+	});
+
+	const promises = filterLists.map(async (list) => {
 		const msg = {
 			title: `หลักฐานยืนยัน ${list.data.title} ถูกยืนยันเป็นที่เรียบร้อยแล้ว 🟢`,
 			description: `สวัสดีครับน้อง ${

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import type { User } from './../firebase/actions/userAction.ts';
 	import Countdown from './../components/Countdown.svelte';
 	import { onMount } from 'svelte';
 	import { fly, fade } from 'svelte/transition';
@@ -11,6 +12,8 @@
 	};
 	let animatedInitial = false;
 	let splineSrc = import.meta.env.VITE_SPLICE_INDEX_SRC;
+	export let authStateReady: Promise<User | null>;
+
 	onMount(() => {
 		setTimeout(() => {
 			animatedInitial = true;
@@ -53,11 +56,11 @@
 			class="-translate-y-28 grid lg:grid-cols-2 h-full my-auto"
 		>
 			<div class="z-0">
-				<div class=" flex flex-col justify-center items-center">
+				<div class=" flex flex-col mx-4 justify-center items-center">
 					<div class="relative">
 						<img
 							out:fly={{ y: -20, duration: 800 }}
-							class="csmju-logo z-10 contrast-100 opacity-90 md:opacity-100"
+							class="csmju-logo z-10 contrast-100 opacisty-90 md:opacity-100"
 							src={comcampLogo}
 							alt="comcamp-csmju-logo"
 						/>
@@ -74,22 +77,36 @@
 					<div
 						class="gradient-heading text-center text-xl font-bold from-accent to-primary tracking-widest eng-font text-flicker-out-glow"
 					>
-						<span class="text-lg lg:text-xl">Open 5 December 2023</span>
+						<span class="text-lg thai-font md:text-xl lg:text-2xl"
+							>เปิดรับสมัครตั้งแต่วันที่ 5 - 30 ธันวาคม 2566
+						</span>
 					</div>
 					<div class="mt-4 flex flex-col items-center text-center">
 						<Countdown countdownDate={timeline[4].date} />
 						<span
-							class="text-sm md:text-base font-bold gradient-heading from-primary text-flicker-out-glow to-error tracking-widest eng-font lg:text-lg"
-							>Countdown COMCAMP starting till 10 February</span
+							class="text-md thai-font md:text-base font-bold gradient-heading from-primary text-flicker-out-glow to-error tracking-widest lg:text-xl"
+							>เคาท์ดาวน์นับถอยหลังเปิดค่าย 8 กุมภาพันธ์ 2567</span
 						>
 					</div>
 				</div>
 				<div id="register-button-container" class="flex mt-6 justify-center">
-					<a
-						href={actionMenu.find((a) => a.name === 'register')?.link}
-						class="btn btn-accent btn-md"
-						role="button">Join Now</a
-					>
+					{#await authStateReady}
+						<span class="loading-spinner loading loading-md" />
+						<!-- promise is pending -->
+					{:then user}
+						{#if user}
+							<a href="/dashboard" role="button" class="btn btn-primary btn-md">
+								<iconify-icon icon="material-symbols:dashboard" />
+								เข้าสู่หน้าแดชบอร์ด</a
+							>
+						{:else}
+							<a
+								href={actionMenu.find((a) => a.name === 'register')?.link}
+								class="btn btn-accent btn-md"
+								role="button">{actionMenu.find((a) => a.name === 'register')?.label}</a
+							>
+						{/if}
+					{/await}
 				</div>
 			</div>
 		</div>
@@ -110,6 +127,14 @@
 
 	.gradient-heading {
 		@apply bg-clip-text text-transparent box-decoration-clone bg-gradient-to-br;
+	}
+
+	.thai-font {
+		font-family: 'IBM Plex Sans Thai', sans-serif;
+	}
+
+	.eng-font {
+		font-family: 'Roboto', sans-serif;
 	}
 
 	/* .centered {

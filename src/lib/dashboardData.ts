@@ -10,7 +10,7 @@ const menu = [
 	{
 		title: 'บอร์ดประชาสัมพันธ์',
 		path: '/dashboard/public-relations-board',
-		icon: 'mdi:account'
+		icon: 'fluent:board-16-regular'
 	},
 	{
 		title: 'ส่งหลักฐานการชำระ',
@@ -18,7 +18,7 @@ const menu = [
 		icon: 'ion:receipt-outline'
 	},
 	{
-		title: 'ส่งหนังสือขออณุญาตผู้ปกครอง',
+		title: 'ส่งหนังสือขออนุญาติผู้ปกครอง',
 		path: '/dashboard/parent-permission-submission',
 		icon: 'mdi:file-document-edit-outline'
 	},
@@ -43,7 +43,7 @@ const adminMenu = [
 	{
 		title: 'แก้ไขรายการประชาสัมพันธ์',
 		path: import.meta.env.VITE_DASHBOARD_BOARD_LISTS_ON_ADMIN_PATH,
-		icon: 'line-md:check-list-3'
+		icon: 'fluent:board-16-regular'
 	},
 	{
 		title: 'รายชื่อผู้สมัคร',

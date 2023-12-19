@@ -1,5 +1,5 @@
 <script lang="ts">
-	import parentPermissionImage from '$lib/assets/files/parent-permison-image.png';
+	import parentPermissionImage from '$lib/assets/files/parent-permison-image-2.png';
 	import Placeholder from '$lib/components/Placeholder.svelte';
 	import { fileUploader, deleteFile } from '$lib/config/cloundinary';
 	import { superForm, superValidateSync } from 'sveltekit-superforms/client';
@@ -106,7 +106,7 @@
 				<div class="flex flex-col gap-6 items-center justify-center w-full">
 					<figure class="border-2 border-base-content/30 rounded-lg p-2">
 						<div class="divider">
-							<span class="text-sm font-semibold">หนังสือขออณุญาตผู้ปกครอง</span>
+							<span class="text-sm font-semibold">หนังสือขออนุญาติผู้ปกครอง</span>
 						</div>
 						<a
 							target="_blank"

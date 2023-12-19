@@ -20,6 +20,7 @@
 
 	export let onEditMode: boolean = false;
 	export let boardList: BoardList[];
+	export let showFilter: boolean = true;
 
 	const filterOpts = {
 		tags: boardList.reduce((acc: string[], board) => {
@@ -72,12 +73,14 @@
 </script>
 
 <div style="position: static;" class="mockup-window -z-20 border bg-base-300">
-	<div class="relative">
-		<button
-			on:click={() => drawerStore.open(drawerSettings)}
-			class="absolute right-6 -top-10 btn btn-sm float-right btn-outline">ฟิวเตอร์</button
-		>
-	</div>
+	{#if showFilter}
+		<div class="relative">
+			<button
+				on:click={() => drawerStore.open(drawerSettings)}
+				class="absolute right-6 -top-10 btn btn-sm float-right btn-outline">ฟิวเตอร์</button
+			>
+		</div>
+	{/if}
 	<div class="max-h-[30rem] overflow-auto py-6 bg-base-200">
 		<div class="h-auto -z-10 flex flex-col">
 			<!-- content here -->

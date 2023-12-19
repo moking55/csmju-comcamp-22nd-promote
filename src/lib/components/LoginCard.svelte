@@ -129,15 +129,24 @@
 		<div class="">
 			<!-- Left column container-->
 			<div class="px-4 md:px-0">
-				<div class="md:mx-6 md:p-12">
+				<div class="md:mx-6 space-y-4 md:p-12">
 					<!--Logo-->
 					<div class="text-center">
 						<img class="mx-auto w-52" src={comcampLogo} alt="logo" />
 						<h4 class="mb-6 mt-1 pb-1 text-xl font-semibold">Comcamp CSMJU</h4>
+						<div class="divider">
+							<h2
+								class:badge-success={action === 'SIGN_IN'}
+								class:badge-info={action === 'SIGN_UP'}
+								class="badge badge-lg p-4 shadow-white/50 shadow-lg"
+							>
+								{action === 'SIGN_IN' ? 'เข้าสู่ระบบ' : 'สมัครบัญชี'}
+							</h2>
+						</div>
 					</div>
 
 					<form method="POST" use:enhance>
-						<p class="mb-4">{action === 'SIGN_IN' ? 'เข้าสู่ระบบ' : 'กรอกข้อมูล'}</p>
+						<p class="mb-4">กรอกข้อมูล</p>
 						<!--Username input-->
 						<div class="relative form-control items-center mb-4" data-te-input-wrapper-init>
 							<input
