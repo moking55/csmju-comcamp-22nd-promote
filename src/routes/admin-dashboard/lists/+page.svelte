@@ -5,14 +5,20 @@
 		listStore,
 		type List,
 		markAsRead,
-		getList
+		getList,
+		sendNotificationAndMarkAsReads
 	} from '$lib/firebase/admin-actions/adminListAction';
 	import { CldImage } from 'svelte-cloudinary';
 	import { Paginator, type PaginationSettings } from '@skeletonlabs/skeleton';
 	import { onMount } from 'svelte';
 	import DashboardLoadingSlot from '$lib/components/assets/DashboardLoadingSlot.svelte';
+	import { Toast } from '$lib/middleware/alertConfig';
+	import handler from '$lib/firebase/errors/clientHandler';
+	import { FirebaseError } from 'firebase/app';
 
 	let promise: Promise<unknown>;
+	let whileActionSubmit = false;
+
 	onMount(() => {
 		promise = new Promise((resolve, reject) => {
 			try {
@@ -53,6 +59,29 @@
 		}
 	}
 
+	function onSendBackConfirmationAndMarkAsReadToAllUsers(sendOpt: 'ALL' | 'RECEIPT' | 'PARENT') {
+		if (filter === 'unread') {
+			sendNotificationAndMarkAsReads(paginatedSource, sendOpt)
+				.then(() => {
+					Toast.fire({
+						icon: 'success',
+						title: 'ส่งการแจ้งเตือนเรียบร้อยแล้ว'
+					});
+				})
+				.catch((error) => {
+					if (error instanceof FirebaseError) {
+						whileActionSubmit = false;
+						return handler(error, 'ไม่สามารถส่งการแจ้งเตือนได้');
+					}
+					Toast.fire({
+						icon: 'error',
+						title: 'ไม่สามารถส่งการแจ้งเตือนได้'
+					});
+					whileActionSubmit = false;
+				});
+		}
+	}
+
 	$: filterRule = () => {
 		return filter === 'read';
 	};
@@ -74,19 +103,58 @@
 		<article class="prose prose-sm">
 			<h2 class="text-base md:text-2xl">รายการ</h2>
 		</article>
-		<div class="flex justify-between">
+		<div class="flex items-center justify-between">
 			<p class="text-sm">ตรวจสอบรายการที่ถูกส่งมาได้ที่นี้</p>
-			<div class="flex items-center gap-2">
-				<label for="filter" class="text-sm">กรองตาม</label>
-				<select
-					bind:value={filter}
-					name="filter"
-					id="filter"
-					class="select select-bordered select-sm w-32"
-				>
-					<option value="read">อ่านแล้ว</option>
-					<option selected value="unread">ยังไม่ได้อ่าน</option>
-				</select>
+			<div class="space-y-3">
+				<div class="flex items-center gap-2">
+					<label for="filter" class="text-sm">กรองตาม</label>
+					<select
+						bind:value={filter}
+						name="filter"
+						id="filter"
+						class="select select-bordered select-sm w-32"
+					>
+						<option value="read">อ่านแล้ว</option>
+						<option selected value="unread">ยังไม่ได้อ่าน</option>
+					</select>
+				</div>
+				{#if filter === 'unread'}
+					<div class="dropdown">
+						<div
+							class="tooltip"
+							data-tip="ส่งการแจ้งเตือนในกล่องข้อความและอีเมล์ที่ติดต่อ เพื่อยืนยันการตรวจสอบหลักฐาน ให้กับผู้ใช้ที่ส่งหลักฐานมาจากรายการ 'ยังไม่ได้อ่าน' ทั้งหมดจากนั้นมาร์ครายการเป็น 'อ่านแล้ว'"
+						>
+							<div role="button" tabindex="0" class="btn btn-sm btn-accent">
+								<iconify-icon icon="ph-question" /> ตอบกลับการยืนยันทั้งหมด
+								<iconify-icon icon="mdi:arrow-down-bold" />
+
+								{#if whileActionSubmit}
+									<span class="loading loading-spinner loading-xs" />
+								{/if}
+							</div>
+							<ul
+								tabindex="0"
+								class="dropdown-content z-[1] menu p-2 shadow bg-accent-content text-accent rounded-box w-52"
+							>
+								<li>
+									<button on:click={() => onSendBackConfirmationAndMarkAsReadToAllUsers('ALL')}
+										>ส่งทั้งหมด</button
+									>
+								</li>
+								<li>
+									<button on:click={() => onSendBackConfirmationAndMarkAsReadToAllUsers('PARENT')}
+										>ส่งเฉพาะหัวข้อ ผู้ปกครอง</button
+									>
+								</li>
+								<li>
+									<button on:click={() => onSendBackConfirmationAndMarkAsReadToAllUsers('RECEIPT')}
+										>ส่งเฉพาะหัวข้อ หลักฐานการชำระ</button
+									>
+								</li>
+							</ul>
+						</div>
+					</div>
+				{/if}
 			</div>
 		</div>
 		<div class="divider" />
@@ -99,8 +167,8 @@
 							<th />
 							<th>ชื่อ</th>
 							{#each Array(6) as item}
-							<th />
-						{/each}
+								<th />
+							{/each}
 
 							<th>อีเมล์</th>
 							<th>โรงเรียน</th>

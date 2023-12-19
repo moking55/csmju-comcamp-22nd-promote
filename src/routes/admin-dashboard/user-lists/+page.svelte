@@ -16,10 +16,14 @@
 	import { userListStore as userList } from '$lib/firebase/actions/userAction';
 	import Swal from 'sweetalert2';
 	import { Toast } from '$lib/middleware/alertConfig';
+	import { evidenceLateSender } from '$lib/services/job-schedule';
+	import { FirebaseError } from 'firebase/app';
+	import handler from '$lib/firebase/errors/clientHandler';
 
 	let promise: Promise<unknown>;
 
 	let fullInfo = false;
+	let whileActionSubmit = false;
 
 	let paginationSettings = {
 		page: 0,
@@ -105,6 +109,29 @@
 		});
 	}
 
+	function onSendDueDateAlert() {
+		whileActionSubmit = true;
+		evidenceLateSender()
+			.then(() => {
+				Toast.fire({
+					icon: 'success',
+					title: 'ส่งแจ้งเตือนความล่าช้าเรียบร้อยแล้ว'
+				});
+				whileActionSubmit = false;
+			})
+			.catch((error) => {
+				if (error instanceof FirebaseError) {
+					whileActionSubmit = false;
+					return handler(error, 'ไม่สามารถส่งข้อความได้');
+				}
+				Toast.fire({
+					icon: 'error',
+					title: 'ไม่สามารถส่งข้อความได้'
+				});
+				whileActionSubmit = false;
+			});
+	}
+
 	onMount(() => {
 		promise = new Promise((resolve, reject) => {
 			getUserList().then((res) => {
@@ -147,6 +174,7 @@
 							<input type="checkbox" bind:checked={fullInfo} class="checkbox" />
 						</label>
 					</div>
+
 					<div class="">
 						<label for="user_filter_model" class="btn btn-sm">กรองตาม</label>
 
@@ -158,6 +186,18 @@
 							</div>
 							<label class="modal-backdrop" for="user_filter_model">Close</label>
 						</div>
+					</div>
+					<div
+						class="tooltip"
+						data-tip="ทำการแจ้งเตือน ผู้เข้าร่วมที่ทำการส่งหลักฐานล่าช้ามากกว่า 5 วันนับตั้งแต่ตอนสร้างบัญชี โดยข้อความแจ้งเตือนจะถูกส่งใน กล่องข้อความ และ อีเมล์ที่ติดต่อของผู้ใช้ และยืดการส่งเพิ่มให้อีก 3 วัน"
+					>
+						<button on:click={() => onSendDueDateAlert()} class="btn btn-sm btn-accent">
+							<iconify-icon icon="ph-question" />
+							ส่งแจ้งเตือนความล่าช้า
+							{#if whileActionSubmit}
+								<span class="loading loading-spinner loading-xs" />
+							{/if}
+						</button>
 					</div>
 				</div>
 			</div>

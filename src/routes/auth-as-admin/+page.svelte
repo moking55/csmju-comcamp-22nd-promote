@@ -6,6 +6,8 @@
 	import { goto } from '$app/navigation';
 	import { Toast } from '$lib/middleware/alertConfig';
 	import { initFirebase } from '$lib/firebase/config';
+	import handler from '$lib/firebase/errors/clientHandler';
+	import type { FirebaseError } from 'firebase/app';
 
 	const authSchema = z.object({
 		email: z.string().email(),
@@ -51,21 +53,25 @@
 			if (!success) {
 				return Swal.fire('Error', 'รหัสผ่านหรืออีเมล์ไม่ถูกต้อง รีเฟรชแล้วลองอีกครั้ง', 'error');
 			} else {
-				signInUserWithEmail(formValues[0], formValues[1]).then((auth) => {
-					if (!auth)
-						return Toast.fire({
-							icon: 'warning',
-							title: 'รหัสผ่านหรืออีเมล์ไม่ถูกต้อง รีเฟรชแล้วลองอีกครั้ง'
-						});
+				signInUserWithEmail(formValues[0], formValues[1])
+					.then((auth) => {
+						if (!auth)
+							return Toast.fire({
+								icon: 'warning',
+								title: 'รหัสผ่านหรืออีเมล์ไม่ถูกต้อง รีเฟรชแล้วลองอีกครั้ง'
+							});
 
-					if (auth.email !== import.meta.env.VITE_ADMIN_EMAIL) {
-						return Toast.fire({
-							icon: 'warning',
-							title: 'รหัสผ่านหรืออีเมล์ไม่ถูกต้อง รีเฟรชแล้วลองอีกครั้ง'
-						});
-					}
-					goto(import.meta.env.VITE_DASHBOARD_LISTS_ON_ADMIN_PATH);
-				});
+						if (auth.email !== import.meta.env.VITE_ADMIN_EMAIL) {
+							return Toast.fire({
+								icon: 'warning',
+								title: 'รหัสผ่านหรืออีเมล์ไม่ถูกต้อง รีเฟรชแล้วลองอีกครั้ง'
+							});
+						}
+						goto(import.meta.env.VITE_DASHBOARD_LISTS_ON_ADMIN_PATH);
+					})
+					.catch((err: FirebaseError) => {
+						handler(err, 'มีบางอย่่างผิดปกติ, โปรดติดต่อผู้ดูแลระบบ');
+					});
 			}
 		}
 	}

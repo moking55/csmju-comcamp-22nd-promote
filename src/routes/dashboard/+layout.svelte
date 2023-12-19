@@ -115,7 +115,7 @@
 							</div>
 							<ul
 								tabindex="0"
-								class="dropdown-content z-[9999] menu p-2 mt-4 shadow bg-base-300 rounded-box w-52"
+								class="dropdown-content gap-2 z-[9999] menu p-2 mt-4 shadow bg-base-300 rounded-box w-52"
 							>
 								{#each menu as list}
 									<li class:list-active={$page.url.pathname === list.path}>
@@ -130,7 +130,10 @@
 								{/each}
 
 								<li>
-									<button on:click={() => singOut()} class="bg-error">ออกจากระบบ</button>
+									<a href="/" role="button" class="btn btn-sm btn-secondary">กลับสู่หน้าหลัก</a>
+								</li>
+								<li>
+									<button on:click={() => singOut()} class="btn btn-sm btn-error">ออกจากระบบ</button>
 								</li>
 							</ul>
 						</div>
@@ -179,6 +182,9 @@
 								>
 							</div>
 						</div>
+						<a href="/" role="button" class="btn-secondary btn btn-sm">กลับสู่หน้าหลัก</a>
+					
+
 						<div on:click={() => singOut()} class="btn btn-error btn-sm">ออกจากระบบ</div>
 						<div class="divider" />
 						{#each menu as list}

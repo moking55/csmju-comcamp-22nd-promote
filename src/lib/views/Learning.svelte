@@ -14,7 +14,7 @@
 	const learningComponent = [MobileLearned, IOTLearned, WebLearned, AiLearned];
 </script>
 
-<section id="learning-section" class="h-full w-full flex flex-col mt-28 gap-32">
+<section id="learning-section" class="h-full w-full flex flex-col mt-48 gap-32">
 	<section id="topic">
 		<div class="-z-10 relative">
 			<div class="-top-1/2 left-1/2 -z-10 absolute transform -translate-x-1/2 -translate-y-1/2">

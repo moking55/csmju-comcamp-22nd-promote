@@ -346,7 +346,7 @@
 									>
 										<option class="text-base-200" selected disabled>เลือก</option>
 										<option class="text-base-200" value="นาย">นาย</option>
-										<option class="text-base-200" value="นาง">นางสาว</option>
+										<option class="text-base-200" value="นางสาว">นางสาว</option>
 									</select>
 									<p class="text-sm text-error">{$errors.prefix ?? ''}</p>
 								</div>

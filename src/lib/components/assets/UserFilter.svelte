@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { User } from '$lib/firebase/actions/userAction';
+	import { Timestamp } from 'firebase/firestore';
 
 	let opts = {
 		filters: [
@@ -14,6 +15,10 @@
 			{
 				label: 'หลักฐาน',
 				value: 'assets'
+			},
+			{
+				label: 'เลยกำหนดการส่งหลักฐาน',
+				value: 'dueDateAssets'
 			}
 		],
 		size: ['XS', 'S', 'M', 'L', 'XL', '2XL', '3XL', '4XL', '5XL'],
@@ -45,6 +50,16 @@
 				value: 'NONE'
 			}
 		],
+		dueDateAssets: [
+			{
+				label: 'ไม่กรอง',
+				value: 'NONE'
+			},
+			{
+				label: 'กรองคนที่ส่งหลักฐานล่าช้า (5 วันหลังจากลงทะเบียน)',
+				value: 'dueDate'
+			}
+		],
 		laptop: [
 			{
 				label: 'มี',
@@ -66,8 +81,10 @@
 	let size: string[] = [];
 	let laptop: 'HAVE' | 'NONE' | 'ALL';
 	let assets: 'PAYMENT' | 'PARENT' | 'ALL' | 'NONE' | 'CONFIRMED' | 'NO_FILTER';
+	let dueDate: 'NONE' | 'dueDate';
 
 	export let userList: User[];
+
 	let originalList = userList;
 
 	function onFilterChanged() {
@@ -90,6 +107,23 @@
 				if (assets === 'PARENT') return user.assets.parentPermissionSrc;
 				if (assets === 'CONFIRMED') return user.status;
 			});
+		} else if (selected === 'dueDateAssets') {
+			if (dueDate === 'NONE') return true;
+			if (dueDate === 'dueDate') {
+				const lateSubmittedUser = userList.filter((user) => {
+					const lateSubmittedOn = {
+						payment: user.assets.paymentReceiptSrc === null,
+						parent: user.assets.parentPermissionSrc === null
+					};
+					return lateSubmittedOn.payment || lateSubmittedOn.parent;
+				});
+				userList = lateSubmittedUser.filter((user) => {
+					const now = Timestamp.now();
+					const diffTime = Math.abs(now.seconds - user.created_at.seconds);
+					const diffDays = Math.ceil(diffTime / (60 * 60 * 24));
+					return diffDays >= 5;
+				});
+			}
 		}
 	}
 </script>
@@ -140,6 +174,15 @@
 				<option disabled>เลือก</option>
 				{#each opts.assets as asset}
 					<option value={asset.value}>{asset.label}</option>
+				{/each}
+			</select>
+		</div>
+	{:else if selected === 'dueDateAssets'}
+		<div class="form-control">
+			<select name="sizeSelected" bind:value={dueDate} class="select select-bordered">
+				<option disabled>เลือก</option>
+				{#each opts.dueDateAssets as opt}
+					<option value={opt.value}>{opt.label}</option>
 				{/each}
 			</select>
 		</div>

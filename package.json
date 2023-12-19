@@ -49,6 +49,7 @@
 	"type": "module",
 	"dependencies": {
 		"@cloudinary/url-gen": "^1.13.0",
+		"@sendgrid/mail": "^8.1.0",
 		"@skeletonlabs/skeleton": "^2.5.1",
 		"@splinetool/runtime": "^0.9.490",
 		"animate.css": "^4.1.1",

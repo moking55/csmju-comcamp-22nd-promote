@@ -14,6 +14,9 @@ import {
 	where,
 	deleteDoc
 } from 'firebase/firestore';
+import type Quill from 'quill';
+import { mailSender, type MailData } from '$lib/services/micro-services/mail-service';
+import { FirebaseError } from 'firebase/app';
 
 const { db } = initFirebase();
 
@@ -35,9 +38,9 @@ export async function getNotification(userUid?: string) {
 		const ref = collection(db, 'notification');
 		let queryRef;
 		if (!userUid) {
-			queryRef = query(ref, orderBy('created'));
+			queryRef = query(ref, orderBy('created', 'desc'));
 		} else {
-			queryRef = query(ref, where('userUid', '==', userUid), orderBy('created'));
+			queryRef = query(ref, where('userUid', '==', userUid), orderBy('created', 'desc'));
 		}
 		const data = await getDocs(queryRef);
 		const notification = data.docs.map((doc) => ({
@@ -51,9 +54,24 @@ export async function getNotification(userUid?: string) {
 	}
 }
 
-export function sendNotificationToUser(notification: NotificationData) {
-	// Add the notification to the "notification" collection
-	return addDoc(collection(db, 'notification'), notification);
+export async function sendNotificationToUser(notification: NotificationData, quill?: Quill) {
+	try {
+		await addDoc(collection(db, 'notification'), notification);
+		if (quill) {
+			const emailData: MailData = {
+				to: notification.toUserEmail,
+				from: 'comcamp.22nd@gmail.com',
+				subject: notification.title,
+				text: quill.getText()
+			};
+			await mailSender(emailData);
+		}
+	} catch (error) {
+		if (error instanceof FirebaseError) {
+			throw error;
+		}
+		throw new Error(error as string);
+	}
 }
 
 export function deleteNotification(notification: Notification) {

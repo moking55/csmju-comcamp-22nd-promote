@@ -51,7 +51,7 @@
 				</div>
 			</div>
 		</div>
-		{#if device.isTablet || !device.isMobile}
+		{#if +device.isTablet || !device.isMobile}
 			<!-- content here -->
 			<div class="hidden lg:block col-span-full lg:col-span-1 text-base h-full w-72">
 				<div class="relative">
