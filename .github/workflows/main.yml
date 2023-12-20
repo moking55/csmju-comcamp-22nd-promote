@@ -48,6 +48,8 @@ jobs:
           echo VITE_CLOUNDINARY_UPLOAD_PRESET=${{ secrets.VITE_CLOUNDINARY_UPLOAD_PRESET }} >> .env
           echo VITE_PUBLIC_CLOUDINARY_CLOUD_NAME=${{ secrets.VITE_PUBLIC_CLOUDINARY_CLOUD_NAME }} >> .env
           echo VITE_ADMIN_EMAIL=${{ secrets.VITE_ADMIN_EMAIL }} >> .env
+          echo VITE_SENDGRID_API_KEY=${{ secrets.VITE_SENDGRID_API_KEY }} >> .env
+          echo VITE_BASE_API_SERVICE=${{ secrets.VITE_BASE_API_SERVICE }} >> .env
           cat .env
       - name: Build project
         run: |
@@ -61,4 +63,3 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           localDir: './build/'
           remoteDir: ${{ secrets.SSH_DIR }}
-          
