@@ -26,13 +26,13 @@
 	class="relative z-20 grid place-items-center"
 >
 	<div
-		class="w-fit rounded-xl border border-white/25 bg-white/5 p-4 shadow-[inset_0_0_8px_rgba(255,255,255,0.2)] backdrop-blur-xl will-change-transform"
+		class="w-fit h-fit rounded-xl border border-white/25 bg-white/5 p-4 shadow-[inset_0_0_8px_rgba(255,255,255,0.2)] backdrop-blur-xl will-change-transform"
 		style="transform: none;"
 	>
 		<div class="absolute inset-x-0 bottom-0" />
 		<div id="logo-card" bind:this={logoCard}>
 			<figure>
-				<img class="contrast-150" src={data.src} alt="logo" />
+				<img class="contrast-150 h-[144px] rounded-xl" src={data.src} alt="logo" />
 			</figure>
 		</div>
 	</div>
