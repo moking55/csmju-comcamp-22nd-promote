@@ -89,9 +89,9 @@ const benefits = [
 		pic: new URL('$lib/assets/people_talking.png', import.meta.url).href
 	},
 	{
-		punchline: 'สนุกไปกับการเรียนรู้',
-		body: 'เรียนรู้ด้วยวิธีการสอนที่แสนสนุก พร้อมกิจกรรมที่ตื่นเต้น',
-		pic: new URL('$lib/assets/laugh.png', import.meta.url).href
+		punchline: 'ได้รับเกียรติบัตร',
+		body: 'พิชิตค่าย แล้วรับเกียรติบัตรไปครอง',
+		pic: new URL('$lib/assets/certificate.png', import.meta.url).href
 	}
 ];
 
@@ -192,6 +192,11 @@ const sponsor = [
 		visible: true
 	},
 	{
+		src: new URL('$lib/assets/sponsors/true-2.png', import.meta.url).href,
+		bgClass: 'bg-white/40',
+		visible: true
+	},
+	{
 		src: '',
 		bgClass: '',
 		visible: false
@@ -202,11 +207,23 @@ const sponsor = [
 		visible: true
 	},
 	{
+		src: new URL('$lib/assets/sponsors/true-1.png', import.meta.url).href,
+		bgClass: 'bg-white/40',
+		visible: true
+	},
+	{
 		src: new URL('$lib/assets/sponsors/csmju-studio.png', import.meta.url).href,
 		bgClass: 'bg-white/40',
 		visible: true
 	}
 ];
+
+//- temp: used when sponsor count up to 5
+export const tempSponsor = {
+	src: new URL('$lib/assets/sponsors/true-1.png', import.meta.url).href,
+	bgClass: 'bg-white/40',
+	visible: true
+};
 
 const contract = {
 	socials: [
