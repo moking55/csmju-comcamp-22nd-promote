@@ -66,7 +66,7 @@
 			</div>
 		</div>
 	</section>
-	{#if y > 1000}
+	{#if y > 1750}
 		<!-- content here -->
 
 		<section id="things" class=" flex flex-col overflow-hidden gap-52 md:gap-60 items-center">
