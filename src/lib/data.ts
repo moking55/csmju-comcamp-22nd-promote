@@ -101,7 +101,7 @@ const timeline = [
 		title: 'เปิดรับสมัคร'
 	},
 	{
-		date: new Date('2023-12-30'),
+		date: new Date('2024-01-18'),
 		title: 'ปิดรับสมัคร'
 	},
 	{

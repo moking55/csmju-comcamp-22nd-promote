@@ -53,10 +53,10 @@
 		<div
 			in:fade={{ duration: 2000 }}
 			out:fly={{ y: -20, duration: 800 }}
-			class="-translate-y-28 grid lg:grid-cols-2 h-full my-auto"
+			class="-translate-y-28 md:-translate-y-32 grid lg:grid-cols-2 h-full my-auto"
 		>
 			<div class="z-0">
-				<div class=" flex flex-col mx-4 justify-center items-center">
+				<div class=" flex gap-4 flex-col mx-4 justify-center items-center">
 					<div class="relative">
 						<img
 							out:fly={{ y: -20, duration: 800 }}
@@ -78,7 +78,7 @@
 						class="gradient-heading text-center text-xl font-bold from-accent to-primary tracking-widest eng-font text-flicker-out-glow"
 					>
 						<span class="text-lg thai-font md:text-xl lg:text-2xl"
-							>เปิดรับสมัครตั้งแต่วันที่ 5 - 30 ธันวาคม 2566
+							>เปิดรับสมัครตั้งแต่วันที่ <br /> 5 ธันวาคม 2566 - 18 มกราคม 2567
 						</span>
 					</div>
 					<div class="mt-4 flex flex-col items-center text-center">
