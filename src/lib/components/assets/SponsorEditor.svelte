@@ -27,59 +27,63 @@
 		donateDate: z.string().nullable()
 	});
 
-	const { form, errors, enhance, constraints } = superForm(superValidateSync(sponsorSchema), {
-		SPA: true,
-		validators: sponsorSchema,
-		id: sponsorEditor ? `sponsor-editor-${sponsorEditor?.index.toString()}` : 'sponsor-add-form',
-		onSubmit() {
-			if (!$form.name) return Toast.fire({ title: 'กรุณากรอกชื่อผู้บริจาค', icon: 'error' });
+	const { form, errors, enhance, constraints, reset } = superForm(
+		superValidateSync(sponsorSchema),
+		{
+			SPA: true,
+			validators: sponsorSchema,
+			id: sponsorEditor ? `sponsor-editor-${sponsorEditor?.index.toString()}` : 'sponsor-add-form',
+			onSubmit() {
+				if (!$form.name) return Toast.fire({ title: 'กรุณากรอกชื่อผู้บริจาค', icon: 'error' });
 
-			loadingWhileSubmit = true;
+				loadingWhileSubmit = true;
 
-			// convert date to timestamp
+				// convert date to timestamp
 
-			const sponsorData: SponsorData = {
-				name: $form.name,
-				position: $form.position ?? null,
-				from: $form.from ?? null,
-				donateAmount: $form.donateAmount ? +$form.donateAmount : null,
-				donateDate: $form.donateDate
-					? new Timestamp(new Date($form.donateDate).getTime() / 1000, 0)
-					: null,
-				created_at: Timestamp.now()
-			};
+				const sponsorData: SponsorData = {
+					name: $form.name,
+					position: $form.position ?? null,
+					from: $form.from ?? null,
+					donateAmount: $form.donateAmount ? +$form.donateAmount : null,
+					donateDate: $form.donateDate
+						? new Timestamp(new Date($form.donateDate).getTime() / 1000, 0)
+						: null,
+					created_at: Timestamp.now()
+				};
 
-			if (sponsorEditor) {
-				updateSponsor(sponsorEditor.sponsor.uId, sponsorData)
-					.then(() => {
-						Toast.fire({
-							title: 'แก้ไขข้อมูลสำเร็จ',
-							icon: 'success'
+				if (sponsorEditor) {
+					updateSponsor(sponsorEditor.sponsor.uId, sponsorData)
+						.then(() => {
+							Toast.fire({
+								title: 'แก้ไขข้อมูลสำเร็จ',
+								icon: 'success'
+							});
+						})
+						.catch((err: FirebaseError) => {
+							handler(err, 'ไม่สามารถแก้ไขข้อมูลได้');
+						})
+						.finally(() => {
+							loadingWhileSubmit = false;
 						});
-					})
-					.catch((err: FirebaseError) => {
-						handler(err, 'ไม่สามารถแก้ไขข้อมูลได้');
-					})
-					.finally(() => {
-						loadingWhileSubmit = false;
-					});
-			} else {
-				addSponsor(sponsorData)
-					.then(() => {
-						Toast.fire({
-							title: 'เพิ่มข้อมูลสำเร็จ',
-							icon: 'success'
+				} else {
+					addSponsor(sponsorData)
+						.then(() => {
+							reset();
+							Toast.fire({
+								title: 'เพิ่มข้อมูลสำเร็จ',
+								icon: 'success'
+							});
+						})
+						.catch((err: FirebaseError) => {
+							handler(err, 'ไม่สามารถเพิ่มข้อมูลได้');
+						})
+						.finally(() => {
+							loadingWhileSubmit = false;
 						});
-					})
-					.catch((err: FirebaseError) => {
-						handler(err, 'ไม่สามารถเพิ่มข้อมูลได้');
-					})
-					.finally(() => {
-						loadingWhileSubmit = false;
-					});
+				}
 			}
 		}
-	});
+	);
 
 	function setSponsorData() {
 		if (sponsorEditor) {
