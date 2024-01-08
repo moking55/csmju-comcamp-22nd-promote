@@ -8,7 +8,7 @@ import Hashes from 'jshashes';
 export const cld = writable<Cloudinary | null>(null);
 
 export const cloudinaryConfig = () => {
-	cld.set(new Cloudinary({ cloud: { cloudName: 'dg03o1tta' } }));
+	cld.set(new Cloudinary({ cloud: { cloudName: import.meta.env.VITE_CLOUNDINARY_CLOUD_NAME } }));
 };
 
 export async function fileUploader(

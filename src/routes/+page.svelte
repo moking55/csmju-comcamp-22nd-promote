@@ -1,4 +1,5 @@
 <script context="module">
+	import SponsorPerson from './../lib/views/SponsorPerson.svelte';
 	import Device from 'svelte-device-info';
 </script>
 
@@ -88,6 +89,7 @@
 		<Stats {y} />
 		<Benefit />
 		<Sponsor />
+		<SponsorPerson />
 		<FAQ />
 	</div>
 	<div class="z-[9999]">

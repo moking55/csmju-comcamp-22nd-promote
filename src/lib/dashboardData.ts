@@ -46,6 +46,11 @@ const adminMenu = [
 		icon: 'fluent:board-16-regular'
 	},
 	{
+		title: 'แก้ไขรายการผู้สนับสนุน',
+		path: import.meta.env.VITE_DASHBOARD_SPONSOR_LISTS_ON_ADMIN_PATH,
+		icon: 'octicon:sponsor-tiers-24'
+	},
+	{
 		title: 'รายชื่อผู้สมัคร',
 		path: import.meta.env.VITE_DASHBOARD_USER_LISTS_ON_ADMIN_PATH,
 		icon: 'line-md:check-list-3'
