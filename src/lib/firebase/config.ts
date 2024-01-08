@@ -1,9 +1,9 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp } from 'firebase/app';
-import { getAnalytics } from 'firebase/analytics';
-import { getFirestore } from 'firebase/firestore';
+import { initializeApp, type FirebaseApp } from 'firebase/app';
+import { getAnalytics, type Analytics } from 'firebase/analytics';
+import { Firestore, getFirestore } from 'firebase/firestore';
 import { memoize } from 'lodash';
-import { getAuth } from 'firebase/auth';
+import { getAuth, type Auth } from 'firebase/auth';
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -22,7 +22,12 @@ const firebaseConfig = {
 
 // Initialize Firebase
 
-export const initFirebase = memoize(() => {
+export const initFirebase: () => {
+	app: FirebaseApp;
+	analytics: Analytics;
+	db: Firestore;
+	auth: Auth;
+} = memoize(() => {
 	const app = initializeApp(firebaseConfig);
 	const db = getFirestore(app);
 	const auth = getAuth(app);

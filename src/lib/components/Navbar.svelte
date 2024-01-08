@@ -1,14 +1,11 @@
 <script lang="ts">
-	import { checkAndSetUserData, type User } from './../firebase/actions/userAction';
+	import type { User } from './../firebase/actions/userAction';
 	import UserDetailWidget from './widgets/UserWidget.svelte';
 	import logo from '$lib/assets/comcamp-22nd-logo.png';
 
 	import { navbarMenu, actionMenu } from '$lib/data';
-	import { goto } from '$app/navigation';
 	import { initFirebase } from '$lib/firebase/config.js';
-	import { onAuthStateChanged } from 'firebase/auth';
-	import { onMount } from 'svelte';
-	import { auth as authData } from '$lib/firebase/actions/authAction';
+
 	import type { DrawerStore } from '@skeletonlabs/skeleton';
 
 	export let y: number;
@@ -61,7 +58,7 @@
 					>
 				{/if}
 			{/await}
-			<div class="-my-2 -mr-2 dropdown order-1 dropdown-end ">
+			<div class="-my-2 -mr-2 dropdown order-1 dropdown-end">
 				<div
 					tabindex="0"
 					class="bg-gray-200 text-gray-600 rounded-full p-3.5 inline-flex items-center justify-center hover:text-gray-700 hover:bg-gray-300 cursor-pointer focus:outline-none general-ring-state"
