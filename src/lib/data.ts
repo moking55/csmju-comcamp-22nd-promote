@@ -32,12 +32,12 @@ const navbarMenu = [
 	{
 		label: 'คำถาม',
 		ref: '#faq-section',
-		yValue: 9500
+		yValue: 10000
 	},
 	{
 		label: 'ติดต่อ',
 		ref: '#contact-section',
-		yValue: 9880
+		yValue: 11000
 	}
 ];
 
@@ -177,7 +177,7 @@ const review = [
 
 const sponsor = [
 	{
-		src: new URL('$lib/assets/MJU_LOGO.svg', import.meta.url).href,
+		src: 'https://upload.wikimedia.org/wikipedia/en/b/b6/MaejoUniversityLogo.png',
 		bgClass: 'bg-white/40',
 		visible: true
 	},
