@@ -1,7 +1,8 @@
 <script lang="ts">
 	import { getSponsorList } from '$lib/firebase/actions/sponsorAction';
-	import { reverse } from 'lodash';
+	import { concat, reverse, slice } from 'lodash';
 	import SponsorPersonCard from './../components/SponsorPersonCard.svelte';
+	import { sponsor } from '$lib/data';
 </script>
 
 {#await getSponsorList() then sponsorList}
@@ -20,7 +21,7 @@
 				<div class=" slice-animate-to-left">
 					<div class="flex justify-center gap-4 flex-1">
 						<div class="flex flex-container gap-6 min-h-min">
-							{#each sponsorList as sponsor}
+							{#each sponsorList.concat(sponsorList.length > 4 ? sponsorList.slice(0, 4) : sponsorList) as sponsor}
 								<SponsorPersonCard {sponsor} />
 							{/each}
 						</div>
@@ -29,7 +30,9 @@
 				<div class=" slice-animate-to-right">
 					<div class="flex justify-center gap-4 flex-1">
 						<div class="flex flex-container gap-6 min-h-min">
-							{#each sponsorList.reverse() as sponsor}
+							{#each sponsorList
+								.concat(sponsorList.length > 4 ? sponsorList.slice(0, 4) : sponsorList)
+								.reverse() as sponsor}
 								<SponsorPersonCard {sponsor} />
 							{/each}
 						</div>
@@ -46,22 +49,22 @@
 			transform: translateX(0%);
 		}
 		100% {
-			transform: translateX(-25%);
+			transform: translateX(20rem);
 		}
 	}
 	@keyframes slide-to-right {
 		0% {
-			transform: translateX(-25%);
+			transform: translateX(20rem);
 		}
 		100% {
-			transform: translateX(0%);
+			transform: translateX(0);
 		}
 	}
 
 	.slice-animate-to-left {
-		animation: slide-to-left 20s linear infinite alternate;
+		animation: slide-to-left 10s linear infinite alternate;
 	}
 	.slice-animate-to-right {
-		animation: slide-to-right 20s linear infinite alternate;
+		animation: slide-to-right 10s linear infinite alternate;
 	}
 </style>
