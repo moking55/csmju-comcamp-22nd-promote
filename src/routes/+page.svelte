@@ -15,8 +15,8 @@
 	import Footer from '$lib/views/Contract.svelte';
 	import Timeline from '$lib/views/Timeline.svelte';
 	import { Drawer, getDrawerStore, initializeStores } from '@skeletonlabs/skeleton';
-	import type { DrawerSettings, DrawerStore } from '@skeletonlabs/skeleton';
 	import { auth as authData } from '$lib/firebase/actions/authAction';
+	import { disableRegistration } from '$lib/controller';
 
 	// firebase
 	// setup google analytics
@@ -76,13 +76,13 @@
 </script>
 
 <header>
-	<Navbar {authStateReady} {drawerStore} {y} />
+	<Navbar {disableRegistration} {authStateReady} {drawerStore} {y} />
 </header>
 <!-- Google analytic -->
 <GoogleAnalytics properties={[ga]} />
 <main>
 	<div class="flex h-full -z-10 flex-col gap-24">
-		<Index {authStateReady} {device} />
+		<Index {disableRegistration} {authStateReady} {device} />
 		<About />
 		<Timeline />
 		<Learning {y} />
