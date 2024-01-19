@@ -5,41 +5,47 @@ const navbarMenu = [
 		yValue: 200
 	},
 	{
+		label: 'ประกาศรายชื่อ',
+		ref: '#participant-accpeted-list',
+		yValue: 900
+	},
+	{
 		label: 'ไทม์ไลน์',
 		ref: '#timeline-section',
-		yValue: 900
+		yValue: 2000
 	},
 	{
 		label: 'หัวข้ออบรม',
 		ref: '#learning-section',
-		yValue: 2100
+		yValue: 2600
 	},
 	{
 		label: 'สถิติ',
 		ref: '#stats-section',
-		yValue: 5300
+		yValue: 5800
 	},
 	{
 		label: 'รีวิว',
 		ref: '#review-section',
-		yValue: 6400
+		yValue: 6900
 	},
 	{
 		label: 'สิ่งที่ได้รับ',
 		ref: '#benefit-section',
-		yValue: 7500
+		yValue: 8000
 	},
 	{
 		label: 'คำถาม',
 		ref: '#faq-section',
-		yValue: 10000
+		yValue: 10500
 	},
 	{
 		label: 'ติดต่อ',
 		ref: '#contact-section',
-		yValue: 11000
+		yValue: 11500
 	}
 ];
+
 
 const actionMenu = [
 	{
@@ -350,6 +356,7 @@ const imgGallery = {
 		resolveURLAsPromise(imgEight)
 	]
 };
+
 
 export {
 	aboutComcamp,
