@@ -13,6 +13,7 @@
 	import { checkAndSetUserData } from '$lib/firebase/actions/userAction';
 	import { initFirebase } from '$lib/firebase/config';
 	import { onAuthStateChanged } from 'firebase/auth';
+	import { disableRegistration } from '$lib/controller';
 
 	let action: 'SIGN_IN' | 'SIGN_UP';
 	let promise: Promise<unknown>;
@@ -133,7 +134,7 @@
 				<div
 					class="col-span-1 lg:col-span-2 backdrop-blur-md md:backdrop-blur-sm grid place-items-center h-full bg-gradient-to-r to-base-200 to-90% from-base-200/0 from-10% z-10"
 				>
-					<LoginCard bind:action />
+					<LoginCard {disableRegistration} bind:action />
 				</div>
 			</div>
 		</section>

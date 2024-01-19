@@ -10,8 +10,10 @@
 		isMobile: boolean;
 		isTablet: boolean;
 	};
+	export let disableRegistration: boolean;
 	let animatedInitial = false;
 	let splineSrc = import.meta.env.VITE_SPLICE_INDEX_SRC;
+
 	export let authStateReady: Promise<User | null>;
 
 	onMount(() => {
@@ -103,7 +105,7 @@
 							<a
 								href={actionMenu.find((a) => a.name === 'register')?.link}
 								class="btn btn-accent btn-md"
-								role="button">{actionMenu.find((a) => a.name === 'register')?.label}</a
+								role="button">{!disableRegistration ? actionMenu.find((a) => a.name === 'register')?.label : 'เข้าสู่ระบบ'}</a
 							>
 						{/if}
 					{/await}

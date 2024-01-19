@@ -10,6 +10,7 @@
 
 	export let y: number;
 	export let drawerStore: DrawerStore;
+	export let disableRegistration: boolean;
 
 	initFirebase();
 
@@ -130,7 +131,7 @@
 						type="button"
 						class="btn btn-sm btn-accent general-ring-state"
 						><div>
-							{actionMenu.find((a) => a.name === 'register')?.label}
+							{!disableRegistration ? actionMenu.find((a) => a.name === 'register')?.label : 'เข้าสู่ระบบ'}
 						</div></a
 					>
 				{/if}
