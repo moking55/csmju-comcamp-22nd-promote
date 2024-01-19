@@ -27,6 +27,7 @@
 	import { goto } from '$app/navigation';
 	import { initFirebase } from '$lib/firebase/config';
 	import { onAuthStateChanged } from 'firebase/auth';
+	import ParticipantAccpetedList from '$lib/views/ParticipantAccpetedList.svelte';
 
 	initializeStores();
 	const drawerStore = getDrawerStore();
@@ -84,6 +85,7 @@
 	<div class="flex h-full -z-10 flex-col gap-24">
 		<Index {disableRegistration} {authStateReady} {device} />
 		<About />
+		<ParticipantAccpetedList/>
 		<Timeline />
 		<Learning {y} />
 		<Stats {y} />
