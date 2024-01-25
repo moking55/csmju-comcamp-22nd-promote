@@ -8,7 +8,7 @@
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
 	import { checkAndSetUserData } from '$lib/firebase/actions/userAction';
-	import { adminMenu } from '$lib/dashboardData';
+	import { additionalAdminMenu, adminMenu } from '$lib/dashboardData';
 	import { getList, listStore } from '$lib/firebase/admin-actions/adminListAction';
 	import { initFirebase } from '$lib/firebase/config';
 	import { onAuthStateChanged } from 'firebase/auth';
@@ -107,7 +107,13 @@
 										<a href={list.path}><iconify-icon icon={list.icon} />{list.title}</a>
 									</li>
 								{/each}
+								<div class="divider" />
 
+								{#each additionalAdminMenu as list}
+									<li class:list-active={$page.url.pathname === list.path}>
+										<a href={list.path}><iconify-icon icon={list.icon} />{list.title}</a>
+									</li>
+								{/each}
 								<li>
 									<button on:click={() => singOut()} class="bg-error">ออกจากระบบ</button>
 								</li>
@@ -144,6 +150,12 @@
 						<div on:click={() => singOut()} class="btn btn-error btn-sm">ออกจากระบบ</div>
 						<div class="divider" />
 						{#each adminMenu as list}
+							<li class:list-active={$page.url.pathname === list.path}>
+								<a href={list.path}><iconify-icon icon={list.icon} />{list.title}</a>
+							</li>
+						{/each}
+						<div class="divider" />
+						{#each additionalAdminMenu as list}
 							<li class:list-active={$page.url.pathname === list.path}>
 								<a href={list.path}><iconify-icon icon={list.icon} />{list.title}</a>
 							</li>

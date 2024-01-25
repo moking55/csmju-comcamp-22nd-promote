@@ -57,6 +57,14 @@ const adminMenu = [
 	}
 ];
 
+const additionalAdminMenu = [
+	{
+		title: 'แปลงข้อมูลเป็น Excel',
+		path: import.meta.env.VITE_DASHBOARD_DATA_TO_EXCEL_ON_ADMIN_PATH,
+		icon: 'file-icons:microsoft-excel'
+	}
+];
+
 const filesDownloader = [
 	{
 		title: 'หนังสือขออณุญาตผู้ปกครอง.',
@@ -70,4 +78,4 @@ const filesDownloader = [
 	}
 ];
 
-export { menu, filesDownloader, adminMenu };
+export { additionalAdminMenu, menu, filesDownloader, adminMenu };
