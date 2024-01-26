@@ -1,6 +1,5 @@
 import { filterType } from '../../../routes/admin-dashboard/data-to-excel/+page.svelte';
-import { writeFileXLSX, set_fs, set_cptable, stream, utils } from 'xlsx';
-import { Readable } from 'stream';
+import { writeFileXLSX, set_fs, set_cptable, utils } from 'xlsx';
 import * as cpexcel from 'xlsx/dist/cpexcel.full.mjs';
 import * as fs from 'fs';
 
@@ -8,6 +7,8 @@ type Options = ['complete'];
 
 export async function DataToExcelExporter<T extends string[]>(filterArray: T, opts?: Options) {
 	let service = import.meta.env.VITE_EXCEL_DATA_EXPORTER_API_SERVICE as string;
+	let filter = '';
+
 	if (service === undefined) {
 		throw new Error('API Service is not defined');
 	}
@@ -16,11 +17,11 @@ export async function DataToExcelExporter<T extends string[]>(filterArray: T, op
 	}
 
 	if (filterArray) {
-		const filter = filterArray.join(',');
+		filter = filterArray.join(',');
 		service += `?filter=${filter}`;
 
 		if (opts?.includes('complete') && UserDataTypeChecker(filterArray)) {
-			service += `&paidOnly=$true`;
+			service += `&paidOnly=true`;
 		}
 	}
 
@@ -33,9 +34,11 @@ export async function DataToExcelExporter<T extends string[]>(filterArray: T, op
 	}
 }
 
-function UserDataTypeChecker(data: typeof filterType | string[]): data is typeof filterType {
+function UserDataTypeChecker(
+	data: string[] | keyof typeof filterType['USER']
+): data is keyof typeof filterType['USER'] {
 	if (data && Array.isArray(data)) {
-		const userKeys = Object.keys(filterType);
+		const userKeys = Object.keys(filterType['USER']);
 		return data.every((value) => userKeys.includes(value));
 	}
 	return false;
@@ -47,9 +50,9 @@ export async function DataToExcelExporterWithXLSX<T extends object[]>(
 	dataType: string
 ) {
 	return new Promise((resolve) => {
+		console.log(filtersArray, dataType);
 		set_fs(fs);
 		set_cptable(cpexcel);
-		stream.set_readable(Readable);
 
 		const ws = utils.json_to_sheet(filtersArray);
 		const wb = utils.book_new();

@@ -1,4 +1,5 @@
 <script context="module" lang="ts">
+	import { timeline } from '$lib/data';
 	export const filterType = {
 		USER: {
 			prefix: 'คำนำหน้า',
@@ -39,28 +40,36 @@
 	} from '$lib/services/micro-services/data-to-excel-service';
 	import { Toast } from '$lib/middleware/alertConfig';
 	import { type List, getList, type ListData } from '$lib/firebase/admin-actions/adminListAction';
-	import { cld } from '$lib/config/cloundinary';
+	import { cld, cloudinaryConfig } from '$lib/config/cloundinary';
 	import { Timestamp } from 'firebase/firestore';
 
 	const dataExportOpt = [
 		{
 			value: 'USER',
 			label: 'ข้อมูลผู้ลงทะเบียน'
+		},
+		{
+			value: 'LISTS',
+			label: 'ข้อมูลรายการชำระเงิน'
 		}
 	];
 
 	const opts = {
-		complete: 'ผ่านการคัดเลือก'
+		USER: {
+			complete: 'ผ่านการคัดเลือก'
+		},
+		LISTS: {
+			หลักฐานการชำระ: 'หลักฐานการชำระ',
+			ผู้ปกครอง: 'หลักฐานยินยอมจากผู้ปกครอง'
+		}
 	};
 
 	let valueBind: {
 		dataType: keyof typeof filterType | null;
-		optSelected: keyof typeof opts | null;
-		fields: ReturnType<typeof getKeyAsArray> | [];
-		optsFields: ReturnType<typeof getKeyAsArray> | [];
+		fields: ReturnType<typeof getKeyAsArray> | string[];
+		optsFields: ReturnType<typeof getKeyAsArray> | string[];
 	} = {
 		dataType: null,
-		optSelected: null,
 		fields: [],
 		optsFields: []
 	};
@@ -85,7 +94,7 @@
 		}
 
 		onLoading = false;
-		valueBind.fields = [];
+		clearInput();
 	}
 
 	async function exportDataWithService<T extends string[]>(fields: T) {
@@ -114,28 +123,40 @@
 		let data: any[] = [];
 		if (dataType === 'LISTS') {
 			data = await getList();
+			if (valueBind.optsFields.length > 0) {
+				data = (data as List[]).filter((d) => valueBind.optsFields.includes(d.data.title));
+			}
 		}
-		const keys = Object.keys(filterType[dataType]) as Array<
-			keyof typeof filterType[typeof dataType]
-		>; //  An array of keys
 
+		//! filter rules
+
+		const keys = <Array<keyof typeof filterType[typeof dataType]>>(
+			(fields.length < 1
+				? Object.keys(filterType[dataType])
+				: Object.keys(filterType[dataType]).filter((key) => fields?.includes(key)))
+		);
+
+		//  An array of keys
 		let actualFields = data.map((d) => {
 			let obj = {} as typeof filterType[typeof dataType];
 			keys.forEach((key) => {
-				obj[key] =
+				obj[filterType[dataType][key] as keyof typeof filterType[typeof dataType]] =
 					d.data[key] instanceof Timestamp
 						? (d.data[key] as Timestamp).toDate().toLocaleDateString()
 						: String(d.data[key]);
 			});
+
+			if (dataType === 'LISTS') {
+				// TODO: it can work, but it just conflict with type definition
+				if (obj['ลึ้งรูปภาพหลักฐานการชำระ']) {
+					cloudinaryConfig();
+					obj['ลึ้งรูปภาพหลักฐานการชำระ'] = $cld?.image(d.data['fileAttachmentSrc']).toURL() ?? '';
+				}
+			}
 			return obj;
 		});
 
-		const params = {
-			arr: actualFields,
-			opts: valueBind.optsFields.length > 0 ? valueBind.optsFields : undefined
-		};
-
-		await DataToExcelExporterWithXLSX(params.arr, dataType).then(() => {
+		await DataToExcelExporterWithXLSX(actualFields, dataType).then(() => {
 			Toast.fire({
 				icon: 'success',
 				title: 'ดาวน์โหลดข้อมูลสำเร็จ'
@@ -143,6 +164,11 @@
 		});
 
 		return fields;
+	}
+
+	function clearInput() {
+		valueBind.fields = [];
+		valueBind.optsFields = [];
 	}
 </script>
 
@@ -187,9 +213,9 @@
 				<h2 class="text-sm md:text-base text-base-content/50">ถ้าไม่ต้องการกรองไม่ต้องเลือก</h2>
 				<div class="flex flex-col space-y-2">
 					<div class="form-control">
-						{#each getKeyAsArray(opts) as f}
+						{#each getKeyAsArray(opts[valueBind.dataType]) as f}
 							<label class="label cursor-pointer">
-								<span class="label-text">{opts[f]}</span>
+								<span class="label-text">{opts[valueBind.dataType][f]}</span>
 								<input
 									type="checkbox"
 									value={f}
