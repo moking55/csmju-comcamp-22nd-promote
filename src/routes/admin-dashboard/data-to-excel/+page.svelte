@@ -78,7 +78,10 @@
 			await exportDataWithService(valueBind.fields);
 		} else {
 			// TODO: dealing with unsupported data type with XLSX
-			await exportDataAsXLSX(valueBind.fields);
+			await exportDataAsXLSX(
+				valueBind.fields,
+				valueBind.dataType as Exclude<keyof typeof filterType, 'USER'>
+			);
 		}
 
 		onLoading = false;
@@ -108,11 +111,6 @@
 		fields: T,
 		dataType: Exclude<keyof typeof filterType, 'USER'>
 	) {
-		// let actualFields =
-		// 	fields.length === 0 ? getKeyAsArray(filterType[valueBind.dataType!]) : fields;
-
-		// let getData = async <T extends () => ReturnType<T>>(d: Promise<T>) => d;
-
 		let data: any[] = [];
 		if (dataType === 'LISTS') {
 			data = await getList();
