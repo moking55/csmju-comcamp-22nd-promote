@@ -20,13 +20,28 @@
 			lineId: 'ไลน์ไอดี',
 			parentContact: 'เบอร์โทรศัพท์ผู้ปกครอง',
 			otherContact: 'เส้นทางติดต่ออื่น ๆ'
+		},
+		LISTS: {
+			name: 'ชื่อ',
+			userEmail: 'อีเมล์ติดต่อ',
+			school: 'โรงเรียน',
+			title: 'หัวข้อการชำระ',
+			fileAttachmentSrc: 'ลึ้งรูปภาพหลักฐานการชำระ',
+			date: 'วันที่ส่ง'
 		}
 	};
 </script>
 
 <script lang="ts">
-	import { DataToExcelExporter } from '$lib/services/micro-services/data-to-excel-service';
+	import {
+		DataToExcelExporter,
+		DataToExcelExporterWithXLSX
+	} from '$lib/services/micro-services/data-to-excel-service';
 	import { Toast } from '$lib/middleware/alertConfig';
+	import { type List, getList, type ListData } from '$lib/firebase/admin-actions/adminListAction';
+	import { cld } from '$lib/config/cloundinary';
+	import { Timestamp } from 'firebase/firestore';
+
 	const dataExportOpt = [
 		{
 			value: 'USER',
@@ -79,7 +94,7 @@
 			opts: valueBind.optsFields.length > 0 ? valueBind.optsFields : undefined
 		};
 
-		await DataToExcelExporter(params.opts, params.arr).then(() => {
+		await DataToExcelExporter(params.arr, params.opts).then(() => {
 			Toast.fire({
 				icon: 'success',
 				title: 'ดาวน์โหลดข้อมูลสำเร็จ'
@@ -89,8 +104,45 @@
 		return actualFields;
 	}
 
-	async function exportDataAsXLSX<T extends string[]>(fields: T) {
-		// TODO: imp
+	async function exportDataAsXLSX<T extends string[]>(
+		fields: T,
+		dataType: Exclude<keyof typeof filterType, 'USER'>
+	) {
+		// let actualFields =
+		// 	fields.length === 0 ? getKeyAsArray(filterType[valueBind.dataType!]) : fields;
+
+		// let getData = async <T extends () => ReturnType<T>>(d: Promise<T>) => d;
+
+		let data: any[] = [];
+		if (dataType === 'LISTS') {
+			data = await getList();
+		}
+		const keys = Object.keys(filterType[dataType]) as Array<
+			keyof typeof filterType[typeof dataType]
+		>; //  An array of keys
+
+		let actualFields = data.map((d) => {
+			let obj = {} as typeof filterType[typeof dataType];
+			keys.forEach((key) => {
+				obj[key] =
+					d.data[key] instanceof Timestamp
+						? (d.data[key] as Timestamp).toDate().toLocaleDateString()
+						: String(d.data[key]);
+			});
+			return obj;
+		});
+
+		const params = {
+			arr: actualFields,
+			opts: valueBind.optsFields.length > 0 ? valueBind.optsFields : undefined
+		};
+
+		await DataToExcelExporterWithXLSX(params.arr, dataType).then(() => {
+			Toast.fire({
+				icon: 'success',
+				title: 'ดาวน์โหลดข้อมูลสำเร็จ'
+			});
+		});
 
 		return fields;
 	}

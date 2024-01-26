@@ -1,8 +1,12 @@
 import { filterType } from '../../../routes/admin-dashboard/data-to-excel/+page.svelte';
+import { writeFileXLSX, set_fs, set_cptable, stream, utils } from 'xlsx';
+import { Readable } from 'stream';
+import * as cpexcel from 'xlsx/dist/cpexcel.full.mjs';
+import * as fs from 'fs';
 
 type Options = ['complete'];
 
-export function DataToExcelExporter<T extends string[]>(opt?: Options, filterArray?: T) {
+export async function DataToExcelExporter<T extends string[]>(filterArray: T, opts?: Options) {
 	let service = import.meta.env.VITE_EXCEL_DATA_EXPORTER_API_SERVICE as string;
 	if (service === undefined) {
 		throw new Error('API Service is not defined');
@@ -15,16 +19,18 @@ export function DataToExcelExporter<T extends string[]>(opt?: Options, filterArr
 		const filter = filterArray.join(',');
 		service += `?filter=${filter}`;
 
-		if (opt?.includes('complete') && UserDataTypeChecker(filterArray)) {
+		if (opts?.includes('complete') && UserDataTypeChecker(filterArray)) {
 			service += `&paidOnly=$true`;
 		}
 	}
 
-	return fetch(service, {
-		method: 'GET'
-	}).catch((error) => {
+	try {
+		return await fetch(service, {
+			method: 'GET'
+		});
+	} catch (error) {
 		throw new Error(error as string);
-	});
+	}
 }
 
 function UserDataTypeChecker(data: typeof filterType | string[]): data is typeof filterType {
@@ -36,9 +42,22 @@ function UserDataTypeChecker(data: typeof filterType | string[]): data is typeof
 }
 
 // TODO: Implement data to excel exporter with XLSX
-// export function DataToExcelExporterWithXLSX<T>(data:  ) {
-// 	const ws = XLSX.utils.json_to_sheet(data);
-// 	const wb = XLSX.utils.book_new();
-// 	XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-// 	XLSX.writeFile(wb, `data-${valueBind.dataType}-${new Date().getTime()}.xlsx`);
-// }
+export async function DataToExcelExporterWithXLSX<T extends object[]>(
+	filtersArray: T,
+	dataType: string
+) {
+	return new Promise((resolve) => {
+		set_fs(fs);
+		set_cptable(cpexcel);
+		stream.set_readable(Readable);
+
+		const ws = utils.json_to_sheet(filtersArray);
+		const wb = utils.book_new();
+
+		utils.book_append_sheet(wb, ws, 'Sheet1');
+		writeFileXLSX(wb, `data-${dataType}-${new Date().getTime()}.xlsx`);
+		resolve(null);
+	}).catch((error) => {
+		throw new Error(error as string);
+	});
+}
