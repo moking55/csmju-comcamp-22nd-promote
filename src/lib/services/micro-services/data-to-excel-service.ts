@@ -1,15 +1,8 @@
-import type { User } from '$lib/firebase/actions/userAction';
+import { filterType } from '../../../routes/admin-dashboard/data-to-excel/+page.svelte';
 
-export type UserDataFilterArray = (keyof User)[];
+type Options = ['complete'];
 
-type Options = {
-	paidOnly: boolean;
-};
-
-export function DataToExcelExporter<T extends UserDataFilterArray | string[]>(
-	opt?: Options,
-	filterArray?: T,
-) {
+export function DataToExcelExporter<T extends string[]>(opt?: Options, filterArray?: T) {
 	let service = import.meta.env.VITE_EXCEL_DATA_EXPORTER_API_SERVICE as string;
 	if (service === undefined) {
 		throw new Error('API Service is not defined');
@@ -22,8 +15,8 @@ export function DataToExcelExporter<T extends UserDataFilterArray | string[]>(
 		const filter = filterArray.join(',');
 		service += `?filter=${filter}`;
 
-		if (opt?.paidOnly && UserDataTypeChecker(filterArray)) {
-			service += `&paidOnly=${opt.paidOnly}`;
+		if (opt?.includes('complete') && UserDataTypeChecker(filterArray)) {
+			service += `&paidOnly=$true`;
 		}
 	}
 
@@ -34,10 +27,18 @@ export function DataToExcelExporter<T extends UserDataFilterArray | string[]>(
 	});
 }
 
-function UserDataTypeChecker(data: string[]): data is UserDataFilterArray {
+function UserDataTypeChecker(data: typeof filterType | string[]): data is typeof filterType {
 	if (data && Array.isArray(data)) {
-		const userKeys = Object.keys(UserDataTypeChecker);
+		const userKeys = Object.keys(filterType);
 		return data.every((value) => userKeys.includes(value));
 	}
 	return false;
 }
+
+// TODO: Implement data to excel exporter with XLSX
+// export function DataToExcelExporterWithXLSX<T>(data:  ) {
+// 	const ws = XLSX.utils.json_to_sheet(data);
+// 	const wb = XLSX.utils.book_new();
+// 	XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+// 	XLSX.writeFile(wb, `data-${valueBind.dataType}-${new Date().getTime()}.xlsx`);
+// }
