@@ -32,6 +32,7 @@ jobs:
           echo VITE_DASHBOARD_USER_LISTS_ON_ADMIN_PATH=${{ secrets.VITE_DASHBOARD_USER_LISTS_ON_ADMIN_PATH }} >> .env
           echo VITE_DASHBOARD_BOARD_LISTS_ON_ADMIN_PATH=${{ secrets.VITE_DASHBOARD_BOARD_LISTS_ON_ADMIN_PATH }} >> .env
           echo VITE_DASHBOARD_SPONSOR_LISTS_ON_ADMIN_PATH=${{secrets.DASHBOARD_SPONSOR_LISTS_ON_ADMIN_PATH}} >> .env
+          echo VITE_DASHBOARD_DATA_TO_EXCEL_ON_ADMIN_PATH=${{ secrets.VITE_DASHBOARD_DATA_TO_EXCEL_ON_ADMIN_PATH }} >> .env
           echo VITE_SPLICE_INDEX_SRC=${{ secrets.VITE_SPLICE_INDEX_SRC }} >> .env
           echo VITE_MAPBOX_TOKEN=${{ secrets.VITE_MAPBOX_TOKEN }} >> .env
           echo VITE_SPLICE_WEB_SRC=${{ secrets.VITE_SPLICE_WEB_SRC }} >> .env
@@ -51,6 +52,8 @@ jobs:
           echo VITE_ADMIN_EMAIL=${{ secrets.VITE_ADMIN_EMAIL }} >> .env
           echo VITE_SENDGRID_API_KEY=${{ secrets.VITE_SENDGRID_API_KEY }} >> .env
           echo VITE_BASE_API_SERVICE=${{ secrets.VITE_BASE_API_SERVICE }} >> .env
+          echo VITE_EXCEL_DATA_EXPORTER_API_SERVICE=${{ secrets.VITE_EXCEL_DATA_EXPORTER_API_SERVICE }} >> .env
+
           cat .env
       - name: Build project
         run: |
