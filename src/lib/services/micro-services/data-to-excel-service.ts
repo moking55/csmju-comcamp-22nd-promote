@@ -50,7 +50,6 @@ export async function DataToExcelExporterWithXLSX<T extends object[]>(
 	dataType: string
 ) {
 	return new Promise((resolve) => {
-		console.log(filtersArray, dataType);
 		set_fs(fs);
 		set_cptable(cpexcel);
 

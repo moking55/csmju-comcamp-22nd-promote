@@ -1,5 +1,4 @@
 <script context="module" lang="ts">
-	import { timeline } from '$lib/data';
 	export const filterType = {
 		USER: {
 			prefix: 'คำนำหน้า',
@@ -29,6 +28,14 @@
 			title: 'หัวข้อการชำระ',
 			fileAttachmentSrc: 'ลึ้งรูปภาพหลักฐานการชำระ',
 			date: 'วันที่ส่ง'
+		},
+		SPONSORS: {
+			name: 'ชื่อผู้บริจาค',
+			created_at: 'วันที่เพิ่ม',
+			position: 'บริจาคในฐานะ',
+			donateAmount: 'จำนวนเงิน',
+			from: 'จาก/บริษัท',
+			donateDate: 'วันที่บริจาค'
 		}
 	};
 </script>
@@ -42,6 +49,8 @@
 	import { type List, getList, type ListData } from '$lib/firebase/admin-actions/adminListAction';
 	import { cld, cloudinaryConfig } from '$lib/config/cloundinary';
 	import { Timestamp } from 'firebase/firestore';
+	import { getUserList, type User } from '$lib/firebase/actions/userAction';
+	import { getSponsorList, type SponsorData } from '$lib/firebase/actions/sponsorAction';
 
 	const dataExportOpt = [
 		{
@@ -51,6 +60,10 @@
 		{
 			value: 'LISTS',
 			label: 'ข้อมูลรายการชำระเงิน'
+		},
+		{
+			value: 'SPONSORS',
+			label: 'ข้อมูลผู้บริจาค'
 		}
 	];
 
@@ -61,7 +74,8 @@
 		LISTS: {
 			หลักฐานการชำระ: 'หลักฐานการชำระ',
 			ผู้ปกครอง: 'หลักฐานยินยอมจากผู้ปกครอง'
-		}
+		},
+		SPONSORS: {}
 	};
 
 	let valueBind: {
@@ -83,15 +97,16 @@
 	async function onExportData(dataType: keyof typeof filterType | null, opts?: object) {
 		if (valueBind.dataType === null) return;
 		onLoading = true;
-		if (dataType === 'USER') {
-			await exportDataWithService(valueBind.fields);
-		} else {
-			// TODO: dealing with unsupported data type with XLSX
-			await exportDataAsXLSX(
-				valueBind.fields,
-				valueBind.dataType as Exclude<keyof typeof filterType, 'USER'>
-			);
-		}
+
+		// if (dataType === 'USER') {
+		// 	await exportDataWithService(valueBind.fields);
+		// } else {
+		// 	// TODO: dealing with unsupported data type with XLSX
+		// 	await exportDataAsXLSX(valueBind.fields, valueBind.dataType);
+		// }
+
+		// TODO: TEMP USAGE
+		await exportDataAsXLSX(valueBind.fields, valueBind.dataType);
 
 		onLoading = false;
 		clearInput();
@@ -118,17 +133,42 @@
 
 	async function exportDataAsXLSX<T extends string[]>(
 		fields: T,
-		dataType: Exclude<keyof typeof filterType, 'USER'>
+		dataType: keyof typeof filterType
 	) {
 		let data: any[] = [];
+
+		//! filter rules
 		if (dataType === 'LISTS') {
 			data = await getList();
 			if (valueBind.optsFields.length > 0) {
+				// includes only fields that equal to title tag หลักฐานการชำระ | หลักฐานยินยอมจากผู้ปกครอง
 				data = (data as List[]).filter((d) => valueBind.optsFields.includes(d.data.title));
 			}
-		}
 
-		//! filter rules
+			// extract object
+			data = (data as List[]).map((u) => {
+				return {
+					...u.data
+				};
+			});
+		} else if (dataType === 'USER') {
+			data = await getUserList();
+			if (valueBind.optsFields.length > 0) {
+				if (valueBind.optsFields.includes('complete')) {
+					data = (data as User[]).filter((u) => u.status);
+				}
+			}
+
+			// extract object
+			data = (data as User[]).map((u) => {
+				return {
+					...u.info,
+					...u.info.contacts
+				};
+			});
+		} else if (dataType === 'SPONSORS') {
+			data = await getSponsorList();
+		}
 
 		const keys = <Array<keyof typeof filterType[typeof dataType]>>(
 			(fields.length < 1
@@ -141,16 +181,17 @@
 			let obj = {} as typeof filterType[typeof dataType];
 			keys.forEach((key) => {
 				obj[filterType[dataType][key] as keyof typeof filterType[typeof dataType]] =
-					d.data[key] instanceof Timestamp
-						? (d.data[key] as Timestamp).toDate().toLocaleDateString()
-						: String(d.data[key]);
+					d[key] instanceof Timestamp
+						? (d[key] as Timestamp).toDate().toLocaleDateString()
+						: String(d[key]) ?? '';
 			});
 
+			// manipulated special fields
 			if (dataType === 'LISTS') {
 				// TODO: it can work, but it just conflict with type definition
 				if (obj['ลึ้งรูปภาพหลักฐานการชำระ']) {
 					cloudinaryConfig();
-					obj['ลึ้งรูปภาพหลักฐานการชำระ'] = $cld?.image(d.data['fileAttachmentSrc']).toURL() ?? '';
+					obj['ลึ้งรูปภาพหลักฐานการชำระ'] = $cld?.image(d['fileAttachmentSrc']).toURL() ?? '';
 				}
 			}
 			return obj;
@@ -197,7 +238,8 @@
 					{/each}
 				</select>
 			</label>
-			{#if valueBind.dataType !== undefined}
+
+			{#if valueBind.dataType !== null}
 				<div on:click={() => onExportData(valueBind.dataType)} class="btn btn-accent">
 					{#if onLoading}
 						<span class="loading" />
@@ -208,25 +250,27 @@
 		</div>
 		{#if valueBind.dataType !== null}
 			<div class="divider">ตัวเลือกเสริม</div>
-			<div id="options">
-				<h1 class="text-base md:text-lg">ตัวกรอง</h1>
-				<h2 class="text-sm md:text-base text-base-content/50">ถ้าไม่ต้องการกรองไม่ต้องเลือก</h2>
-				<div class="flex flex-col space-y-2">
-					<div class="form-control">
-						{#each getKeyAsArray(opts[valueBind.dataType]) as f}
-							<label class="label cursor-pointer">
-								<span class="label-text">{opts[valueBind.dataType][f]}</span>
-								<input
-									type="checkbox"
-									value={f}
-									bind:group={valueBind.optsFields}
-									class="checkbox checkbox-accent"
-								/>
-							</label>
-						{/each}
+			{#if Object.keys(opts[valueBind.dataType]).length !== 0}
+				<div id="options">
+					<h1 class="text-base md:text-lg">ตัวกรอง</h1>
+					<h2 class="text-sm md:text-base text-base-content/50">ถ้าไม่ต้องการกรองไม่ต้องเลือก</h2>
+					<div class="flex flex-col space-y-2">
+						<div class="form-control">
+							{#each getKeyAsArray(opts[valueBind.dataType]) as f}
+								<label class="label cursor-pointer">
+									<span class="label-text">{opts[valueBind.dataType][f]}</span>
+									<input
+										type="checkbox"
+										value={f}
+										bind:group={valueBind.optsFields}
+										class="checkbox checkbox-accent"
+									/>
+								</label>
+							{/each}
+						</div>
 					</div>
 				</div>
-			</div>
+			{/if}
 			<div id="feilds">
 				<h1 class="text-base md:text-lg">เลือกฟิลด์ที่ต้องการ</h1>
 				<h2 class="text-sm md:text-base text-base-content/50">
