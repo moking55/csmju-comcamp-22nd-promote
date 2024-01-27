@@ -97,6 +97,27 @@ These list include keep track only important changed, Which can be list as the f
 - Patched: Fixed route navigation on the admin dashboard.
 - Patched: Updated evidence image preview to show the latest version.
 - Patched: UI improvement
+### 1.0.9 Major Update: Sponsor Management & Data Export To Excel Features
+#### Sponsorship Enhancements:
+- Added: True sponsorship status to sponsor entities.
+- Changed: Beneficiary section information to reflect accurate details.
+- Updated: Program closing date for better accuracy.
+- Implemented: Sponsor list controller for admin actions.
+- Implemented: Sponsor list feature with UI on the landing page.
+- Added: Secret path for sponsor list editor.
+#### UI/UX Improvements:
+- Fixed: Logo not found issue on Sponsor and updated SponsorPersonCard UI.
+- Added: Participant accepted list section on the landing page.
+#### Data Export To Excel Features:
+- Implemented: Data-to-Excel exporter with API service.
+- Improved: Route for using data-to-Excel feature.
+- Added: Additional data-to-Excel function for handling unsupported types.
+- Updated: Data-to-Excel workflow feature.
+- Updated: Support for sponsor data-to-Excel exporter.
+#### Registration Management:
+- Added: Disable registration controller.
+- Disabled: Registration functionality.
+
 
 
 

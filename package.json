@@ -65,6 +65,7 @@
 		"svelte-cloudinary": "^1.1.1",
 		"svelte-device-info": "^1.0.0",
 		"sweetalert2": "^11.10.0",
+		"xlsx": "^0.18.5",
 		"zod": "^3.22.4"
 	}
 }
