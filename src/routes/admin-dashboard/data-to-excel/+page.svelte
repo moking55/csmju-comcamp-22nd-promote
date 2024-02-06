@@ -140,6 +140,7 @@
 		//! filter rules
 		if (dataType === 'LISTS') {
 			data = await getList();
+			cloudinaryConfig();
 			if (valueBind.optsFields.length > 0) {
 				// includes only fields that equal to title tag หลักฐานการชำระ | หลักฐานยินยอมจากผู้ปกครอง
 				data = (data as List[]).filter((d) => valueBind.optsFields.includes(d.data.title));
@@ -190,7 +191,6 @@
 			if (dataType === 'LISTS') {
 				// TODO: it can work, but it just conflict with type definition
 				if (obj['ลึ้งรูปภาพหลักฐานการชำระ']) {
-					cloudinaryConfig();
 					obj['ลึ้งรูปภาพหลักฐานการชำระ'] = $cld?.image(d['fileAttachmentSrc']).toURL() ?? '';
 				}
 			}

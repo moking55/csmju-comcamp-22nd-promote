@@ -70,7 +70,7 @@
 				password: string;
 			};
 
-			if (action === 'SIGN_IN' && !disableRegistration) {
+			if (action === 'SIGN_IN' && disableRegistration) {
 				authAction
 					.signInUserWithEmail(email, password)
 					.then((auth) => {
