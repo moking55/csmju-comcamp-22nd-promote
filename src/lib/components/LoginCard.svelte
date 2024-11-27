@@ -70,7 +70,7 @@
 				password: string;
 			};
 
-			if (action === 'SIGN_IN' && disableRegistration) {
+			if (action === 'SIGN_IN') {
 				authAction
 					.signInUserWithEmail(email, password)
 					.then((auth) => {
@@ -98,7 +98,7 @@
 							loadingWhileSubmit = false;
 						}
 					});
-			} else {
+			} else if (action === 'SIGN_UP') {
 				authAction
 					.signUpUserWithEmail(email, password)
 					.then((auth) => {
