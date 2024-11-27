@@ -1,1 +1,1 @@
-export const disableRegistration = true;
+export const disableRegistration = false;

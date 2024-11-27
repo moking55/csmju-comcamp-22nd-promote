@@ -168,7 +168,7 @@
 				<Paginator
 					active="text-white bg-white"
 					bind:settings={paginationSettings}
-					buttonClasses="btn btn-ghost btn-sm rounded-btn"
+					buttonClasses="btn  btn-success btn-sm rounded-btn"
 					showFirstLastButtons={false}
 					showPreviousNextButtons={true}
 				/>
